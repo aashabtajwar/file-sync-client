@@ -9,7 +9,7 @@ import (
 	"github.com/aashabtajwar/desktop-th/errorhandling"
 )
 
-func Register(first string, last string, username string, email string, password string, url string) {
+func Register(first string, last string, username string, email string, password string, url string) string {
 	requestString := fmt.Sprintf(`
 	{
 	"first_name": "%s",
@@ -17,36 +17,37 @@ func Register(first string, last string, username string, email string, password
 	"email": "%s",
 	"password": "%s"
 	}`, first, last, email, password)
-	makeRequest(requestString, "http://127.0.0.1:3333/register")
+	return makeRequest(requestString, "http://127.0.0.1:3333/register", "")
 }
 
-func Login(email string, password string) {
+func Login(email string, password string) string {
 	requestString := fmt.Sprintf(`
 	{
 	"email": "%s",
 	"password": "%s"
 	}`, email, password)
-	makeRequest(requestString, "http://127.0.0.1:3333/login")
+	return makeRequest(requestString, "http://127.0.0.1:3333/login", "")
 
 }
 
-func makeRequest(bodyData string, endpoint string) {
+func makeRequest(bodyData string, endpoint string, token string) string {
 	request := []byte(bodyData)
 	r, err := http.NewRequest("POST", endpoint, bytes.NewBuffer(request))
 
 	errorhandling.RequestCreaterError(err)
 
 	r.Header.Add("Content-Type", "application/json")
+	if token != "" {
+		r.Header.Add("Authorization", token)
+	}
 
 	client := &http.Client{}
-
 	res, err := client.Do(r)
 
 	errorhandling.RequestError(err)
 
 	defer res.Body.Close()
-
 	body, err := ioutil.ReadAll(res.Body)
+	return string(body)
 
-	fmt.Println(string(body))
 }
