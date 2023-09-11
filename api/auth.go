@@ -3,6 +3,7 @@ package api
 import (
 	"bytes"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/aashabtajwar/desktop-th/errorhandling"
@@ -16,9 +17,22 @@ func Register(first string, last string, username string, email string, password
 	"email": "%s",
 	"password": "%s"
 	}`, first, last, email, password)
-	request := []byte(requestString)
+	makeRequest(requestString, "http://127.0.0.1:3333/register")
+}
 
-	r, err := http.NewRequest("POST", "http://127.0.0.1:3333/register", bytes.NewBuffer(request))
+func Login(email string, password string) {
+	requestString := fmt.Sprintf(`
+	{
+	"email": "%s",
+	"password": "%s"
+	}`, email, password)
+	makeRequest(requestString, "http://127.0.0.1:3333/login")
+
+}
+
+func makeRequest(bodyData string, endpoint string) {
+	request := []byte(bodyData)
+	r, err := http.NewRequest("POST", endpoint, bytes.NewBuffer(request))
 
 	errorhandling.RequestCreaterError(err)
 
@@ -31,4 +45,8 @@ func Register(first string, last string, username string, email string, password
 	errorhandling.RequestError(err)
 
 	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+
+	fmt.Println(string(body))
 }
