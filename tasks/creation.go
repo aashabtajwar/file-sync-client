@@ -13,5 +13,9 @@ func CreateWorkspaceDir(workspaceName string) {
 	if err != nil {
 		fmt.Println("Error Creating Directory:\n", err)
 	}
-	// defer os.RemoveAll(dir)
+
+	// add this directory to watcher list
+
+	// download files
+
 }

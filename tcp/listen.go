@@ -44,7 +44,9 @@ func ListenForData(conn net.Conn) {
 		}
 
 		if c == 2 {
+			dir := metadata["workspace_dir"]
 
+			c = 0 // reset
 		}
 	}
 }
