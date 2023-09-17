@@ -2,6 +2,7 @@ package tcp
 
 import (
 	"fmt"
+	"log"
 	"net"
 )
 
@@ -12,4 +13,14 @@ func Connect() {
 		fmt.Println("Error connecting to TCP Server:\n", err)
 	}
 	go ListenForData(conn)
+	ln, err := net.Listen("tcp", ":3000")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for {
+		_, err := ln.Accept()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 }

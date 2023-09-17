@@ -8,7 +8,23 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"os"
 )
+
+func save(metadata map[string]string, fileData *bytes.Buffer) {
+	fmt.Println(fileData.Bytes())
+	// dest := "samples/" + metadata["name"]
+	f, err := os.Create(metadata["name"] + "." + metadata["mimetype"])
+	if err != nil {
+		fmt.Println("Error creating file: \n", err)
+	}
+	defer f.Close()
+	_, err = f.Write(fileData.Bytes())
+	if err != nil {
+		fmt.Println("Error writing file\n", err)
+	}
+	f.Sync()
+}
 
 func ListenForData(conn net.Conn) {
 	// receive file data
@@ -44,8 +60,7 @@ func ListenForData(conn net.Conn) {
 		}
 
 		if c == 2 {
-			dir := metadata["workspace_dir"]
-
+			go save(metadata, fileData)
 			c = 0 // reset
 		}
 	}
