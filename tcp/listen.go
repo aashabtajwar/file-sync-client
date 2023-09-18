@@ -13,7 +13,6 @@ import (
 
 func save(metadata map[string]string, fileData *bytes.Buffer) {
 	fmt.Println(fileData.Bytes())
-	// dest := "samples/" + metadata["name"]
 	f, err := os.Create(metadata["name"] + "." + metadata["mimetype"])
 	if err != nil {
 		fmt.Println("Error creating file: \n", err)
