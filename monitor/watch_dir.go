@@ -3,6 +3,7 @@ package monitor
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/fsnotify/fsnotify"
@@ -29,17 +30,28 @@ func Watch() {
 				if !ok {
 					return
 				}
-				// spliited := strings.Split(event.(string), ": ")
-				fmt.Println("Name of the Event: ", event)
-
+				fmt.Println("file dir: ", event.Name)
 				splitted := strings.Split(event.Name, "/")
 				secondSplit := strings.Split(splitted[len(splitted)-1], ".")
 				log.Println(secondSplit)
 
+				// check if file or folder
+				fi, err := os.Stat(event.Name)
+				if err != nil {
+					fmt.Println("Error checking stat of file\n", err)
+				}
+				switch mode := fi.Mode(); {
+				case mode.IsDir():
+					// a directory was created
+					// add this to watcher list
+					addDirToWatcher(watcher, event.Name)
+				}
+
 				if event.Has(fsnotify.Write) {
-					splitted := strings.Split(event.Name, "/")
-					log.Println(splitted[len(splitted)-1])
-					log.Println("Modified File: ", event.Name)
+					fmt.Println("modified")
+					// splitted := strings.Split(event.Name, "/")
+					// log.Println(splitted[len(splitted)-1])
+					// log.Println("Modified File: ", event.Name)
 				}
 			case err, ok := <-watcher.Errors:
 				if !ok {
