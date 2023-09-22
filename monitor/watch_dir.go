@@ -9,7 +9,23 @@ import (
 	"github.com/fsnotify/fsnotify"
 )
 
-func addDirToWatcher(watcher *fsnotify.Watcher, dir string) {
+// the watcher list will only contain on watcher
+var watcherList []*fsnotify.Watcher
+
+func CreateWatcher() *fsnotify.Watcher {
+	// check if there is watcher in the list
+	if len(watcherList) == 1 {
+		return watcherList[0]
+	}
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		fmt.Println("Error creating new watcher")
+	}
+	watcherList = append(watcherList, watcher)
+	return watcher
+}
+
+func AddDirToWatcher(watcher *fsnotify.Watcher, dir string) {
 	err := watcher.Add(dir)
 	if err != nil {
 		fmt.Println("Error Adding Directory to Watcher List\n", err)
@@ -17,11 +33,11 @@ func addDirToWatcher(watcher *fsnotify.Watcher, dir string) {
 }
 
 func Watch() {
-	// writeOp := 0
-	watcher, err := fsnotify.NewWatcher()
-	if err != nil {
-		log.Fatal(err)
-	}
+	watcher := CreateWatcher()
+	// watcher, err := fsnotify.NewWatcher()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 	defer watcher.Close()
 	go func() {
 		for {
@@ -44,14 +60,11 @@ func Watch() {
 				case mode.IsDir():
 					// a directory was created
 					// add this to watcher list
-					addDirToWatcher(watcher, event.Name)
+					AddDirToWatcher(watcher, event.Name)
 				}
 
 				if event.Has(fsnotify.Write) {
 					fmt.Println("modified")
-					// splitted := strings.Split(event.Name, "/")
-					// log.Println(splitted[len(splitted)-1])
-					// log.Println("Modified File: ", event.Name)
 				}
 			case err, ok := <-watcher.Errors:
 				if !ok {
@@ -62,10 +75,6 @@ func Watch() {
 
 		}
 	}()
-	err = watcher.Add("/home/aashab/code/src/github.com/aashabtajwar/desktop-th/samples")
-	if err != nil {
-		log.Fatal(err)
-	}
-	// Block main goroutine forever.
+	AddDirToWatcher(watcher, "/home/aashab/code/src/github.com/aashabtajwar/desktop-th/samples")
 	<-make(chan struct{})
 }
