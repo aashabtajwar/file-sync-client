@@ -38,6 +38,7 @@ func makeRequest(bodyData string, endpoint string, token string) string {
 
 	r.Header.Add("Content-Type", "application/json")
 	if token != "" {
+		fmt.Println("adding auth token")
 		r.Header.Add("Authorization", token)
 	}
 
@@ -45,9 +46,10 @@ func makeRequest(bodyData string, endpoint string, token string) string {
 	res, err := client.Do(r)
 
 	errorhandling.RequestError(err)
-
+	fmt.Println("request sent")
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
+	fmt.Println("request body\n", string(body))
 	return string(body)
 
 }

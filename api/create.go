@@ -17,9 +17,10 @@ func CreateWorkspace(dir string, name string, token string, endPoint string) str
 	}
 	watcher := monitor.CreateWatcher()
 	monitor.AddDirToWatcher(watcher, dir)
+	fmt.Println("this point...")
 	requestString := fmt.Sprintf(`
 	{
-		"workspace_name" : "%s"
+		"name" : "%s"
 	}
 	`, name)
 	return makeRequest(requestString, endPoint, token)
