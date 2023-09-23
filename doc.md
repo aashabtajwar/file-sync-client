@@ -8,3 +8,9 @@
 ### 4. Watcher
 
 ## GUI
+
+
+## Others
+
+### Bugs
+1. Create workspace doesn't send HTTP request to server
