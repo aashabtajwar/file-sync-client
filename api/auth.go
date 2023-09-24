@@ -38,7 +38,6 @@ func makeRequest(bodyData string, endpoint string, token string) string {
 
 	r.Header.Add("Content-Type", "application/json")
 	if token != "" {
-		fmt.Println("adding auth token")
 		r.Header.Add("Authorization", token)
 	}
 

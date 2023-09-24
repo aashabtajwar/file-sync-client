@@ -51,21 +51,28 @@ func Watch() {
 				secondSplit := strings.Split(splitted[len(splitted)-1], ".")
 				log.Println(secondSplit)
 
-				// check if file or folder
-				fi, err := os.Stat(event.Name)
-				if err != nil {
-					fmt.Println("Error checking stat of file\n", err)
-				}
-				switch mode := fi.Mode(); {
-				case mode.IsDir():
-					// a directory was created
-					// add this to watcher list
-					AddDirToWatcher(watcher, event.Name)
+				// check if it is a stream
+				if strings.Contains(splitted[len(splitted)-1], ".goutputstream") {
+					fmt.Println("in the middle of changing")
+				} else {
+
+					// check if file or folder
+					fi, err := os.Stat(event.Name)
+					if err != nil {
+						fmt.Println("Error checking stat of file\n", err)
+					}
+					switch mode := fi.Mode(); {
+					case mode.IsDir():
+						// a directory was created
+						// add this to watcher list
+						AddDirToWatcher(watcher, event.Name)
+					}
+
+					if event.Has(fsnotify.Write) {
+						fmt.Println("modified")
+					}
 				}
 
-				if event.Has(fsnotify.Write) {
-					fmt.Println("modified")
-				}
 			case err, ok := <-watcher.Errors:
 				if !ok {
 					return
