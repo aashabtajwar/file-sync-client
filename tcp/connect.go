@@ -6,12 +6,28 @@ import (
 	"net"
 )
 
-// connect to tcp server
-func Connect() {
+var server []net.Conn
+
+func SetUp() net.Conn {
+	if len(server) == 1 {
+		return server[0]
+	}
 	conn, err := net.Dial("tcp", ":3030")
 	if err != nil {
-		fmt.Println("Error connecting to TCP Server:\n", err)
+		fmt.Println("Error Connecting to TCP Server\n", err)
 	}
+	server = append(server, conn)
+	return conn
+
+}
+
+// connect to tcp server
+func Connect() {
+	// conn, err := net.Dial("tcp", ":3030")
+	// if err != nil {
+	// 	fmt.Println("Error connecting to TCP Server:\n", err)
+	// }
+	conn := SetUp()
 	go ListenForData(conn)
 	ln, err := net.Listen("tcp", ":3000")
 	if err != nil {

@@ -9,6 +9,8 @@ import (
 	"github.com/fsnotify/fsnotify"
 )
 
+var evenLog []string
+
 // the watcher list will only contain on watcher
 var watcherList []*fsnotify.Watcher
 
@@ -46,6 +48,7 @@ func Watch() {
 				if !ok {
 					return
 				}
+				fmt.Println("type of event: ", event.Op)
 				fmt.Println("file dir: ", event.Name)
 				splitted := strings.Split(event.Name, "/")
 				secondSplit := strings.Split(splitted[len(splitted)-1], ".")
@@ -54,6 +57,9 @@ func Watch() {
 				// check if it is a stream
 				if strings.Contains(splitted[len(splitted)-1], ".goutputstream") {
 					fmt.Println("in the middle of changing")
+					// file is updated
+					// send file
+					// conn := tcp.SetUp()
 				} else {
 
 					// check if file or folder
@@ -69,8 +75,15 @@ func Watch() {
 					}
 
 					if event.Has(fsnotify.Write) {
+						evenLog = append(evenLog, "reached")
 						fmt.Println("modified")
+						fmt.Println(len(evenLog))
+						// send file
 					}
+					if event.Op&fsnotify.Write == fsnotify.Write {
+						fmt.Println("THIS HAS BEEN WRITTEN", event.Name)
+					}
+
 				}
 
 			case err, ok := <-watcher.Errors:
