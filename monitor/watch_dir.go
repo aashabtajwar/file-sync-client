@@ -48,15 +48,15 @@ func Watch() {
 				if !ok {
 					return
 				}
-				fmt.Println("type of event: ", event.Op)
-				fmt.Println("file dir: ", event.Name)
+				log.Println("type of event: ", event.Op, " file dir: ", event.Name)
+				// fmt.Println("file dir: ", event.Name)
 				splitted := strings.Split(event.Name, "/")
-				secondSplit := strings.Split(splitted[len(splitted)-1], ".")
-				log.Println(secondSplit)
+				// secondSplit := strings.Split(splitted[len(splitted)-1], ".")
+				// log.Println(secondSplit)
 
 				// check if it is a stream
 				if strings.Contains(splitted[len(splitted)-1], ".goutputstream") {
-					fmt.Println("in the middle of changing")
+					// fmt.Println("in the middle of changing")
 					// file is updated
 					// send file
 					// conn := tcp.SetUp()
@@ -73,15 +73,20 @@ func Watch() {
 						// add this to watcher list
 						AddDirToWatcher(watcher, event.Name)
 					}
+					// if event.Op == "WRITE" {
+
+					// }
 
 					if event.Has(fsnotify.Write) {
 						evenLog = append(evenLog, "reached")
-						fmt.Println("modified")
-						fmt.Println(len(evenLog))
+						// fmt.Println("modified")
+						// fmt.Println(len(evenLog))
 						// send file
 					}
-					if event.Op&fsnotify.Write == fsnotify.Write {
-						fmt.Println("THIS HAS BEEN WRITTEN", event.Name)
+
+					// file pasting and file changes
+					if event.Op&fsnotify.Create == fsnotify.Create {
+						fmt.Println("flow here: ", event.Name)
 					}
 
 				}
