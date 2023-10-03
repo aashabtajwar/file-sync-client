@@ -30,7 +30,7 @@ func SendFile(filePath string, workspace string, mimeType string) {
 			"filename": "%s",
 			"mimetype": "%s",
 			"type": "file",
-			"user_id": "%s",
+			"user_id": "%s"
 			
 		}`, workspace, filePath, mimeType, userId)
 	metaDataBytes := []byte(metaDataString)
