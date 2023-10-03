@@ -8,7 +8,7 @@ import (
 
 var server []net.Conn
 
-func SetUp() net.Conn {
+func SetUpConn() net.Conn {
 	if len(server) == 1 {
 		return server[0]
 	}
@@ -27,7 +27,7 @@ func Connect() {
 	// if err != nil {
 	// 	fmt.Println("Error connecting to TCP Server:\n", err)
 	// }
-	conn := SetUp()
+	conn := SetUpConn()
 	go ListenForData(conn)
 	ln, err := net.Listen("tcp", ":3000")
 	if err != nil {

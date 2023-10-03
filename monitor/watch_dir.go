@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/aashabtajwar/desktop-th/tcp"
 	"github.com/fsnotify/fsnotify"
 )
 
@@ -36,10 +37,6 @@ func AddDirToWatcher(watcher *fsnotify.Watcher, dir string) {
 
 func Watch() {
 	watcher := CreateWatcher()
-	// watcher, err := fsnotify.NewWatcher()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
 	defer watcher.Close()
 	go func() {
 		for {
@@ -52,14 +49,10 @@ func Watch() {
 				// fmt.Println("file dir: ", event.Name)
 				splitted := strings.Split(event.Name, "/")
 				// secondSplit := strings.Split(splitted[len(splitted)-1], ".")
-				// log.Println(secondSplit)
 
 				// check if it is a stream
 				if strings.Contains(splitted[len(splitted)-1], ".goutputstream") {
-					// fmt.Println("in the middle of changing")
-					// file is updated
-					// send file
-					// conn := tcp.SetUp()
+
 				} else {
 
 					// check if file or folder
@@ -73,20 +66,19 @@ func Watch() {
 						// add this to watcher list
 						AddDirToWatcher(watcher, event.Name)
 					}
-					// if event.Op == "WRITE" {
-
-					// }
 
 					if event.Has(fsnotify.Write) {
 						evenLog = append(evenLog, "reached")
-						// fmt.Println("modified")
-						// fmt.Println(len(evenLog))
-						// send file
 					}
 
 					// file pasting and file changes
 					if event.Op&fsnotify.Create == fsnotify.Create {
 						fmt.Println("flow here: ", event.Name)
+						workspaceDir := splitted[len(splitted)-2]
+						fileName := strings.Split(splitted[len(splitted)-1], ".")
+						mimeType := fileName[len(fileName)-1]
+						tcp.SendFile(event.Name, workspaceDir, mimeType)
+
 					}
 
 				}
