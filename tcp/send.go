@@ -10,6 +10,7 @@ import (
 )
 
 func SendFile(filePath string, workspace string, mimeType string) {
+	time.Sleep(100 * time.Millisecond)
 	conn := SetUpConn()
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -19,8 +20,14 @@ func SendFile(filePath string, workspace string, mimeType string) {
 	if err != nil {
 		fmt.Println("Error getting file stat\n", err)
 	}
-	byteData := make([]byte, fi.Size())
-	_, err = file.Read(byteData)
+	// byteData := make([]byte, fi.Size())
+	// _, err = file.Read(byteData)
+	byteData, errr := os.ReadFile(filePath)
+	if errr != nil {
+		fmt.Println("error reading file\n", errr)
+	}
+
+	fmt.Println("data --> \n", byteData)
 
 	// how do i get the user id?
 	userId := "1" // for now

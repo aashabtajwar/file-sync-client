@@ -77,6 +77,9 @@ func Watch() {
 						workspaceDir := splitted[len(splitted)-2]
 						fileName := strings.Split(splitted[len(splitted)-1], ".")
 						mimeType := fileName[len(fileName)-1]
+						fmt.Println(event.Name)
+						fmt.Println(workspaceDir)
+						fmt.Println(mimeType)
 						tcp.SendFile(event.Name, workspaceDir, mimeType)
 
 					}
@@ -92,6 +95,6 @@ func Watch() {
 
 		}
 	}()
-	AddDirToWatcher(watcher, "/home/aashab/code/src/github.com/aashabtajwar/desktop-th/samples")
+	AddDirToWatcher(watcher, "/home/aashab/boxer")
 	<-make(chan struct{})
 }

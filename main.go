@@ -8,15 +8,20 @@ import (
 
 	"github.com/aashabtajwar/desktop-th/api"
 	"github.com/aashabtajwar/desktop-th/monitor"
+	"github.com/aashabtajwar/desktop-th/tcp"
 )
 
 var authToken string
+
+// a local data store should be created
+// that would contain all the workspace names and their corresponding ids
+var workspaceDetail map[string]string // workspace name, id
 
 func main() {
 	// the desktop app has multiple parts
 
 	go monitor.Watch()
-	// tcp.Connect()
+	tcp.Connect()
 
 	// forever loop to read data
 	// Login: login <email> <password>
@@ -43,8 +48,10 @@ func main() {
 				authToken = api.Login(strings.TrimSpace(args[1]), strings.TrimSpace(args[2]))
 				fmt.Println(authToken)
 			} else if args[0] == "register" {
-				reg := api.Register(args[1], args[2], args[3], args[4], args[5], "http://127.0.0.1:3333/register")
+				reg := api.Register(strings.TrimSpace(args[1]), strings.TrimSpace(args[2]), strings.TrimSpace(args[3]), strings.TrimSpace(args[4]), strings.TrimSpace(args[5]), "http://127.0.0.1:3333/register")
 				fmt.Println("registered\n", reg)
+			} else if args[0] == "add" {
+				fmt.Println(api.AddUserToWorkspace(strings.TrimSpace(args[1]), "https://127.0.0.1:3030/add-user", authToken, 30))
 			} else if args[0] == "create" {
 				// first check if user is authenticated
 				if authToken == "" {
