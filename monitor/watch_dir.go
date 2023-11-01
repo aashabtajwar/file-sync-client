@@ -80,7 +80,9 @@ func Watch() {
 						fmt.Println(event.Name)
 						fmt.Println(workspaceDir)
 						fmt.Println(mimeType)
-						tcp.SendFile(event.Name, workspaceDir, mimeType)
+						f := strings.Split(event.Name, "/")
+						name := f[len(f)-1]
+						tcp.SendFile(name, event.Name, workspaceDir, mimeType)
 
 					}
 
@@ -95,6 +97,6 @@ func Watch() {
 
 		}
 	}()
-	AddDirToWatcher(watcher, "/home/aashab/boxer")
+	AddDirToWatcher(watcher, "/home/aashab/works")
 	<-make(chan struct{})
 }

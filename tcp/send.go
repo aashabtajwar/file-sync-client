@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func SendFile(filePath string, workspace string, mimeType string) {
+func SendFile(name string, filePath string, workspace string, mimeType string) {
 	time.Sleep(100 * time.Millisecond)
 	conn := SetUpConn()
 	file, err := os.Open(filePath)
@@ -37,9 +37,10 @@ func SendFile(filePath string, workspace string, mimeType string) {
 			"filename": "%s",
 			"mimetype": "%s",
 			"type": "file",
-			"user_id": "%s"
+			"user_id": "%s",
+			"name" : "%s"
 			
-		}`, workspace, filePath, mimeType, userId)
+		}`, workspace, filePath, mimeType, userId, name)
 	metaDataBytes := []byte(metaDataString)
 
 	// send file data
