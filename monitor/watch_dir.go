@@ -46,7 +46,6 @@ func Watch() {
 					return
 				}
 				log.Println("type of event: ", event.Op, " file dir: ", event.Name)
-				// fmt.Println("file dir: ", event.Name)
 				splitted := strings.Split(event.Name, "/")
 				// secondSplit := strings.Split(splitted[len(splitted)-1], ".")
 
@@ -73,13 +72,9 @@ func Watch() {
 
 					// file pasting and file changes
 					if event.Op&fsnotify.Create == fsnotify.Create {
-						fmt.Println("flow here: ", event.Name)
 						workspaceDir := splitted[len(splitted)-2]
 						fileName := strings.Split(splitted[len(splitted)-1], ".")
 						mimeType := fileName[len(fileName)-1]
-						fmt.Println(event.Name)
-						fmt.Println(workspaceDir)
-						fmt.Println(mimeType)
 						f := strings.Split(event.Name, "/")
 						name := f[len(f)-1]
 						tcp.SendFile(name, event.Name, workspaceDir, mimeType)
