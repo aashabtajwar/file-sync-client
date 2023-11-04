@@ -2,6 +2,7 @@ package tokens
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/golang-jwt/jwt/v4"
 )
@@ -19,4 +20,19 @@ func DecodeToken(token string) jwt.MapClaims {
 	} else {
 		return nil
 	}
+}
+
+func SaveTokenToStorage(token string) {
+	err := os.WriteFile("storage/tokens.txt", []byte(token), 0644)
+	if err != nil {
+		fmt.Println("Error Storing Token in File\n", err)
+	}
+}
+
+func ReadTokenFromStorage() string {
+	token, err := os.ReadFile("storage/tokens.txt")
+	if err != nil {
+		fmt.Println("Error reading token fro file\n", err)
+	}
+	return string(token)
 }

@@ -28,10 +28,18 @@ func main() {
 	go monitor.Watch()
 	tcp.Connect()
 
+	// check for token
+
 	// forever loop to read data
 	// Login: login <email> <password>
 	// Register: register <fname> <lname> <username> <password>
 	// Create Workspace: create <workspace_name>
+	authToken = tokens.ReadTokenFromStorage()
+	if authToken != "" {
+		fmt.Println("Welcome \n", authToken)
+	} else {
+
+	}
 	for {
 
 		// fmt.Println("printing auth token\n", authToken)
@@ -51,6 +59,8 @@ func main() {
 				userData := tokens.DecodeToken(authToken)
 				fmt.Println(userData)
 				fmt.Println("Log in Successful")
+				tokens.SaveTokenToStorage(authToken)
+
 			} else if args[0] == "register" {
 				reg := api.Register(strings.TrimSpace(args[1]), strings.TrimSpace(args[2]), strings.TrimSpace(args[3]), strings.TrimSpace(args[4]), strings.TrimSpace(args[5]), "http://127.0.0.1:3333/register")
 				fmt.Println("registered\n", reg)
