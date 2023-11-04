@@ -1,0 +1,3 @@
+/home/aashab/works
+/home/aashab/cc
+/home/aashab/mc

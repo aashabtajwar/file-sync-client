@@ -33,6 +33,15 @@ func AddDirToWatcher(watcher *fsnotify.Watcher, dir string) {
 	if err != nil {
 		fmt.Println("Error Adding Directory to Watcher List\n", err)
 	}
+	file, err := os.OpenFile("storage/dirs.txt", os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("Error Opening File for storage dirs\n", err)
+	}
+	defer file.Close()
+	if _, err := file.WriteString(dir + "\n"); err != nil {
+		fmt.Println("Error Storing Dir name to file\n", err)
+	}
+
 }
 
 func Watch() {
