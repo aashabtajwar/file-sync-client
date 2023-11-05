@@ -64,8 +64,11 @@ func main() {
 			} else if args[0] == "register" {
 				reg := api.Register(strings.TrimSpace(args[1]), strings.TrimSpace(args[2]), strings.TrimSpace(args[3]), strings.TrimSpace(args[4]), strings.TrimSpace(args[5]), "http://127.0.0.1:3333/register")
 				fmt.Println("registered\n", reg)
+
 			} else if args[0] == "add" {
-				api.AddUserToWorkspace(strings.TrimSpace(args[1]), "https://127.0.0.1:3030/add-user", authToken, 30)
+				// add <user_email> <workspace_name>
+
+				api.AddUserToWorkspace(strings.TrimSpace(args[1]), "http://127.0.0.1:3333/add-user", authToken, workspaceDetail[strings.TrimSpace(args[2])])
 
 			} else if args[0] == "create" {
 
@@ -78,8 +81,11 @@ func main() {
 
 					msg, id := tasks.Parse(res)
 					fmt.Println(msg)
-					workspaceDetail[args[2]] = id
+					workspaceDetail[strings.TrimSpace(args[2])] = id
 					fmt.Println(workspaceDetail)
+					fmt.Println("------")
+					// fmt.Println(string.)
+					fmt.Println(string(workspaceDetail[strings.TrimSpace(args[2])]))
 				}
 
 			}
