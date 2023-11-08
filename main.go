@@ -82,11 +82,17 @@ func main() {
 					msg, id := tasks.Parse(res)
 					fmt.Println(msg)
 					workspaceDetail[strings.TrimSpace(args[2])] = id
-					fmt.Println(workspaceDetail)
-					fmt.Println("------")
-					// fmt.Println(string.)
-					fmt.Println(string(workspaceDetail[strings.TrimSpace(args[2])]))
 				}
+
+				// check workspaces shared with this user
+				// command: check workspaces
+			} else if strings.TrimSpace(args[0]) == "check" && strings.TrimSpace(args[1]) == "workspaces" {
+				res := api.CheckWorkspaces(authToken)
+				fmt.Println(res)
+
+				// download a workspace
+				// download <workspace_name>
+			} else if strings.TrimSpace(args[0]) == "download" {
 
 			}
 		}
