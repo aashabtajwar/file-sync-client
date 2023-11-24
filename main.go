@@ -89,15 +89,17 @@ func main() {
 			} else if strings.TrimSpace(args[0]) == "check" && strings.TrimSpace(args[1]) == "workspaces" {
 				res := api.CheckWorkspaces(authToken)
 				// iterate over res to get the workspace keys and values
+				fmt.Println("Showing all remote workspaces")
 				for _, v := range res {
 					for _, v2 := range v {
 						for key, value := range v2 {
+							fmt.Println(key)
 							workspaceDetail[key] = value
 						}
 					}
 				}
 
-				fmt.Println(workspaceDetail)
+				// fmt.Println(workspaceDetail)
 
 				// download a workspace
 				// download <workspace_name>

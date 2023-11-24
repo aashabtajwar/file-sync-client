@@ -28,7 +28,7 @@ func CheckWorkspaces(token string) map[string][]map[string]string {
 	if err := json.Unmarshal(body, &d); err != nil {
 		fmt.Println("Unmarshall Error\n", err)
 	}
-	fmt.Println(d)
+	// fmt.Println(d)
 	// for k, v := range d {
 	// 	fmt.Println(k)
 	// 	for k2, v2 := range v {
