@@ -19,3 +19,12 @@ func DownloadWorkspace(token string, workspaceId string) string {
 	tasks.CreateWorkspaceDir(name)
 	return "done"
 }
+
+// download workspace - version 2.0
+func DownloadWorkspaceV2(token string, workspaceId string, workspaceName string) {
+	// first create a workspace with the name given on arguments
+	// then, send an http request to server which will prompt it to send files
+	tasks.CreateWorkspaceDir(workspaceName)
+
+	// send http request
+}

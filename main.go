@@ -105,8 +105,8 @@ func main() {
 				// download <workspace_name>
 			} else if strings.TrimSpace(args[0]) == "download" {
 
-				res := api.DownloadWorkspace(authToken, workspaceDetail[strings.TrimSpace(args[1])])
-				fmt.Println(res)
+				api.DownloadWorkspaceV2(authToken, workspaceDetail[strings.TrimSpace(args[1])], strings.TrimSpace(args[1]))
+				// fmt.Println(res)
 			}
 		}
 
