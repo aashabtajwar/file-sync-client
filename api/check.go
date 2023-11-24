@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -8,7 +9,7 @@ import (
 	"github.com/aashabtajwar/desktop-th/errorhandling"
 )
 
-func CheckWorkspaces(token string) string {
+func CheckWorkspaces(token string) map[string][]map[string]string {
 	endPoint := "http://127.0.0.1:3333/check"
 	r, err := http.NewRequest("GET", endPoint, nil)
 	if err != nil {
@@ -23,6 +24,18 @@ func CheckWorkspaces(token string) string {
 	errorhandling.RequestError(err)
 	defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
-	return string(body)
+	d := make(map[string][]map[string]string)
+	if err := json.Unmarshal(body, &d); err != nil {
+		fmt.Println("Unmarshall Error\n", err)
+	}
+	fmt.Println(d)
+	// for k, v := range d {
+	// 	fmt.Println(k)
+	// 	for k2, v2 := range v {
+
+	// 	}
+	// }
+	return d
+	// return string(body)
 
 }

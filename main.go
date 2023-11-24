@@ -88,12 +88,23 @@ func main() {
 				// command: check workspaces
 			} else if strings.TrimSpace(args[0]) == "check" && strings.TrimSpace(args[1]) == "workspaces" {
 				res := api.CheckWorkspaces(authToken)
-				fmt.Println(res)
+				// iterate over res to get the workspace keys and values
+				for _, v := range res {
+					for _, v2 := range v {
+						for key, value := range v2 {
+							workspaceDetail[key] = value
+						}
+					}
+				}
+
+				fmt.Println(workspaceDetail)
 
 				// download a workspace
 				// download <workspace_name>
 			} else if strings.TrimSpace(args[0]) == "download" {
 
+				res := api.DownloadWorkspace(authToken, workspaceDetail[strings.TrimSpace(args[1])])
+				fmt.Println(res)
 			}
 		}
 
