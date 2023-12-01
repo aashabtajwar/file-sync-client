@@ -21,10 +21,18 @@ func DownloadWorkspace(token string, workspaceId string) string {
 }
 
 // download workspace - version 2.0
-func DownloadWorkspaceV2(token string, workspaceId string, workspaceName string) {
+func DownloadWorkspaceV2(token string, workspaceId string, workspaceName string) string {
 	// first create a workspace with the name given on arguments
 	// then, send an http request to server which will prompt it to send files
 	tasks.CreateWorkspaceDir(workspaceName)
 
+	requestString := fmt.Sprintf(`
+	{
+		"workspace_id": "%s"
+	}
+	`, workspaceId)
+
 	// send http request
+	_ = makeRequest(requestString, "http://127.0.0.1:3333/download", token)
+	return "done"
 }

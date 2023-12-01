@@ -31,6 +31,8 @@ func SendFile(name string, filePath string, workspace string, mimeType string) {
 
 	// how do i get the user id?
 	userId := "1" // for now
+
+	// name is the filename
 	metaDataString := fmt.Sprintf(`
 		{
 			"workspace": "%s",

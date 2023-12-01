@@ -12,6 +12,8 @@ import (
 )
 
 func save(metadata map[string]string, fileData *bytes.Buffer) {
+	// direct the dir in which files will be stored
+
 	fmt.Println(fileData.Bytes())
 	f, err := os.Create(metadata["name"] + "." + metadata["mimetype"])
 	if err != nil {
