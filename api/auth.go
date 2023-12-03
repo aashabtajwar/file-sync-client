@@ -2,7 +2,9 @@ package api
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 
@@ -28,6 +30,23 @@ func Login(email string, password string) string {
 	}`, email, password)
 	return makeRequest(requestString, "http://127.0.0.1:3333/login", "")
 
+}
+
+func Validate(token string) string {
+	r, err := http.NewRequest("POST", "http://127.0.0.1:3333/validate-token", nil)
+	errorhandling.RequestCreaterError(err)
+	r.Header.Add("Authorization", token)
+	client := &http.Client{}
+	res, err := client.Do(r)
+	errorhandling.RequestError(err)
+	defer res.Body.Close()
+	body, err := io.ReadAll(res.Body)
+	m := make(map[string]string)
+	if err = json.Unmarshal(body, &m); err != nil {
+		fmt.Println("Error Unmarshalling Json\n", err)
+	}
+	return m["message"]
+	// return string(body)
 }
 
 func makeRequest(bodyData string, endpoint string, token string) string {

@@ -21,7 +21,9 @@ func SetUpConn() net.Conn {
 }
 
 // connect to tcp server
-func Connect() {
+func Connect(authToken string) {
 	conn := SetUpConn()
+	// send token
+	SendToken(authToken, conn)
 	go ListenForData(conn)
 }

@@ -26,7 +26,6 @@ func main() {
 	// the desktop app has multiple parts
 
 	go monitor.Watch()
-	tcp.Connect()
 
 	// check for token
 
@@ -36,10 +35,28 @@ func main() {
 	// Create Workspace: create <workspace_name>
 	authToken = tokens.ReadTokenFromStorage()
 	if authToken != "" {
-		fmt.Println("Welcome \n", authToken)
+
+		// check if token is validated
+		res := api.Validate(authToken)
+		if res == "Token has expired" {
+			fmt.Println("Credentials expired. Log in again")
+			read := bufio.NewReader(os.Stdin)
+
+			fmt.Printf("Enter Email and Password: ")
+			command, _ := read.ReadString('\n')
+			args := strings.Split(command, " ")
+			authToken = api.Login(strings.TrimSpace(args[0]), strings.TrimSpace(args[1]))
+		} else {
+
+			fmt.Println("Welcome \n", authToken)
+		}
+
 	} else {
+		// authenticate, i.e. bring in the login page
 
 	}
+
+	tcp.Connect(authToken)
 	for {
 
 		// fmt.Println("printing auth token\n", authToken)

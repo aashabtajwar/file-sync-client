@@ -5,9 +5,39 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
+	"net"
 	"os"
 	"time"
 )
+
+// send token along with metadata
+func SendToken(token string, conn net.Conn) {
+	time.Sleep(100 * time.Millisecond)
+	tokenMetaData := fmt.Sprintf(`
+		{
+			"type" : "token"
+		}
+	`)
+	tokenMetaDataBytes := []byte(tokenMetaData)
+	tokenBytes := []byte(token)
+	binary.Write(conn, binary.LittleEndian, int64(len(tokenBytes)))
+	n1, err := io.CopyN(conn, bytes.NewReader(tokenBytes), int64(len(tokenBytes)))
+	if err != nil {
+		fmt.Println("Error sending token data\n", err)
+	}
+	fmt.Printf("Written %d token metadata bytes\n", n1)
+	time.Sleep(100 * time.Millisecond)
+
+	binary.Write(conn, binary.LittleEndian, int64(len(tokenMetaDataBytes)))
+	n2, err := io.CopyN(conn, bytes.NewReader(tokenMetaDataBytes), int64(len(tokenMetaDataBytes)))
+
+	if err != nil {
+		fmt.Println("Error Sending File metadata\n", err)
+
+	}
+	fmt.Printf("Written %d token bytes\n", n2)
+
+}
 
 func SendFile(name string, filePath string, workspace string, mimeType string) {
 	time.Sleep(100 * time.Millisecond)
