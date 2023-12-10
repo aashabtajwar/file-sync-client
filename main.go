@@ -22,8 +22,24 @@ var workspaceDetail = make(map[string]string)
 // var workspaceDetail map[string]string // workspace name, id
 var authUserDetails map[string]string // id, name
 
+func loadWorkspaces() {
+	data, err := os.ReadFile("storage/workspaces.txt")
+	if err != nil {
+		fmt.Println("Error reading workspaces\n", err)
+	}
+	// by new line
+	splitted_dirs := strings.Split(string(data), "\n")
+
+	for _, e := range splitted_dirs {
+		s := strings.Split(e, " ")
+		workspaceDetail[s[0]] = s[1]
+	}
+}
+
 func main() {
 	// the desktop app has multiple parts
+
+	loadWorkspaces()
 
 	go monitor.Watch()
 
@@ -122,8 +138,8 @@ func main() {
 				// download <workspace_name>
 			} else if strings.TrimSpace(args[0]) == "download" {
 
-				api.DownloadWorkspaceV2(authToken, workspaceDetail[strings.TrimSpace(args[1])], strings.TrimSpace(args[1]))
-				// fmt.Println(res)
+				res := api.DownloadWorkspaceV2(authToken, workspaceDetail[strings.TrimSpace(args[1])], strings.TrimSpace(args[1]))
+				fmt.Println(res)
 			}
 		}
 
