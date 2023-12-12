@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/aashabtajwar/desktop-th/errorhandling"
@@ -65,7 +64,7 @@ func makeRequest(bodyData string, endpoint string, token string) string {
 
 	errorhandling.RequestError(err)
 	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	return string(body)
 
 }

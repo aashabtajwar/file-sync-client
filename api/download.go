@@ -33,6 +33,6 @@ func DownloadWorkspaceV2(token string, workspaceId string, workspaceName string)
 	`, workspaceId)
 
 	// send http request
-	_ = makeRequest(requestString, "http://127.0.0.1:3333/download", token)
-	return "done"
+	res := makeRequest(requestString, "http://127.0.0.1:3333/download", token)
+	return string(res)
 }
