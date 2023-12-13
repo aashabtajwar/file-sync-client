@@ -16,6 +16,9 @@ func save(metadata map[string]string, fileData *bytes.Buffer) {
 
 	fmt.Println(fileData.Bytes())
 	fmt.Println("meta => ", metadata["name"])
+
+	// for now, files are being saved in this directory
+	// you should change it so that they are saved in the intended workspace dir
 	f, err := os.Create(metadata["name"])
 	if err != nil {
 		fmt.Println("Error creating file: \n", err)
