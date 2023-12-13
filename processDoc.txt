@@ -1,0 +1,8 @@
+------------File Version Changing---------------
+**Prerequisites**
+- fix how files are named when storing in the server (makes it easier to query)
+- change 
+
+
+1. Check All File Versions
+    - Query all versions of that File
