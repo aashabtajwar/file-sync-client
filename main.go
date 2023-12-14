@@ -13,6 +13,8 @@ import (
 	"github.com/aashabtajwar/desktop-th/tokens"
 )
 
+var remoteUrl = "http://127.0.0.1:3333/"
+
 var authToken string
 
 // a local data store should be created
@@ -139,6 +141,13 @@ func main() {
 			} else if strings.TrimSpace(args[0]) == "download" {
 
 				res := api.DownloadWorkspaceV2(authToken, workspaceDetail[strings.TrimSpace(args[1])], strings.TrimSpace(args[1]))
+				fmt.Println(res)
+
+			} else if strings.TrimSpace(args[0]) == "--v" {
+				// file version checking
+				// --v <file_name> <workspace_name>
+				// params -> workspaceName, workspaceId, filename, authToken
+				res := api.CheckVersions(strings.TrimSpace(args[2]), workspaceDetail[strings.TrimSpace(args[2])], strings.TrimSpace(args[1]), authToken)
 				fmt.Println(res)
 			}
 		}
