@@ -4,10 +4,34 @@ import './app.css';
 // import logo from './assets/images/logo-universal.png';
 import {Greet, Nice, Login, CheckAuthStatus} from '../wailsjs/go/main/App';
 
+
+// var homePage = `
+
+// `
+
+function homePage() {
+    document.querySelector('#app').innerHTML = `
+        <div class="sidebar">
+            <a href="#">All Files</a>
+            <a href="#">Photos</a>
+            <a href="#">Documents</a>
+            <a href="#">Presentations</a>
+            <a href="#" onclick="facts()">Shared</a>
+            <!-- Add more sidebar links as needed -->
+        </div>
+
+    
+    `;
+}
+
+
 function checkToken() {
     try {
         CheckAuthStatus()
             .then(result => {
+                if (result == "Already Logged In") {
+                    homePage()
+                }
                 resultElement.innerText = result;
             })
             .catch(err => {
@@ -28,7 +52,7 @@ document.querySelector('#app').innerHTML = `
         <input class="input" id="password" type="password" autocomplete="off" />
     </div>
       <br>
-    <button class="btn" onclick="login()">Submit</button>
+    <button class="btn btn-primary" onclick="login()">Submit</button>
     </div>
 `;
 
@@ -36,7 +60,10 @@ checkToken()
 
 
 
-
+window.facts = function() {
+    console.log("Show files")
+    try {} catch(er) {console.error(er)}
+}
 
 
 

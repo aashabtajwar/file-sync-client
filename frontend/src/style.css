@@ -1,5 +1,5 @@
 html {
-    background-color: rgba(27, 38, 54, 1);
+    background-color: rgba(192, 192, 192, 1);
     text-align: center;
     color: white;
 }
@@ -24,3 +24,49 @@ body {
     height: 100vh;
     text-align: center;
 }
+
+
+/* custom css starts here */
+.bodytwo {
+    padding-top: 56px; /* Adjust the padding based on your navbar height */
+}
+
+#result {
+    color: black
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.sidebar {
+    position: fixed;
+    height: 100%;
+    width: 200px;
+    background-color: #343a40; /* Bootstrap dark background color */
+    padding-top: 56px; /* Adjust the padding based on your navbar height */
+}
+
+.sidebar a {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff; /* Bootstrap light text color */
+    display: block;
+}
+
+.sidebar a:hover {
+    background-color: #495057; /* Bootstrap secondary background color */
+    color: #ffffff; /* Bootstrap light text color */
+}
+
+.content {
+    margin-left: 250px; /* Adjust the margin based on your sidebar width */
+    padding: 15px;
+}
+/* .sidebartext {
+
+} */
