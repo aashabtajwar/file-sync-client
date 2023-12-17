@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/aashabtajwar/desktop-th/errorhandling"
+	"github.com/aashabtajwar/desktop-th/tokens"
 )
 
 func Register(first string, last string, username string, email string, password string, url string) string {
@@ -27,8 +28,17 @@ func Login(email string, password string) string {
 	"email": "%s",
 	"password": "%s"
 	}`, email, password)
-	return makeRequest(requestString, "http://127.0.0.1:3333/login", "")
+	res := makeRequest(requestString, "http://127.0.0.1:3333/login", "")
+	d := make(map[string]string)
+	fmt.Println(res)
+	err := json.Unmarshal([]byte(res), &d)
 
+	if err != nil {
+		fmt.Println("Error Unmarshalling json data\n", err)
+	}
+	fmt.Println(d)
+	tokens.SaveTokenToStorage(d["token"])
+	return d["message"]
 }
 
 func Validate(token string) string {

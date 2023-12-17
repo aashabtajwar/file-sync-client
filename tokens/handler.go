@@ -34,5 +34,6 @@ func ReadTokenFromStorage() string {
 	if err != nil {
 		fmt.Println("Error reading token fro file\n", err)
 	}
+	fmt.Println("Printing token: ", token)
 	return string(token)
 }
