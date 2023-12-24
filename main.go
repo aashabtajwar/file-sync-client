@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/aashabtajwar/desktop-th/api"
+	"github.com/aashabtajwar/desktop-th/gui"
 	"github.com/aashabtajwar/desktop-th/monitor"
 	"github.com/aashabtajwar/desktop-th/tasks"
-	"github.com/aashabtajwar/desktop-th/tcp"
 	"github.com/aashabtajwar/desktop-th/tokens"
 )
 
@@ -40,44 +40,62 @@ func loadWorkspaces() {
 
 func main() {
 	// the desktop app has multiple parts
-
+	valid := false
+	msg := ""
 	loadWorkspaces()
 
 	go monitor.Watch()
 
 	// check for token
+	authToken = tokens.ReadTokenFromStorage()
+
+	if authToken != "" {
+		// check if token is valid or not
+		res := api.Validate(authToken)
+		fmt.Println(res)
+		if res == "Token has expired" {
+			msg = "Credentials Expired. Please Log In Again"
+		} else {
+			// move to home page
+			msg = "Welcome"
+			valid = true
+		}
+	}
+
+	// slowly remove the forever loop
 
 	// forever loop to read data
 	// Login: login <email> <password>
 	// Register: register <fname> <lname> <username> <password>
 	// Create Workspace: create <workspace_name>
-	authToken = tokens.ReadTokenFromStorage()
-	if authToken != "" {
+	// authToken = tokens.ReadTokenFromStorage()
+	// if authToken != "" {
 
-		// check if token is validated
-		res := api.Validate(authToken)
-		if res == "Token has expired" {
-			fmt.Println("Credentials expired. Log in again")
-			read := bufio.NewReader(os.Stdin)
+	// 	// check if token is validated
+	// 	res := api.Validate(authToken)
+	// 	if res == "Token has expired" {
+	// 		fmt.Println("Credentials expired. Log in again")
+	// 		read := bufio.NewReader(os.Stdin)
 
-			fmt.Printf("Enter Email and Password: ")
-			command, _ := read.ReadString('\n')
-			args := strings.Split(command, " ")
-			authToken = api.Login(strings.TrimSpace(args[0]), strings.TrimSpace(args[1]))
-		} else {
+	// 		fmt.Printf("Enter Email and Password: ")
+	// 		command, _ := read.ReadString('\n')
+	// 		args := strings.Split(command, " ")
+	// 		authToken = api.Login(strings.TrimSpace(args[0]), strings.TrimSpace(args[1]))
+	// 	} else {
 
-			fmt.Println("Welcome \n", authToken)
-		}
+	// 		fmt.Println("Welcome \n", authToken)
+	// 	}
 
-	} else {
-		// authenticate, i.e. bring in the login page
+	// } else {
+	// 	// authenticate, i.e. bring in the login page
 
-	}
+	// }
 
-	tcp.Connect(authToken)
+	// tcp.Connect(authToken)
+
+	gui.StartServer(msg, authToken, valid)
+
 	for {
-
-		// fmt.Println("printing auth token\n", authToken)
 		read := bufio.NewReader(os.Stdin)
 		fmt.Printf(">> ")
 		command, _ := read.ReadString('\n')
@@ -102,7 +120,6 @@ func main() {
 
 			} else if args[0] == "add" {
 				// add <user_email> <workspace_name>
-
 				api.AddUserToWorkspace(strings.TrimSpace(args[1]), "http://127.0.0.1:3333/add-user", authToken, workspaceDetail[strings.TrimSpace(args[2])])
 
 			} else if args[0] == "create" {
@@ -113,7 +130,6 @@ func main() {
 
 				} else {
 					res := (api.CreateWorkspace(strings.TrimSpace(args[1]), strings.TrimSpace(args[2]), authToken, "http://127.0.0.1:3333/createw"))
-
 					msg, id := tasks.Parse(res)
 					fmt.Println(msg)
 					workspaceDetail[strings.TrimSpace(args[2])] = id
@@ -133,8 +149,6 @@ func main() {
 						}
 					}
 				}
-
-				// fmt.Println(workspaceDetail)
 
 				// download a workspace
 				// download <workspace_name>

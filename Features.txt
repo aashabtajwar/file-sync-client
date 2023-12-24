@@ -1,0 +1,5 @@
+Theoretical Features
+
+Features that if implemented can make the project better
+
+1. Changes Viewing: View the changes that were made on a file (pdf, pptx, txt or other files)

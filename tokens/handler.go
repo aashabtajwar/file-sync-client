@@ -34,5 +34,5 @@ func ReadTokenFromStorage() string {
 	if err != nil {
 		fmt.Println("Error reading token fro file\n", err)
 	}
-	return string(token)
+	return string(token) // returns "" is file is empty (never logged in before)
 }
