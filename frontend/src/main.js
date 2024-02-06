@@ -113,7 +113,7 @@ window.addNewContent = function() {
                 // let dirs = ""
                 let dirs = `<div style="display: table-cell" class="left-corner">`
                 result.forEach(dir => {
-                    dirs = dirs + `<button style="font-size:13px"><i class="fa fa-folder" style="font-size:50px">  ${dir}</button>\n`
+                    dirs = dirs + `<button style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${dir}</button>\n`
                 });
                 dirs = dirs + `</div>`
                 // document.querySelector("#app").innerHTML = navBar + "\n" + localFolderContent

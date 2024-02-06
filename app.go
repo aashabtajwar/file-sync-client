@@ -66,6 +66,6 @@ func (a *App) Login(email string, password string) string {
 func (a *App) AddContent() []string {
 	// bring the list of local repositories
 	dirs := fetchWorkspaces()
-	fmt.Println(dirs)
-	return dirs
+	dirNames := separateDirNames(dirs)
+	return dirNames
 }
