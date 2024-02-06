@@ -1,3 +1,3 @@
 faltu 56 /home/aashab/faltu
-make 59
-track 81
+make 59 /home/aashab/make
+track 81 /home/aashab/track

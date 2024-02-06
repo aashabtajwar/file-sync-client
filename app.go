@@ -8,6 +8,9 @@ import (
 	"github.com/aashabtajwar/desktop-th/tokens"
 )
 
+var dirNames []string
+var dirPaths []string
+
 // App struct
 type App struct {
 	ctx context.Context
@@ -42,7 +45,7 @@ func (a *App) CheckAuthStatus() string {
 			return "Already Logged In"
 		}
 	}
-	return ""
+	// return ""
 }
 
 // Greet returns a greeting for the given name
@@ -66,6 +69,6 @@ func (a *App) Login(email string, password string) string {
 func (a *App) AddContent() []string {
 	// bring the list of local repositories
 	dirs := fetchWorkspaces()
-	dirNames := separateDirNames(dirs)
+	dirNames, dirPaths = separateDirNames(dirs)
 	return dirNames
 }
