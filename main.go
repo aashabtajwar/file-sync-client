@@ -37,6 +37,16 @@ func loadWorkspaces() {
 	}
 }
 
+// fetch workspace list
+func fetchWorkspaces() []string {
+	data, err := os.ReadFile("storage/workspaces.txt")
+	if err != nil {
+		fmt.Println("Error Reading Workspaces\n", err)
+	}
+	splitted_dirs := strings.Split(string(data), "\n")
+	return splitted_dirs
+}
+
 //go:embed all:frontend/dist
 var assets embed.FS
 
@@ -48,7 +58,7 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "Desk",
+		Title:  "FS",
 		Width:  1024,
 		Height: 768,
 		AssetServer: &assetserver.Options{

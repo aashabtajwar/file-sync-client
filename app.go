@@ -24,6 +24,10 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
+// func (a *App) Tester() string {
+// 	return fmt.Sprintf("tested")
+// }
+
 func (a *App) CheckAuthStatus() string {
 	// first check local storage for token
 	authToken = tokens.ReadTokenFromStorage()
@@ -57,4 +61,11 @@ func (a *App) Login(email string, password string) string {
 	res := api.Login(email, password)
 	return res
 	// return fmt.Sprintf("Your Email: %s. And your password: %s", email, password)
+}
+
+func (a *App) AddContent() []string {
+	// bring the list of local repositories
+	dirs := fetchWorkspaces()
+	fmt.Println(dirs)
+	return dirs
 }

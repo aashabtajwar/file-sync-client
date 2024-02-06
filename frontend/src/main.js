@@ -1,27 +1,70 @@
 import './style.css';
 import './app.css';
+import './home.js';
 
-// import logo from './assets/images/logo-universal.png';
-import {Greet, Nice, Login, CheckAuthStatus} from '../wailsjs/go/main/App';
+import {Greet, AddContent, Nice, Login, CheckAuthStatus} from '../wailsjs/go/main/App';
 
 
-// var homePage = `
+let moreContent = '';
+let navBar = `
+<div style="width: 100%; display: table">
+    <div style="display: table-row; height: 100px">
+        <div class="sidebar" style="width: 15%; display: table-cell">
+            <div><button class="nav-button">All Files</button></div>
+            <div><button class="nav-button">Photos</button></div>
+            <div><button class="nav-button">Documents</button>
+            <div><button class="nav-button">Presentations</button></div>
+            <button class="nav-button" onclick="facts()">Shared</button>
+            <!-- Add more sidebar links as needed -->
+            <div class="sep-line"></div>
+            <div><button class="nav-button" onclick="addNewContent()">Local</button></div>
+            <div><button class="nav-button">Remote</button></div>
+        </div>
+        ${moreContent}
+    </div>
+</div>
+`
+let fileContent = `
 
-// `
+`
+
+let localFolderContent = `
+<div style="display: table-cell" class="left-corner">
+    <button style="font-size:20px"><i class="fa fa-folder" style="font-size: 50px;"></i>  Folder 1</button>
+  
+    <button style="font-size:24px"><i class="fa fa-folder" style="font-size: 50px"></i></button>
+    <button style="font-size:24px"><i class="fa fa-folder" style="font-size: 50px"></i></button>
+</div>
+`
+
+let remoteFolderContent = ``
+
+
+let allDocuments = ``
+
+
+
+let allPhotos = ``
+
+
+let mainContent = `
+    <h1>MAIN CONTENT</h1>
+`
+
+
+
 
 function homePage() {
-    document.querySelector('#app').innerHTML = `
-        <div class="sidebar">
-            <a href="#">All Files</a>
-            <a href="#">Photos</a>
-            <a href="#">Documents</a>
-            <a href="#">Presentations</a>
-            <a href="#" onclick="facts()">Shared</a>
-            <!-- Add more sidebar links as needed -->
-        </div>
-
+    document.getElementById('app').innerHTML = navBar;
     
-    `;
+    x = document.getElementById('app')
+    // x.innerHTML = navBar
+    // document.querySelector('#apptwo').innerHTML = mainContent;
+    var newDiv = document.createElement("div")
+    newDiv.setAttribute("class", "nav-button")
+    newDiv.textContent = "Main Content Here"
+    x.appendChild(newDiv);
+
 }
 
 
@@ -41,6 +84,8 @@ function checkToken() {
         console.error(err)
     }
 }
+
+
 document.querySelector('#app').innerHTML = `
       <div class="result" id="result">Login</div>
       <div class="input-box" id="input-email">
@@ -60,11 +105,27 @@ checkToken()
 
 
 
-window.facts = function() {
-    console.log("Show files")
-    try {} catch(er) {console.error(er)}
-}
 
+window.addNewContent = function() {
+    try {
+        AddContent()
+            .then(result => {
+                // let dirs = ""
+                let dirs = `<div style="display: table-cell" class="left-corner">`
+                result.forEach(dir => {
+                    dirs = dirs + `<button style="font-size:13px"><i class="fa fa-folder" style="font-size:50px">  ${dir}</button>\n`
+                });
+                dirs = dirs + `</div>`
+                // document.querySelector("#app").innerHTML = navBar + "\n" + localFolderContent
+                document.querySelector('#app').innerHTML = navBar + "\n" + dirs;
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 
 

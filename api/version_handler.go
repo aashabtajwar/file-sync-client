@@ -31,6 +31,7 @@ func CheckVersions(workspaceName, workspaceId string, fileName string, token str
 		fmt.Println("Error Unmarshalling versions string")
 	}
 	x := "All File Versions\nVersion\tDate Created\n"
+
 	for i, e := range versions {
 		timeParsed, er := strconv.ParseInt(e, 10, 64)
 		if er != nil {

@@ -101,6 +101,7 @@ func Watch() {
 
 		}
 	}()
+
 	AddDirToWatcher(watcher, "/home/aashab/works")
 	<-make(chan struct{})
 }
