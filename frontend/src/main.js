@@ -135,7 +135,7 @@ window.dispFiles = function(path) {
         console.log("HEREEEE")
         DisplayFiles(path)
             .then(result => {
-                let files = `<div style="display: table-cell" class="left-corner"`
+                let files = `<div style="display: table-cell" class="left-corner">\n`
                 result.forEach(file => {
                     files += `<button style="font-size:13px" onclick="openfile('${file[1]}')"><i class="fa fa-folder" style="font-size:20px">  ${file[0]}</button>`
                 })
