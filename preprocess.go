@@ -4,13 +4,15 @@ package main
 
 import "strings"
 
-func separateDirNames(dirs []string) ([]string, []string) {
-	var dirNamesOnly []string
-	var dirPaths []string
+func separateDirNames(dirs []string) [][]string {
+	// var dirNamesOnly []string
+	// var dirPaths []string
+	var splitted [][]string
 	for _, e := range dirs {
 		splittedNames := strings.Split(e, " ")
-		dirNamesOnly = append(dirNamesOnly, splittedNames[0])
-		dirPaths = append(dirPaths, splittedNames[2])
+		splitted = append(splitted, splittedNames)
+		// dirNamesOnly = append(dirNamesOnly, splittedNames[0])
+		// dirPaths = append(dirPaths, splittedNames[2])
 	}
-	return dirNamesOnly, dirPaths
+	return splitted
 }

@@ -10,6 +10,10 @@ export function CheckAuthStatus() {
   return window['go']['main']['App']['CheckAuthStatus']();
 }
 
+export function DisplayFiles(arg1) {
+  return window['go']['main']['App']['DisplayFiles'](arg1);
+}
+
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
@@ -20,4 +24,8 @@ export function Login(arg1, arg2) {
 
 export function Nice(arg1) {
   return window['go']['main']['App']['Nice'](arg1);
+}
+
+export function ShowFiles() {
+  return window['go']['main']['App']['ShowFiles']();
 }

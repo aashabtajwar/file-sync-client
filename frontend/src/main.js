@@ -2,7 +2,7 @@ import './style.css';
 import './app.css';
 import './home.js';
 
-import {Greet, AddContent, Nice, Login, CheckAuthStatus} from '../wailsjs/go/main/App';
+import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles} from '../wailsjs/go/main/App';
 
 
 let moreContent = '';
@@ -108,12 +108,15 @@ checkToken()
 
 window.addNewContent = function() {
     try {
+        console.log("adding new content")
         AddContent()
             .then(result => {
                 // let dirs = ""
                 let dirs = `<div style="display: table-cell" class="left-corner">`
                 result.forEach(dir => {
-                    dirs = dirs + `<button style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${dir}</button>\n`
+                    // dirs = dirs + `<a href="#" onclick="showFiles(${dir[2]}); return false;" style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${dir[0]}</a>\n`
+                    dirs += `<button style="font-size:20px" onclick="dispFiles('${dir[2]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>
+  `
                 });
                 dirs = dirs + `</div>`
                 // document.querySelector("#app").innerHTML = navBar + "\n" + localFolderContent
@@ -127,8 +130,48 @@ window.addNewContent = function() {
     }
 }
 
+window.dispFiles = function(path) {
+    try {
+
+        console.log("HEREEEE")
+        DisplayFiles(path)
+            .then(result => {
+                let files = `<div style="display: table-cell" class="left-corner"`
+                result.forEach(file => {
+                    files += `<button style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${file}</button>`
+                })
+
+                files += `</div>`
+                document.querySelector('#app').innerHTML = navBar + "\n" + files;
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 
+// window.showFiles = function() {
+//     try{
+//         ShowFiles()
+//             .then(result => {
+//                 let files = `<div style="display: table-cell" class="left-corner"`
+//                 result.forEach(file => {
+//                     files += `<button onclick="OpenFile()" style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${file}</button>`
+//                 })
+
+//                 files += `</div>`
+//                 document.querySelector('#app').innerHTML = navBar + "\n" + files;
+//             })
+//             .catch(err => {
+//                 console.error(err)
+//             })
+//     } catch (err) {
+
+//     }
+// }
 
 
 

@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/aashabtajwar/desktop-th/api"
 	"github.com/aashabtajwar/desktop-th/tokens"
@@ -10,6 +12,8 @@ import (
 
 var dirNames []string
 var dirPaths []string
+var names [][]string
+var fileNames []string
 
 // App struct
 type App struct {
@@ -66,9 +70,30 @@ func (a *App) Login(email string, password string) string {
 	// return fmt.Sprintf("Your Email: %s. And your password: %s", email, password)
 }
 
-func (a *App) AddContent() []string {
+func (a *App) AddContent() [][]string {
 	// bring the list of local repositories
+	fmt.Println("PRINTINGTRINTTNIO")
 	dirs := fetchWorkspaces()
-	dirNames, dirPaths = separateDirNames(dirs)
-	return dirNames
+	names = separateDirNames(dirs)
+	return names
+}
+
+func (a *App) DisplayFiles(path string) []string {
+	fmt.Println("Displaying Files here")
+	fmt.Println(path)
+
+	entries, err := os.ReadDir(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, e := range entries {
+		fileNames = append(fileNames, e.Name())
+	}
+	fmt.Println(fileNames)
+	return fileNames
+}
+
+func (a *App) ShowFiles() []string {
+	fmt.Println("coming here")
+	return fileNames
 }
