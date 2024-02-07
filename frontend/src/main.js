@@ -2,7 +2,7 @@ import './style.css';
 import './app.css';
 import './home.js';
 
-import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles} from '../wailsjs/go/main/App';
+import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles, OpenFile} from '../wailsjs/go/main/App';
 
 
 let moreContent = '';
@@ -112,11 +112,10 @@ window.addNewContent = function() {
         AddContent()
             .then(result => {
                 // let dirs = ""
-                let dirs = `<div style="display: table-cell" class="left-corner">`
+                let dirs = `<div style="display: table-cell" class="left-corner">\n`
                 result.forEach(dir => {
                     // dirs = dirs + `<a href="#" onclick="showFiles(${dir[2]}); return false;" style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${dir[0]}</a>\n`
-                    dirs += `<button style="font-size:20px" onclick="dispFiles('${dir[2]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>
-  `
+                    dirs += `<button style="font-size:20px" onclick="dispFiles('${dir[2]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>\n`
                 });
                 dirs = dirs + `</div>`
                 // document.querySelector("#app").innerHTML = navBar + "\n" + localFolderContent
@@ -138,7 +137,7 @@ window.dispFiles = function(path) {
             .then(result => {
                 let files = `<div style="display: table-cell" class="left-corner"`
                 result.forEach(file => {
-                    files += `<button style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${file}</button>`
+                    files += `<button style="font-size:13px" onclick="openfile('${file[1]}')"><i class="fa fa-folder" style="font-size:20px">  ${file[0]}</button>`
                 })
 
                 files += `</div>`
@@ -152,6 +151,21 @@ window.dispFiles = function(path) {
     }
 }
 
+
+window.openfile = function(filePath) {
+    try {
+        console.log("opening file...")
+        OpenFile(filePath)
+            .then(result => {
+                console.log(result)
+            })
+            .catch(err => {
+
+            })
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 // window.showFiles = function() {
 //     try{

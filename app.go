@@ -3,17 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
-	"os"
 
 	"github.com/aashabtajwar/desktop-th/api"
 	"github.com/aashabtajwar/desktop-th/tokens"
+	"github.com/skratchdot/open-golang/open"
 )
 
 var dirNames []string
 var dirPaths []string
 var names [][]string
-var fileNames []string
+var fileNames [][]string
 
 // App struct
 type App struct {
@@ -78,22 +77,17 @@ func (a *App) AddContent() [][]string {
 	return names
 }
 
-func (a *App) DisplayFiles(path string) []string {
-	fmt.Println("Displaying Files here")
-	fmt.Println(path)
-
-	entries, err := os.ReadDir(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, e := range entries {
-		fileNames = append(fileNames, e.Name())
-	}
-	fmt.Println(fileNames)
+func (a *App) DisplayFiles(path string) [][]string {
+	fileNames = getFileNames(path)
 	return fileNames
 }
 
-func (a *App) ShowFiles() []string {
-	fmt.Println("coming here")
-	return fileNames
+func (a *App) OpenFile(filePath string) string {
+	open.Run(filePath)
+	return "Opening File: " + filePath
 }
+
+// func (a *App) ShowFiles() []string {
+// 	fmt.Println("coming here")
+// 	return fileNames
+// }

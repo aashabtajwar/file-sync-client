@@ -9,7 +9,10 @@ require (
 
 require golang.org/x/sys v0.13.0 // indirect
 
-require github.com/wailsapp/wails/v2 v2.7.1
+require (
+	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
+	github.com/wailsapp/wails/v2 v2.7.1
+)
 
 require (
 	github.com/bep/debounce v1.2.1 // indirect

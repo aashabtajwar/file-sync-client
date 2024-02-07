@@ -5,7 +5,7 @@ export function AddContent():Promise<Array<any>>;
 
 export function CheckAuthStatus():Promise<string>;
 
-export function DisplayFiles(arg1:string):Promise<Array<string>>;
+export function DisplayFiles(arg1:string):Promise<Array<any>>;
 
 export function Greet(arg1:string):Promise<string>;
 
@@ -13,4 +13,4 @@ export function Login(arg1:string,arg2:string):Promise<string>;
 
 export function Nice(arg1:string):Promise<string>;
 
-export function ShowFiles():Promise<Array<string>>;
+export function OpenFile(arg1:string):Promise<string>;

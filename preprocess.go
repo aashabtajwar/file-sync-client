@@ -2,7 +2,11 @@
 // before sending them to GUI
 package main
 
-import "strings"
+import (
+	"fmt"
+	"os"
+	"strings"
+)
 
 func separateDirNames(dirs []string) [][]string {
 	// var dirNamesOnly []string
@@ -15,4 +19,19 @@ func separateDirNames(dirs []string) [][]string {
 		// dirPaths = append(dirPaths, splittedNames[2])
 	}
 	return splitted
+}
+
+func getFileNames(path string) [][]string {
+	var fileNames [][]string
+	entries, err := os.ReadDir(path)
+	if err != nil {
+		fmt.Println("Error fetching file names from dir\n", err)
+	}
+	for _, e := range entries {
+		var entry []string
+		entry = append(entry, e.Name())
+		entry = append(entry, path+"/"+e.Name())
+		fileNames = append(fileNames, entry)
+	}
+	return fileNames
 }

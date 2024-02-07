@@ -26,6 +26,6 @@ export function Nice(arg1) {
   return window['go']['main']['App']['Nice'](arg1);
 }
 
-export function ShowFiles() {
-  return window['go']['main']['App']['ShowFiles']();
+export function OpenFile(arg1) {
+  return window['go']['main']['App']['OpenFile'](arg1);
 }

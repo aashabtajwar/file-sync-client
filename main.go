@@ -51,6 +51,7 @@ func fetchWorkspaces() []string {
 var assets embed.FS
 
 func main() {
+	// open.Run("/home/aashab/faltu/zcost.pdf")
 
 	// --------------GUI Starts--------------------
 	// Create an instance of the app structure
