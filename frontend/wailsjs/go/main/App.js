@@ -14,6 +14,10 @@ export function DisplayFiles(arg1) {
   return window['go']['main']['App']['DisplayFiles'](arg1);
 }
 
+export function GetRemoteWorkspaces() {
+  return window['go']['main']['App']['GetRemoteWorkspaces']();
+}
+
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }

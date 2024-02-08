@@ -9,6 +9,7 @@ import (
 	"github.com/skratchdot/open-golang/open"
 )
 
+var token string
 var dirNames []string
 var dirPaths []string
 var names [][]string
@@ -30,10 +31,6 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// func (a *App) Tester() string {
-// 	return fmt.Sprintf("tested")
-// }
-
 func (a *App) CheckAuthStatus() string {
 	// first check local storage for token
 	authToken = tokens.ReadTokenFromStorage()
@@ -48,7 +45,6 @@ func (a *App) CheckAuthStatus() string {
 			return "Already Logged In"
 		}
 	}
-	// return ""
 }
 
 // Greet returns a greeting for the given name
@@ -65,8 +61,9 @@ func (a *App) Nice(name string) string {
 // login user
 func (a *App) Login(email string, password string) string {
 	res := api.Login(email, password)
-	return res
-	// return fmt.Sprintf("Your Email: %s. And your password: %s", email, password)
+	token = res["token"]
+	fmt.Println("here token => ", token)
+	return res["message"]
 }
 
 func (a *App) AddContent() [][]string {
@@ -87,7 +84,10 @@ func (a *App) OpenFile(filePath string) string {
 	return "Opening File: " + filePath
 }
 
-// func (a *App) ShowFiles() []string {
-// 	fmt.Println("coming here")
-// 	return fileNames
-// }
+func (a *App) GetRemoteWorkspaces() []string {
+	fmt.Println("PRINTING TOKEN => ", authToken)
+	var remoteWorkspaces []string
+	r := api.CheckWorkspaces(authToken)
+	fmt.Println("Remote Workspaces\n", r)
+	return remoteWorkspaces
+}

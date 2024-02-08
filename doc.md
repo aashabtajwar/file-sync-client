@@ -17,6 +17,7 @@
 2. BUG #2.0: Show Files func in GUI(js) not working (FIXED)
 3. BUG #2.1: First file does not appear as a button, rather as an invisible text (FIXED)
 4. BUG #2.1.2: Opening a file also causes the file (whose button does not appear and has invisible text) to open (FIXED)
+5. BUG #3.1: Not receiving token
 
 ### Notes
 1. A local storage should keep a list of all the monitored directories. So when the app restarts, those directories will be added to the watcher list  

@@ -22,7 +22,7 @@ func Register(first string, last string, username string, email string, password
 	return makeRequest(requestString, "http://127.0.0.1:3333/register", "")
 }
 
-func Login(email string, password string) string {
+func Login(email string, password string) map[string]string {
 	requestString := fmt.Sprintf(`
 	{
 	"email": "%s",
@@ -36,9 +36,9 @@ func Login(email string, password string) string {
 	if err != nil {
 		fmt.Println("Error Unmarshalling json data\n", err)
 	}
-	fmt.Println(d)
+	fmt.Println(d["token"])
 	tokens.SaveTokenToStorage(d["token"])
-	return d["message"]
+	return d
 }
 
 func Validate(token string) string {

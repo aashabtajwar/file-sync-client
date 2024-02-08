@@ -1,6 +1,9 @@
 package errorhandling
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 // error when creating an request object
 func RequestCreaterError(err error) {
@@ -12,6 +15,6 @@ func RequestCreaterError(err error) {
 // error when actually sending an http request using client
 func RequestError(err error) {
 	if err != nil {
-		fmt.Println("Error Sending HTTP request:\n", err)
+		log.Println("Error Sending HTTP request:\n", err)
 	}
 }

@@ -7,6 +7,8 @@ export function CheckAuthStatus():Promise<string>;
 
 export function DisplayFiles(arg1:string):Promise<Array<any>>;
 
+export function GetRemoteWorkspaces():Promise<Array<string>>;
+
 export function Greet(arg1:string):Promise<string>;
 
 export function Login(arg1:string,arg2:string):Promise<string>;

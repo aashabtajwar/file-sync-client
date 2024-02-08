@@ -2,7 +2,7 @@ import './style.css';
 import './app.css';
 import './home.js';
 
-import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles, OpenFile} from '../wailsjs/go/main/App';
+import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles, OpenFile, GetRemoteWorkspaces} from '../wailsjs/go/main/App';
 
 
 let moreContent = '';
@@ -18,7 +18,7 @@ let navBar = `
             <!-- Add more sidebar links as needed -->
             <div class="sep-line"></div>
             <div><button class="nav-button" onclick="addNewContent()">Local</button></div>
-            <div><button class="nav-button">Remote</button></div>
+            <div><button class="nav-button" onclick="loadRemoteWorkspaces()">Remote</button></div>
         </div>
         ${moreContent}
     </div>
@@ -103,7 +103,19 @@ document.querySelector('#app').innerHTML = `
 
 checkToken()
 
+window.loadRemoteWorkspaces = function() {
+    try {
+        GetRemoteWorkspaces()
+            .then(result => {
 
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 
 window.addNewContent = function() {
@@ -137,7 +149,7 @@ window.dispFiles = function(path) {
             .then(result => {
                 let files = `<div style="display: table-cell" class="left-corner">\n`
                 result.forEach(file => {
-                    files += `<button style="font-size:13px" onclick="openfile('${file[1]}')"><i class="fa fa-folder" style="font-size:20px">  ${file[0]}</button>`
+                    files += `<button style="font-size:13px" onclick="openfile('${file[1]}')"><i class="fa fa-file" style="font-size:30px">  ${file[0]}</button>`
                 })
 
                 files += `</div>`
@@ -209,6 +221,9 @@ window.login = function() {
         Login(email, password)
             .then((result) => {
                 resultElement.innerText = result
+                if (result == "Log In Successful!") {
+                    homePage()
+                }
             })
             .catch((err) => {
                 console.error(err)
@@ -218,8 +233,6 @@ window.login = function() {
     }
 
 }
-
-
 
 
 window.nice = function () {
@@ -244,8 +257,6 @@ window.nice = function () {
         console.error(err);
     }
 };
-
-
 
 // Setup the greet function
 window.greet = function () {
