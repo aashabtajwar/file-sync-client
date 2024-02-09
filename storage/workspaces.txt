@@ -1,3 +1,8 @@
 faltu 56 /home/aashab/faltu
 make 59 /home/aashab/make
 track 81 /home/aashab/track
+Diamond 12 /home/aashab/Diamond
+Morning 10 /home/aashab/Morning
+EEE 10 /home/aashab/EEE
+CIVIL 10 /home/aashab/CIVIL
+Modern 10 /home/aashab/Modern

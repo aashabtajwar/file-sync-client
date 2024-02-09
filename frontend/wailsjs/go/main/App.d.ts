@@ -5,6 +5,8 @@ export function AddContent():Promise<Array<any>>;
 
 export function CheckAuthStatus():Promise<string>;
 
+export function CreateWorkspace(arg1:string):Promise<string>;
+
 export function DisplayFiles(arg1:string):Promise<Array<any>>;
 
 export function GetRemoteWorkspaces():Promise<Array<string>>;

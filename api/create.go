@@ -16,7 +16,7 @@ func CreateWorkspace(dir string, name string, token string, endPoint string) str
 		fmt.Println("Error Creating Directory\n", err)
 	}
 	watcher := monitor.CreateWatcher()
-	monitor.AddDirToWatcher(watcher, dir)
+	monitor.AddDirToWatcher(watcher, dir, name)
 	fmt.Println("this point...")
 	requestString := fmt.Sprintf(`
 	{

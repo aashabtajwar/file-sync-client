@@ -54,7 +54,6 @@ func (a *App) Greet(name string) string {
 }
 
 func (a *App) Nice(name string) string {
-	fmt.Println("Here")
 	return fmt.Sprintf("Nevermind man")
 }
 
@@ -62,16 +61,19 @@ func (a *App) Nice(name string) string {
 func (a *App) Login(email string, password string) string {
 	res := api.Login(email, password)
 	token = res["token"]
-	fmt.Println("here token => ", token)
 	return res["message"]
 }
 
 func (a *App) AddContent() [][]string {
 	// bring the list of local repositories
-	fmt.Println("PRINTINGTRINTTNIO")
 	dirs := fetchWorkspaces()
 	names = separateDirNames(dirs)
 	return names
+}
+
+func (a *App) CreateWorkspace(workspaceName string) string {
+	msg := api.CreateWorkspace("/home/aashab/"+workspaceName, workspaceName, authToken, "http://127.0.0.1:3333/createw")
+	return msg
 }
 
 func (a *App) DisplayFiles(path string) [][]string {
@@ -85,7 +87,6 @@ func (a *App) OpenFile(filePath string) string {
 }
 
 func (a *App) GetRemoteWorkspaces() []string {
-	fmt.Println("PRINTING TOKEN => ", authToken)
 	var remoteWorkspaces []string
 	r := api.CheckWorkspaces(authToken)
 	fmt.Println("Remote Workspaces\n", r)

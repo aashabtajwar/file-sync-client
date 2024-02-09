@@ -10,6 +10,10 @@ export function CheckAuthStatus() {
   return window['go']['main']['App']['CheckAuthStatus']();
 }
 
+export function CreateWorkspace(arg1) {
+  return window['go']['main']['App']['CreateWorkspace'](arg1);
+}
+
 export function DisplayFiles(arg1) {
   return window['go']['main']['App']['DisplayFiles'](arg1);
 }

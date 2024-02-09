@@ -2,7 +2,7 @@ import './style.css';
 import './app.css';
 import './home.js';
 
-import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles, OpenFile, GetRemoteWorkspaces} from '../wailsjs/go/main/App';
+import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles, OpenFile, GetRemoteWorkspaces, CreateWorkspace} from '../wailsjs/go/main/App';
 
 
 let moreContent = '';
@@ -107,7 +107,7 @@ window.loadRemoteWorkspaces = function() {
     try {
         GetRemoteWorkspaces()
             .then(result => {
-
+                
             })
             .catch(err => {
                 console.error(err)
@@ -129,7 +129,11 @@ window.addNewContent = function() {
                     // dirs = dirs + `<a href="#" onclick="showFiles(${dir[2]}); return false;" style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${dir[0]}</a>\n`
                     dirs += `<button style="font-size:20px" onclick="dispFiles('${dir[2]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>\n`
                 });
-                dirs = dirs + `</div>`
+                dirs = dirs + `</div>`;
+                let createOption = `\n<div>
+                    <button onclick="openPrompt()">Create Workspace</button
+                </div>`
+                dirs += createOption;
                 // document.querySelector("#app").innerHTML = navBar + "\n" + localFolderContent
                 document.querySelector('#app').innerHTML = navBar + "\n" + dirs;
             })
@@ -140,6 +144,19 @@ window.addNewContent = function() {
         console.error(err)
     }
 }
+
+window.openPrompt = function() {
+    let folderName = prompt("Enter Workspace Name")
+    CreateWorkspace(folderName)
+        .then(result => {
+            addNewContent();
+
+        })
+        .catch(err => {
+            console.error(err)
+        })
+}
+
 
 window.dispFiles = function(path) {
     try {

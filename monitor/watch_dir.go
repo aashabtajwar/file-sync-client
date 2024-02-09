@@ -28,7 +28,7 @@ func CreateWatcher() *fsnotify.Watcher {
 	return watcher
 }
 
-func AddDirToWatcher(watcher *fsnotify.Watcher, dir string) {
+func AddDirToWatcher(watcher *fsnotify.Watcher, dir string, name string) {
 	err := watcher.Add(dir)
 	if err != nil {
 		fmt.Println("Error Adding Directory to Watcher List\n", err)
@@ -42,6 +42,18 @@ func AddDirToWatcher(watcher *fsnotify.Watcher, dir string) {
 		fmt.Println("Error Storing Dir name to file\n", err)
 	}
 
+	fileTwo, err := os.OpenFile("storage/workspaces.txt", os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("Error Opening File for Workspace Dirs\n", err)
+	}
+	defer fileTwo.Close()
+
+	// assigning random numbers as workspaceIDs to workspaces
+	// cause it doensn't matter here
+	// workspaceIDs are selected from a global map defined in main.go
+	if _, err := fileTwo.WriteString("\n" + name + " 10 " + dir); err != nil {
+		fmt.Println("Error Storing workspace name to workspaces.txt file", err)
+	}
 }
 
 func Watch() {
@@ -72,7 +84,7 @@ func Watch() {
 					case mode.IsDir():
 						// a directory was created
 						// add this to watcher list
-						AddDirToWatcher(watcher, event.Name)
+						AddDirToWatcher(watcher, event.Name, event.Name)
 					}
 
 					if event.Has(fsnotify.Write) {
@@ -102,6 +114,6 @@ func Watch() {
 		}
 	}()
 
-	AddDirToWatcher(watcher, "/home/aashab/works")
+	AddDirToWatcher(watcher, "/home/aashab/works", "works")
 	<-make(chan struct{})
 }

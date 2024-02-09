@@ -130,3 +130,17 @@
 /home/aashab/works
 /home/aashab/works
 /home/aashab/works
+/home/aashab/sail
+/home/aashab/course
+/home/aashab/NEW
+/home/aashab/Diamond
+/home/aashab/Faculty
+/home/aashab/asd
+/home/aashab/Medal
+/home/aashab/Morning
+/home/aashab/Dept
+/home/aashab/MTE
+/home/aashab/CSE
+/home/aashab/EEE
+/home/aashab/CIVIL
+/home/aashab/Modern
