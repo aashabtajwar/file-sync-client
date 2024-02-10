@@ -81,7 +81,7 @@ func (a *App) CreateWorkspace(workspaceName string) string {
 
 func (a *App) AddUserWithEmail(userEmail string, workspaceName string) string {
 	fmt.Println("PRINTING WORKSPACE NAME = ", workspaceName)
-	msg := api.AddUserToWorkspace(userEmail, "http://127.0.0.1:3333/add-user", authToken, workspaceDetail[userEmail])
+	msg := api.AddUserToWorkspace(userEmail, "http://127.0.0.1:3333/add-user", authToken, workspaceDetail[workspaceName])
 	return msg
 }
 

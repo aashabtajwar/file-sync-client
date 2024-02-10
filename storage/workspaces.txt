@@ -12,3 +12,4 @@ dishout 10 /home/aashab/dishout
 dIST 10 /home/aashab/dIST
 distro 10 /home/aashab/distro
 dishonored 10 /home/aashab/dishonored
+FC 10 /home/aashab/FC

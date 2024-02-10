@@ -153,3 +153,4 @@
 /home/aashab/dIST
 /home/aashab/distro
 /home/aashab/dishonored
+/home/aashab/FC
