@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/aashabtajwar/desktop-th/api"
+	"github.com/aashabtajwar/desktop-th/tasks"
 	"github.com/aashabtajwar/desktop-th/tokens"
 	"github.com/skratchdot/open-golang/open"
 )
@@ -72,12 +73,20 @@ func (a *App) AddContent() [][]string {
 }
 
 func (a *App) CreateWorkspace(workspaceName string) string {
-	msg := api.CreateWorkspace("/home/aashab/"+workspaceName, workspaceName, authToken, "http://127.0.0.1:3333/createw")
+	res := api.CreateWorkspace("/home/aashab/"+workspaceName, workspaceName, authToken, "http://127.0.0.1:3333/createw")
+	msg, id := tasks.Parse(res)
+	workspaceDetail[workspaceName] = id
 	return msg
 }
 
-func (a *App) DisplayFiles(path string) [][]string {
-	fileNames = getFileNames(path)
+func (a *App) AddUserWithEmail(userEmail string, workspaceName string) string {
+	fmt.Println("PRINTING WORKSPACE NAME = ", workspaceName)
+	msg := api.AddUserToWorkspace(userEmail, "http://127.0.0.1:3333/add-user", authToken, workspaceDetail[userEmail])
+	return msg
+}
+
+func (a *App) DisplayFiles(path string, workspaceName string) [][]string {
+	fileNames = getFileNames(path, workspaceName)
 	return fileNames
 }
 

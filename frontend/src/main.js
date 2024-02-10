@@ -2,7 +2,7 @@ import './style.css';
 import './app.css';
 import './home.js';
 
-import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles, OpenFile, GetRemoteWorkspaces, CreateWorkspace} from '../wailsjs/go/main/App';
+import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles, OpenFile, GetRemoteWorkspaces, CreateWorkspace, AddUserWithEmail} from '../wailsjs/go/main/App';
 
 
 let moreContent = '';
@@ -126,8 +126,9 @@ window.addNewContent = function() {
                 // let dirs = ""
                 let dirs = `<div style="display: table-cell" class="left-corner">\n`
                 result.forEach(dir => {
+                    console.log(dir)
                     // dirs = dirs + `<a href="#" onclick="showFiles(${dir[2]}); return false;" style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${dir[0]}</a>\n`
-                    dirs += `<button style="font-size:20px" onclick="dispFiles('${dir[2]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>\n`
+                    dirs += `<button style="font-size:20px" onclick="dispFiles('${dir[2]}', '${dir[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>\n`
                 });
                 dirs = dirs + `</div>`;
                 let createOption = `\n<div>
@@ -145,6 +146,9 @@ window.addNewContent = function() {
     }
 }
 
+
+
+
 window.openPrompt = function() {
     let folderName = prompt("Enter Workspace Name")
     CreateWorkspace(folderName)
@@ -158,18 +162,21 @@ window.openPrompt = function() {
 }
 
 
-window.dispFiles = function(path) {
+window.dispFiles = function(path, workspace) {
+    console.log(path, workspace)
     try {
-
-        console.log("HEREEEE")
-        DisplayFiles(path)
+        DisplayFiles(path, workspace)
             .then(result => {
                 let files = `<div style="display: table-cell" class="left-corner">\n`
                 result.forEach(file => {
-                    files += `<button style="font-size:13px" onclick="openfile('${file[1]}')"><i class="fa fa-file" style="font-size:30px">  ${file[0]}</button>`
+                    files += `<button style="font-size:20px" onclick="openfile('${file[1]}')"><i class="fa fa-file" style="font-size:20px">  ${file[0]}</button>`
                 })
-
+                
                 files += `</div>`
+                let createOption = `\n<div>
+                    <button id='${result[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
+                </div>`
+                files += createOption
                 document.querySelector('#app').innerHTML = navBar + "\n" + files;
             })
             .catch(err => {
@@ -183,7 +190,6 @@ window.dispFiles = function(path) {
 
 window.openfile = function(filePath) {
     try {
-        console.log("opening file...")
         OpenFile(filePath)
             .then(result => {
                 console.log(result)
@@ -194,6 +200,24 @@ window.openfile = function(filePath) {
     } catch (err) {
         console.error(err)
     }
+}
+
+window.openUserAddPrompt = function(workspaceName) {
+
+    try {
+        let userEmail = prompt("Enter User Email")
+        AddUserWithEmail(userEmail, workspaceName)
+            .then(result => {
+                console.log(result)
+            })
+            .catch(err => {
+                console.error(err)
+            })
+
+    } catch (err) {
+        console.error(err)
+    }
+    
 }
 
 // window.showFiles = function() {

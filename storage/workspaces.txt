@@ -6,3 +6,9 @@ Morning 10 /home/aashab/Morning
 EEE 10 /home/aashab/EEE
 CIVIL 10 /home/aashab/CIVIL
 Modern 10 /home/aashab/Modern
+destiny 10 /home/aashab/destiny
+fallout 10 /home/aashab/fallout
+dishout 10 /home/aashab/dishout
+dIST 10 /home/aashab/dIST
+distro 10 /home/aashab/distro
+dishonored 10 /home/aashab/dishonored

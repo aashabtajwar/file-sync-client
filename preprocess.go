@@ -21,7 +21,7 @@ func separateDirNames(dirs []string) [][]string {
 	return splitted
 }
 
-func getFileNames(path string) [][]string {
+func getFileNames(path string, workspaceName string) [][]string {
 	var fileNames [][]string
 	entries, err := os.ReadDir(path)
 	if err != nil {
@@ -31,6 +31,7 @@ func getFileNames(path string) [][]string {
 		var entry []string
 		entry = append(entry, e.Name())
 		entry = append(entry, path+"/"+e.Name())
+		entry = append(entry, workspaceName)
 		fileNames = append(fileNames, entry)
 	}
 	return fileNames

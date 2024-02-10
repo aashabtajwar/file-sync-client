@@ -17,7 +17,6 @@ func CreateWorkspace(dir string, name string, token string, endPoint string) str
 	}
 	watcher := monitor.CreateWatcher()
 	monitor.AddDirToWatcher(watcher, dir, name)
-	fmt.Println("this point...")
 	requestString := fmt.Sprintf(`
 	{
 		"name" : "%s"

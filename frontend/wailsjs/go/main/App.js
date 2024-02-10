@@ -6,6 +6,10 @@ export function AddContent() {
   return window['go']['main']['App']['AddContent']();
 }
 
+export function AddUserWithEmail(arg1, arg2) {
+  return window['go']['main']['App']['AddUserWithEmail'](arg1, arg2);
+}
+
 export function CheckAuthStatus() {
   return window['go']['main']['App']['CheckAuthStatus']();
 }
@@ -14,8 +18,8 @@ export function CreateWorkspace(arg1) {
   return window['go']['main']['App']['CreateWorkspace'](arg1);
 }
 
-export function DisplayFiles(arg1) {
-  return window['go']['main']['App']['DisplayFiles'](arg1);
+export function DisplayFiles(arg1, arg2) {
+  return window['go']['main']['App']['DisplayFiles'](arg1, arg2);
 }
 
 export function GetRemoteWorkspaces() {
