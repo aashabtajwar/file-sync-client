@@ -101,3 +101,31 @@ func (a *App) GetRemoteWorkspaces() []string {
 	fmt.Println("Remote Workspaces\n", r)
 	return remoteWorkspaces
 }
+
+func (a *App) GetSharedWorkspaces() [][]string {
+	var sharedWorkspaces [][]string // 0 - name; 1 - id
+	r := api.CheckWorkspaces(authToken)["workspaces"][0]
+	fmt.Println(r)
+	for name, id := range r {
+		// fmt.Println("id is the workspace id = ", id)
+		var w []string
+		w = append(w, name)
+		w = append(w, id)
+		sharedWorkspaces = append(sharedWorkspaces, w)
+		workspaceDetail[name] = id
+	}
+	fmt.Println(sharedWorkspaces)
+	return sharedWorkspaces
+}
+
+func (a *App) DisplaySharedWorkspaceFiles(workspaceID string) []string {
+	fmt.Println("Sending request")
+	r := api.RetrieveWorkspaceFiles(workspaceID, authToken)
+	names := sortFileNamesFromPath(r["file_names"])
+	return names
+}
+
+// random Debugger function
+func (a *App) Debug() {
+	fmt.Println("Debug Fn here")
+}

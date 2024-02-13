@@ -2,7 +2,20 @@ import './style.css';
 import './app.css';
 import './home.js';
 
-import {Greet, AddContent, Nice, Login, CheckAuthStatus, DisplayFiles, OpenFile, GetRemoteWorkspaces, CreateWorkspace, AddUserWithEmail} from '../wailsjs/go/main/App';
+import {Greet,
+        AddContent,
+        Nice,
+        Login,
+        CheckAuthStatus,
+        DisplayFiles,
+        OpenFile,
+        GetRemoteWorkspaces,
+        CreateWorkspace,
+        AddUserWithEmail,
+        GetSharedWorkspaces,
+        DisplaySharedWorkspaceFiles,
+        Debug
+    } from '../wailsjs/go/main/App';
 
 
 let moreContent = '';
@@ -14,7 +27,7 @@ let navBar = `
             <div><button class="nav-button">Photos</button></div>
             <div><button class="nav-button">Documents</button>
             <div><button class="nav-button">Presentations</button></div>
-            <button class="nav-button" onclick="facts()">Shared</button>
+            <button class="nav-button" onclick="viewSharedWorkspaces()">Shared</button>
             <!-- Add more sidebar links as needed -->
             <div class="sep-line"></div>
             <div><button class="nav-button" onclick="addNewContent()">Local</button></div>
@@ -103,6 +116,53 @@ document.querySelector('#app').innerHTML = `
 
 checkToken()
 
+
+window.viewSharedWorkspaces = function() {
+    try {
+        GetSharedWorkspaces()
+            .then(result => {
+                console.log(result)
+                let dirs = `<div style="display: table-cell" class="left-corner">\n`
+                result.forEach(dir => {
+                    dirs += `<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${dir[1]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${dir[0]}</button>`
+                })
+                dirs = dirs + `</div>`
+                document.querySelector("#app").innerHTML = navBar + "\n" + dirs;
+            })
+            .catch(err => {
+                
+            })
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+window.displaySharedWorkspaceFiles = function(workspaceID) {
+    try {
+        DisplaySharedWorkspaceFiles(workspaceID)
+            .then(result => {
+                Debug()
+                let files = `<div style="display: table-cell" class="left-corner">\n`
+                result.forEach(file => {
+                    files += `<button style="font-size:20px" onclick="openfile('')"><i class="fa fa-file" style="font-size:20px">  ${file}</button>`
+                })
+                files += `</div>`
+                let createDownloadButton = `\n<div>
+                    <button onclick="downloadThisWorkspace()">Download</button>
+                <div>
+                `
+                files += createDownloadButton
+                document.querySelector('#app').innerHTML = navBar + "\n" + files;
+            })
+            .catch(err => {
+                console.error(err)
+            })
+
+    } catch(err) {
+        console.error(err)
+    }
+}
+
 window.loadRemoteWorkspaces = function() {
     try {
         GetRemoteWorkspaces()
@@ -116,7 +176,6 @@ window.loadRemoteWorkspaces = function() {
         console.error(err)
     }
 }
-
 
 window.addNewContent = function() {
     try {

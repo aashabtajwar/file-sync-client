@@ -36,3 +36,18 @@ func getFileNames(path string, workspaceName string) [][]string {
 	}
 	return fileNames
 }
+
+func sortFileNamesFromPath(paths []string) []string {
+	// also remove workspace prefixes
+	var names []string
+	for _, e := range paths {
+		splitted := strings.Split(e, "/")
+		name := splitted[len(splitted)-1]
+		names = append(names, name)
+	}
+	return names
+}
+
+// func sharedWorkspaceDirs() [][]string {
+
+// }

@@ -9,9 +9,15 @@ export function CheckAuthStatus():Promise<string>;
 
 export function CreateWorkspace(arg1:string):Promise<string>;
 
+export function Debug():Promise<void>;
+
 export function DisplayFiles(arg1:string,arg2:string):Promise<Array<any>>;
 
+export function DisplaySharedWorkspaceFiles(arg1:string):Promise<Array<string>>;
+
 export function GetRemoteWorkspaces():Promise<Array<string>>;
+
+export function GetSharedWorkspaces():Promise<Array<any>>;
 
 export function Greet(arg1:string):Promise<string>;
 

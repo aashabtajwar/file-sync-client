@@ -18,12 +18,24 @@ export function CreateWorkspace(arg1) {
   return window['go']['main']['App']['CreateWorkspace'](arg1);
 }
 
+export function Debug() {
+  return window['go']['main']['App']['Debug']();
+}
+
 export function DisplayFiles(arg1, arg2) {
   return window['go']['main']['App']['DisplayFiles'](arg1, arg2);
 }
 
+export function DisplaySharedWorkspaceFiles(arg1) {
+  return window['go']['main']['App']['DisplaySharedWorkspaceFiles'](arg1);
+}
+
 export function GetRemoteWorkspaces() {
   return window['go']['main']['App']['GetRemoteWorkspaces']();
+}
+
+export function GetSharedWorkspaces() {
+  return window['go']['main']['App']['GetSharedWorkspaces']();
 }
 
 export function Greet(arg1) {
