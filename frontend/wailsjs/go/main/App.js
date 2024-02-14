@@ -42,6 +42,10 @@ export function GetRemoteWorkspaces() {
   return window['go']['main']['App']['GetRemoteWorkspaces']();
 }
 
+export function GetRemoteWorkspacesV2() {
+  return window['go']['main']['App']['GetRemoteWorkspacesV2']();
+}
+
 export function GetSharedWorkspaces() {
   return window['go']['main']['App']['GetSharedWorkspaces']();
 }

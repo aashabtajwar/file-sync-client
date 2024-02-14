@@ -15,7 +15,8 @@ import {Greet,
         GetSharedWorkspaces,
         DisplaySharedWorkspaceFiles,
         Debug,
-        DownloadSharedWorkspace
+        DownloadSharedWorkspace,
+        GetRemoteWorkspacesV2
     } from '../wailsjs/go/main/App';
 
 
@@ -177,9 +178,16 @@ window.downloadThisWorkspace = function(workspaceName, workspaceID) {
 
 window.loadRemoteWorkspaces = function() {
     try {
-        GetRemoteWorkspaces()
+        GetRemoteWorkspacesV2()
             .then(result => {
                 
+                console.log(result)
+                let dirs = `<div style="display: table-cell" class="left-corner">\n`
+                result.forEach(dir => {
+                    dirs += `<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${dir[1]}', '${dir[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${dir[0]}</button>`
+                })
+                dirs = dirs + `</div>`
+                document.querySelector("#app").innerHTML = navBar + "\n" + dirs;
             })
             .catch(err => {
                 console.error(err)

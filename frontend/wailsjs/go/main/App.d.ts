@@ -21,6 +21,8 @@ export function ErrorMsg(arg1:string):Promise<void>;
 
 export function GetRemoteWorkspaces():Promise<Array<string>>;
 
+export function GetRemoteWorkspacesV2():Promise<Array<any>>;
+
 export function GetSharedWorkspaces():Promise<Array<any>>;
 
 export function Greet(arg1:string):Promise<string>;

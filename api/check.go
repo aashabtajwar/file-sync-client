@@ -9,8 +9,8 @@ import (
 	"github.com/aashabtajwar/desktop-th/errorhandling"
 )
 
-func CheckWorkspaces(token string) map[string][]map[string]string {
-	endPoint := "http://127.0.0.1:3333/check"
+func CheckWorkspaces(token string, endPoint string) map[string][]map[string]string {
+	// endPoint := "http://127.0.0.1:3333/check"
 	r, err := http.NewRequest("GET", endPoint, nil)
 
 	if err != nil {

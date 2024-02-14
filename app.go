@@ -101,14 +101,42 @@ func (a *App) OpenFile(filePath string) string {
 
 func (a *App) GetRemoteWorkspaces() []string {
 	var remoteWorkspaces []string
-	r := api.CheckWorkspaces(authToken)
+	r := api.CheckWorkspaces(authToken, "http://")
 	fmt.Println("Remote Workspaces\n", r)
 	return remoteWorkspaces
 }
 
+func (a *App) GetRemoteWorkspacesV2() [][]string {
+	var remoteWorkspaces [][]string
+	r := api.CheckWorkspaces(authToken, "http://127.0.0.1:3333/check-remote")["workspaces"]
+	fmt.Println(r)
+	for _, e := range r {
+		// fmt.Println("id is the workspace id = ", id)
+		var w []string
+		for workspaceName, id := range e {
+			w = append(w, workspaceName)
+			w = append(w, id)
+			workspaceDetail[workspaceName] = id
+		}
+		remoteWorkspaces = append(remoteWorkspaces, w)
+	}
+	fmt.Println(remoteWorkspaces)
+	return remoteWorkspaces
+}
+
+// func (a *App) GetRemoteFiles(workspaceID string, workspaceName string) [][]string {
+
+// 	fmt.Println("WS ID = ", workspaceID)
+// 	r := api.RetrieveWorkspaceFiles(workspaceID, authToken)
+// 	fmt.Println(r)
+// 	names := sortFileNamesFromPath(r["file_names"], workspaceName, workspaceID)
+// 	fmt.Println(names)
+// 	return names
+// }
+
 func (a *App) GetSharedWorkspaces() [][]string {
 	var sharedWorkspaces [][]string // 0 - name; 1 - id
-	r := api.CheckWorkspaces(authToken)["workspaces"]
+	r := api.CheckWorkspaces(authToken, "http://127.0.0.1:3333/check")["workspaces"]
 	fmt.Println(r)
 	for _, e := range r {
 		// fmt.Println("id is the workspace id = ", id)
