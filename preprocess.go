@@ -37,13 +37,17 @@ func getFileNames(path string, workspaceName string) [][]string {
 	return fileNames
 }
 
-func sortFileNamesFromPath(paths []string) []string {
+func sortFileNamesFromPath(paths []string, workspaceName string, workspaceID string) [][]string {
 	// also remove workspace prefixes
-	var names []string
+	var names [][]string
 	for _, e := range paths {
 		splitted := strings.Split(e, "/")
 		name := splitted[len(splitted)-1]
-		names = append(names, name)
+		var n []string
+		n = append(n, name)
+		n = append(n, workspaceName)
+		n = append(n, workspaceName)
+		names = append(names, n)
 	}
 	return names
 }

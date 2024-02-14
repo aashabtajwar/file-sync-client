@@ -57,6 +57,7 @@ func main() {
 	// Create an instance of the app structure
 
 	// go tcp.Connect(authToken)
+	go monitor.Watch()
 	app := NewApp()
 
 	// Create application with options
@@ -82,8 +83,6 @@ func main() {
 	// the desktop app has multiple parts
 
 	loadWorkspaces()
-
-	go monitor.Watch()
 
 	// check for token
 

@@ -14,6 +14,8 @@ func CreateWorkspaceDir(workspaceName string) {
 		fmt.Println("Error Creating Directory:\n", err)
 	}
 
+	// add this to workspaces.txt list
+
 	// add this directory to watcher list
 
 	// download files

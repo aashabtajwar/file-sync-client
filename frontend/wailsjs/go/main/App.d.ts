@@ -13,7 +13,11 @@ export function Debug():Promise<void>;
 
 export function DisplayFiles(arg1:string,arg2:string):Promise<Array<any>>;
 
-export function DisplaySharedWorkspaceFiles(arg1:string):Promise<Array<string>>;
+export function DisplaySharedWorkspaceFiles(arg1:string,arg2:string):Promise<Array<any>>;
+
+export function DownloadSharedWorkspace(arg1:string,arg2:string):Promise<void>;
+
+export function ErrorMsg(arg1:string):Promise<void>;
 
 export function GetRemoteWorkspaces():Promise<Array<string>>;
 

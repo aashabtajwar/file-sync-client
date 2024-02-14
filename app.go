@@ -8,6 +8,7 @@ import (
 	"github.com/aashabtajwar/desktop-th/tasks"
 	"github.com/aashabtajwar/desktop-th/tcp"
 	"github.com/aashabtajwar/desktop-th/tokens"
+	"github.com/labstack/gommon/log"
 	"github.com/skratchdot/open-golang/open"
 )
 
@@ -84,7 +85,6 @@ func (a *App) CreateWorkspace(workspaceName string) string {
 }
 
 func (a *App) AddUserWithEmail(userEmail string, workspaceName string) string {
-	fmt.Println("PRINTING WORKSPACE NAME = ", workspaceName)
 	msg := api.AddUserToWorkspace(userEmail, "http://127.0.0.1:3333/add-user", authToken, workspaceDetail[workspaceName])
 	return msg
 }
@@ -108,28 +108,41 @@ func (a *App) GetRemoteWorkspaces() []string {
 
 func (a *App) GetSharedWorkspaces() [][]string {
 	var sharedWorkspaces [][]string // 0 - name; 1 - id
-	r := api.CheckWorkspaces(authToken)["workspaces"][0]
+	r := api.CheckWorkspaces(authToken)["workspaces"]
 	fmt.Println(r)
-	for name, id := range r {
+	for _, e := range r {
 		// fmt.Println("id is the workspace id = ", id)
 		var w []string
-		w = append(w, name)
-		w = append(w, id)
+		for workspaceName, id := range e {
+			w = append(w, workspaceName)
+			w = append(w, id)
+			workspaceDetail[workspaceName] = id
+		}
 		sharedWorkspaces = append(sharedWorkspaces, w)
-		workspaceDetail[name] = id
 	}
 	fmt.Println(sharedWorkspaces)
 	return sharedWorkspaces
 }
 
-func (a *App) DisplaySharedWorkspaceFiles(workspaceID string) []string {
-	fmt.Println("Sending request")
+func (a *App) DisplaySharedWorkspaceFiles(workspaceID string, workspaceName string) [][]string {
 	r := api.RetrieveWorkspaceFiles(workspaceID, authToken)
-	names := sortFileNamesFromPath(r["file_names"])
+	fmt.Println(r)
+	names := sortFileNamesFromPath(r["file_names"], workspaceName, workspaceID)
+	fmt.Println(names)
 	return names
+}
+
+func (a *App) DownloadSharedWorkspace(workspaceName string, workspaceID string) {
+	r := api.DownloadWorkspaceV2(authToken, workspaceID, workspaceName)
+	fmt.Println(r)
 }
 
 // random Debugger function
 func (a *App) Debug() {
 	fmt.Println("Debug Fn here")
+}
+
+// Error Message
+func (a *App) ErrorMsg(msg string) {
+	log.Error(msg)
 }

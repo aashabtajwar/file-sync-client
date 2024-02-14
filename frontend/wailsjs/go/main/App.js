@@ -26,8 +26,16 @@ export function DisplayFiles(arg1, arg2) {
   return window['go']['main']['App']['DisplayFiles'](arg1, arg2);
 }
 
-export function DisplaySharedWorkspaceFiles(arg1) {
-  return window['go']['main']['App']['DisplaySharedWorkspaceFiles'](arg1);
+export function DisplaySharedWorkspaceFiles(arg1, arg2) {
+  return window['go']['main']['App']['DisplaySharedWorkspaceFiles'](arg1, arg2);
+}
+
+export function DownloadSharedWorkspace(arg1, arg2) {
+  return window['go']['main']['App']['DownloadSharedWorkspace'](arg1, arg2);
+}
+
+export function ErrorMsg(arg1) {
+  return window['go']['main']['App']['ErrorMsg'](arg1);
 }
 
 export function GetRemoteWorkspaces() {

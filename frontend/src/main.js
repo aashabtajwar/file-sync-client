@@ -14,7 +14,8 @@ import {Greet,
         AddUserWithEmail,
         GetSharedWorkspaces,
         DisplaySharedWorkspaceFiles,
-        Debug
+        Debug,
+        DownloadSharedWorkspace
     } from '../wailsjs/go/main/App';
 
 
@@ -124,7 +125,7 @@ window.viewSharedWorkspaces = function() {
                 console.log(result)
                 let dirs = `<div style="display: table-cell" class="left-corner">\n`
                 result.forEach(dir => {
-                    dirs += `<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${dir[1]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${dir[0]}</button>`
+                    dirs += `<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${dir[1]}', '${dir[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${dir[0]}</button>`
                 })
                 dirs = dirs + `</div>`
                 document.querySelector("#app").innerHTML = navBar + "\n" + dirs;
@@ -137,18 +138,21 @@ window.viewSharedWorkspaces = function() {
     }
 }
 
-window.displaySharedWorkspaceFiles = function(workspaceID) {
+window.displaySharedWorkspaceFiles = function(workspaceID, workspaceName) {
+    Debug()
     try {
-        DisplaySharedWorkspaceFiles(workspaceID)
+        DisplaySharedWorkspaceFiles(workspaceID, workspaceName)
             .then(result => {
                 Debug()
                 let files = `<div style="display: table-cell" class="left-corner">\n`
                 result.forEach(file => {
-                    files += `<button style="font-size:20px" onclick="openfile('')"><i class="fa fa-file" style="font-size:20px">  ${file}</button>`
+                    files += `<button style="font-size:20px" onclick="openfile('')"><i class="fa fa-file" style="font-size:20px">  ${file[0]}</button>`
                 })
                 files += `</div>`
+                let f = result[0]
+
                 let createDownloadButton = `\n<div>
-                    <button onclick="downloadThisWorkspace()">Download</button>
+                    <button onclick="downloadThisWorkspace('${f[1]}', '${f[2]}')">Download</button>
                 <div>
                 `
                 files += createDownloadButton
@@ -158,6 +162,14 @@ window.displaySharedWorkspaceFiles = function(workspaceID) {
                 console.error(err)
             })
 
+    } catch(err) {
+        console.error(err)
+    }
+}
+
+window.downloadThisWorkspace = function(workspaceName, workspaceID) {
+    try {
+        DownloadSharedWorkspace(workspaceName, workspaceID)
     } catch(err) {
         console.error(err)
     }
