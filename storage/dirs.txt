@@ -154,3 +154,5 @@
 /home/aashab/distro
 /home/aashab/dishonored
 /home/aashab/FC
+/home/aashab/MTE1100
+/home/aashab/MEGA

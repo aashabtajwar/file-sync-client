@@ -55,6 +55,8 @@ func main() {
 
 	// --------------GUI Starts--------------------
 	// Create an instance of the app structure
+
+	// go tcp.Connect(authToken)
 	app := NewApp()
 
 	// Create application with options
@@ -114,7 +116,6 @@ func main() {
 
 		}
 
-		tcp.Connect(authToken)
 		for {
 
 			// fmt.Println("printing auth token\n", authToken)

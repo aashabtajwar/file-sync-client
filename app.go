@@ -6,6 +6,7 @@ import (
 
 	"github.com/aashabtajwar/desktop-th/api"
 	"github.com/aashabtajwar/desktop-th/tasks"
+	"github.com/aashabtajwar/desktop-th/tcp"
 	"github.com/aashabtajwar/desktop-th/tokens"
 	"github.com/skratchdot/open-golang/open"
 )
@@ -43,6 +44,8 @@ func (a *App) CheckAuthStatus() string {
 			return "Credentials expired. Please log in again"
 		} else {
 			// if token is still valid, move to home page
+
+			go tcp.Connect(authToken)
 			return "Already Logged In"
 		}
 	}
@@ -62,6 +65,7 @@ func (a *App) Nice(name string) string {
 func (a *App) Login(email string, password string) string {
 	res := api.Login(email, password)
 	token = res["token"]
+	go tcp.Connect(token)
 	return res["message"]
 }
 

@@ -31,11 +31,11 @@
 `;S();window.viewSharedWorkspaces=function(){try{b().then(e=>{console.log(e);let t=`<div style="display: table-cell" class="left-corner">
 `;e.forEach(n=>{t+=`<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${n[1]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${n[0]}</button>`}),t=t+"</div>",document.querySelector("#app").innerHTML=c+`
 `+t}).catch(e=>{})}catch(e){console.error(e)}};window.displaySharedWorkspaceFiles=function(e){try{w(e).then(t=>{m();let n=`<div style="display: table-cell" class="left-corner">
-`;t.forEach(o=>{n+=`<button style="font-size:20px" onclick="openfile('')"><i class="fa fa-file" style="font-size:20px">  ${o}</button>`}),n+="</div>";let i=`
+`;t.forEach(o=>{n+=`<button style="font-size:20px" onclick="openfile('')"><i class="fa fa-file" style="font-size:20px">  ${o}</button>`}),n+="</div>",n+=`
 <div>
                     <button onclick="downloadThisWorkspace()">Download</button>
                 <div>
-                `;n+=createDownloadOption,document.querySelector("#app").innerHTML=c+`
+                `,document.querySelector("#app").innerHTML=c+`
 `+n}).catch(t=>{console.error(t)})}catch(t){console.error(t)}};window.loadRemoteWorkspaces=function(){try{y().then(e=>{}).catch(e=>{console.error(e)})}catch(e){console.error(e)}};window.addNewContent=function(){try{console.log("adding new content"),d().then(e=>{let t=`<div style="display: table-cell" class="left-corner">
 `;e.forEach(i=>{console.log(i),t+=`<button style="font-size:20px" onclick="dispFiles('${i[2]}', '${i[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>  ${i[0]}</button>
 `}),t=t+"</div>",t+=`

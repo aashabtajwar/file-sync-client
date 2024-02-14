@@ -13,3 +13,5 @@ dIST 10 /home/aashab/dIST
 distro 10 /home/aashab/distro
 dishonored 10 /home/aashab/dishonored
 FC 10 /home/aashab/FC
+MTE1100 10 /home/aashab/MTE1100
+MEGA 10 /home/aashab/MEGA
