@@ -46,7 +46,7 @@ func sortFileNamesFromPath(paths []string, workspaceName string, workspaceID str
 		var n []string
 		n = append(n, name)
 		n = append(n, workspaceName)
-		n = append(n, workspaceName)
+		n = append(n, workspaceID)
 		names = append(names, n)
 	}
 	return names

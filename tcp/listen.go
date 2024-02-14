@@ -19,7 +19,7 @@ func save(metadata map[string]string, fileData *bytes.Buffer) {
 
 	// for now, files are being saved in this directory
 	// you should change it so that they are saved in the intended workspace dir
-	f, err := os.Create(metadata["name"])
+	f, err := os.Create("/home/aashab/FileSync/" + metadata["workspace"] + "/" + metadata["name"])
 	if err != nil {
 		fmt.Println("Error creating file: \n", err)
 	}

@@ -125,6 +125,7 @@ func (a *App) GetSharedWorkspaces() [][]string {
 }
 
 func (a *App) DisplaySharedWorkspaceFiles(workspaceID string, workspaceName string) [][]string {
+	fmt.Println("WS ID = ", workspaceID)
 	r := api.RetrieveWorkspaceFiles(workspaceID, authToken)
 	fmt.Println(r)
 	names := sortFileNamesFromPath(r["file_names"], workspaceName, workspaceID)
@@ -133,6 +134,8 @@ func (a *App) DisplaySharedWorkspaceFiles(workspaceID string, workspaceName stri
 }
 
 func (a *App) DownloadSharedWorkspace(workspaceName string, workspaceID string) {
+	fmt.Println("Workspace Name = ", workspaceName)
+	fmt.Println("Workspace ID = ", workspaceID)
 	r := api.DownloadWorkspaceV2(authToken, workspaceID, workspaceName)
 	fmt.Println(r)
 }

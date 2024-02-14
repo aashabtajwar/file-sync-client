@@ -24,7 +24,7 @@ func DownloadWorkspace(token string, workspaceId string) string {
 func DownloadWorkspaceV2(token string, workspaceId string, workspaceName string) string {
 	// first create a workspace with the name given on arguments
 	// then, send an http request to server which will prompt it to send files
-	tasks.CreateWorkspaceDir(workspaceName)
+	tasks.CreateWorkspaceDir("/FileSync/" + workspaceName)
 
 	requestString := fmt.Sprintf(`
 	{
