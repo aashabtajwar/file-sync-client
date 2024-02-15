@@ -89,6 +89,10 @@ func (a *App) AddUserWithEmail(userEmail string, workspaceName string) string {
 	return msg
 }
 
+// func (a *App) DisplayAllLocalFiles() [][]string {
+// 	fileNames =
+// }
+
 func (a *App) DisplayFiles(path string, workspaceName string) [][]string {
 	fileNames = getFileNames(path, workspaceName)
 	return fileNames

@@ -21,6 +21,10 @@ func separateDirNames(dirs []string) [][]string {
 	return splitted
 }
 
+// func getAllLocalFiles() [][]string {
+// 	entries, err := os.ReadDir("/")
+// }
+
 func getFileNames(path string, workspaceName string) [][]string {
 	var fileNames [][]string
 	entries, err := os.ReadDir(path)

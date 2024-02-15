@@ -57,6 +57,10 @@ func main() {
 	// Create an instance of the app structure
 
 	// go tcp.Connect(authToken)
+	// er := beeep.Notify("Title", "Message body", "assets/information.png")
+	// if er != nil {
+	// 	panic(er)
+	// }
 	go monitor.Watch()
 	app := NewApp()
 

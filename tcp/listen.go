@@ -9,7 +9,17 @@ import (
 	"io"
 	"net"
 	"os"
+
+	"github.com/gen2brain/beeep"
 )
+
+// real time notification
+func showNotification(metadata map[string]string, file *bytes.Buffer) {
+	err := beeep.Notify("File Sync", metadata["message"], "assets/information.png")
+	if err != nil {
+		panic(err)
+	}
+}
 
 func save(metadata map[string]string, fileData *bytes.Buffer) {
 	// direct the dir in which files will be stored
