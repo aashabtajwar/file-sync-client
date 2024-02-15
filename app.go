@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/aashabtajwar/desktop-th/api"
 	"github.com/aashabtajwar/desktop-th/tasks"
@@ -137,6 +138,24 @@ func (a *App) GetRemoteWorkspacesV2() [][]string {
 // 	fmt.Println(names)
 // 	return names
 // }
+
+// func (a *App) DisplaySharedUsers() [][]string {
+// 	var sharedUsers [][]string // name and userID
+// 	r := api.ViewSharedUsers(authToken, remoteUrl+"shared-users")
+// 	return sharedUsers
+// }
+
+func (a *App) ListAllFiles() [][]string {
+	var allFiles [][]string
+	localWorkspaces := fetchWorkspaces()
+	for _, e := range localWorkspaces {
+		splitted := strings.Split(e, " ")
+		files := getFileNames(splitted[2], splitted[0])
+		allFiles = append(allFiles, files...)
+	}
+	fmt.Println(allFiles)
+	return allFiles
+}
 
 func (a *App) GetSharedWorkspaces() [][]string {
 	var sharedWorkspaces [][]string // 0 - name; 1 - id

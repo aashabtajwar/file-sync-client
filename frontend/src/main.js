@@ -16,7 +16,8 @@ import {Greet,
         DisplaySharedWorkspaceFiles,
         Debug,
         DownloadSharedWorkspace,
-        GetRemoteWorkspacesV2
+        GetRemoteWorkspacesV2,
+        ListAllFiles
     } from '../wailsjs/go/main/App';
 
 
@@ -25,7 +26,7 @@ let navBar = `
 <div style="width: 100%; display: table">
     <div style="display: table-row; height: 100px">
         <div class="sidebar" style="width: 15%; display: table-cell">
-            <div><button class="nav-button">All Files</button></div>
+            <div><button class="nav-button" onclick="allFiles()">All Files</button></div>
             <div><button class="nav-button">Photos</button></div>
             <div><button class="nav-button">Documents</button>
             <div><button class="nav-button">Presentations</button></div>
@@ -118,6 +119,32 @@ document.querySelector('#app').innerHTML = `
 
 checkToken()
 
+
+
+window.allFiles = function() {
+    try {
+        ListAllFiles()
+
+            .then(result => {
+                let files = `<div style="display: table-cell" class="left-corner">\n`
+                result.forEach(file => {
+                    files += `<button style="font-size:20px" onclick="openfile('${file[1]}')"><i class="fa fa-file" style="font-size:20px">  ${file[0]}</button>`
+                })
+                
+                files += `</div>`
+                let createOption = `\n<div>
+                    <button id='${result[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
+                </div>`
+                files += createOption
+                document.querySelector('#app').innerHTML = navBar + "\n" + files;
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    } catch(err) {
+        console.error(err)
+    }
+}
 
 window.viewSharedWorkspaces = function() {
     try {
