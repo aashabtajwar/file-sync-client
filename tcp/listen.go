@@ -14,8 +14,8 @@ import (
 )
 
 // real time notification
-func showNotification(metadata map[string]string, file *bytes.Buffer) {
-	err := beeep.Notify("File Sync", metadata["message"], "assets/information.png")
+func showNotification(metadata map[string]string, fileData *bytes.Buffer) {
+	err := beeep.Notify("File Sync", fileData.String(), "assets/information.png")
 	if err != nil {
 		panic(err)
 	}
@@ -27,12 +27,13 @@ func save(metadata map[string]string, fileData *bytes.Buffer) {
 	fmt.Println(fileData.Bytes())
 	fmt.Println("meta => ", metadata["name"])
 	if metadata["isNotification"] == "1" {
+		fmt.Println("Following this path")
 		showNotification(metadata, fileData)
 	} else {
 
 		// for now, files are being saved in this directory
 		// you should change it so that they are saved in the intended workspace dir
-		f, err := os.Create("/home/aashab/FileSync/" + metadata["workspace"] + "/" + metadata["name"])
+		f, err := os.Create("/home/aashab/FileSync" + metadata["workspace"] + "/" + metadata["name"])
 		if err != nil {
 			fmt.Println("Error creating file: \n", err)
 		}
