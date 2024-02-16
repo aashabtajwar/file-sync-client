@@ -58,6 +58,10 @@ export function ListAllFiles() {
   return window['go']['main']['App']['ListAllFiles']();
 }
 
+export function ListSpecificFiles(arg1) {
+  return window['go']['main']['App']['ListSpecificFiles'](arg1);
+}
+
 export function Login(arg1, arg2) {
   return window['go']['main']['App']['Login'](arg1, arg2);
 }

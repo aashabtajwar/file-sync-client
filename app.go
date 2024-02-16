@@ -56,11 +56,11 @@ func (a *App) CheckAuthStatus() string {
 // Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
 	// return fmt.Sprintf("Hello %s, It's show time!", name)
-	return fmt.Sprintf("Whatever man")
+	return ("Whatever man")
 }
 
 func (a *App) Nice(name string) string {
-	return fmt.Sprintf("Nevermind man")
+	return ("Nevermind man")
 }
 
 // login user
@@ -144,6 +144,19 @@ func (a *App) GetRemoteWorkspacesV2() [][]string {
 // 	r := api.ViewSharedUsers(authToken, remoteUrl+"shared-users")
 // 	return sharedUsers
 // }
+
+func (a *App) ListSpecificFiles(fileType []string) [][]string {
+	var allDocs [][]string
+	localWorkspaces := fetchWorkspaces()
+	for _, e := range localWorkspaces {
+		splitted := strings.Split(e, " ")
+		for _, x := range fileType {
+			files := getFileNamesWithExtensions(splitted[2], splitted[0], x)
+			allDocs = append(allDocs, files...)
+		}
+	}
+	return allDocs
+}
 
 func (a *App) ListAllFiles() [][]string {
 	var allFiles [][]string

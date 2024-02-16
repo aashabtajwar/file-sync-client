@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/aashabtajwar/desktop-th/errorhandling"
 )
 
 func separateDirNames(dirs []string) [][]string {
@@ -24,6 +26,26 @@ func separateDirNames(dirs []string) [][]string {
 // func getAllLocalFiles() [][]string {
 // 	entries, err := os.ReadDir("/")
 // }
+
+func getFileNamesWithExtensions(path string, workspaceName string, extension string) [][]string {
+	var fileNames [][]string
+	entries, err := os.ReadDir(path)
+
+	errorhandling.ErrorReadingDir(err)
+
+	for _, e := range entries {
+		var entry []string
+		splitted := strings.Split(e.Name(), ".")
+		if splitted[len(splitted)-1] == extension {
+			entry = append(entry, e.Name())
+			entry = append(entry, path+"/"+e.Name())
+			entry = append(entry, workspaceName)
+			fileNames = append(fileNames, entry)
+		}
+
+	}
+	return fileNames
+}
 
 func getFileNames(path string, workspaceName string) [][]string {
 	var fileNames [][]string

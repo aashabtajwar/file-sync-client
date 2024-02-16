@@ -17,7 +17,8 @@ import {Greet,
         Debug,
         DownloadSharedWorkspace,
         GetRemoteWorkspacesV2,
-        ListAllFiles
+        ListAllFiles,
+        ListSpecificFiles
     } from '../wailsjs/go/main/App';
 
 
@@ -27,9 +28,9 @@ let navBar = `
     <div style="display: table-row; height: 100px">
         <div class="sidebar" style="width: 15%; display: table-cell">
             <div><button class="nav-button" onclick="allFiles()">All Files</button></div>
-            <div><button class="nav-button">Photos</button></div>
-            <div><button class="nav-button">Documents</button>
-            <div><button class="nav-button">Presentations</button></div>
+            <div><button class="nav-button" onclick="allDocs('jpg', 'png')">Photos</button></div>
+            <div><button class="nav-button" onclick="allDocs('pdf', 'docx')">Documents</button>
+            <div><button class="nav-button" onclick="allDocs('pptx', 'ppt')">Presentations</button></div>
             <button class="nav-button" onclick="viewSharedWorkspaces()">Shared</button>
             <!-- Add more sidebar links as needed -->
             <div class="sep-line"></div>
@@ -120,6 +121,32 @@ document.querySelector('#app').innerHTML = `
 checkToken()
 
 
+
+window.allDocs = function(ext1, ext2) {
+    
+    try {
+        ListSpecificFiles([ext1, ext2])
+
+            .then(result => {
+                let files = `<div style="display: table-cell" class="left-corner">\n`
+                result.forEach(file => {
+                    files += `<button style="font-size:20px" onclick="openfile('${file[1]}')"><i class="fa fa-file" style="font-size:20px">  ${file[0]}</button>`
+                })
+                
+                files += `</div>`
+                let createOption = `\n<div>
+                    <button id='${result[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
+                </div>`
+                files += createOption
+                document.querySelector('#app').innerHTML = navBar + "\n" + files;
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    } catch(err) {
+        console.error(err)
+    }
+}
 
 window.allFiles = function() {
     try {
