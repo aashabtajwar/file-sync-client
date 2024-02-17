@@ -26,6 +26,10 @@ export function DisplayFiles(arg1, arg2) {
   return window['go']['main']['App']['DisplayFiles'](arg1, arg2);
 }
 
+export function DisplaySharedUsers() {
+  return window['go']['main']['App']['DisplaySharedUsers']();
+}
+
 export function DisplaySharedWorkspaceFiles(arg1, arg2) {
   return window['go']['main']['App']['DisplaySharedWorkspaceFiles'](arg1, arg2);
 }

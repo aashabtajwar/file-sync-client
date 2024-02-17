@@ -29,30 +29,32 @@ func CreateWatcher() *fsnotify.Watcher {
 }
 
 func AddDirToWatcher(watcher *fsnotify.Watcher, dir string, name string) {
-	err := watcher.Add(dir)
-	if err != nil {
-		fmt.Println("Error Adding Directory to Watcher List\n", err)
-	}
-	file, err := os.OpenFile("storage/dirs.txt", os.O_APPEND|os.O_WRONLY, 0644)
-	if err != nil {
-		fmt.Println("Error Opening File for storage dirs\n", err)
-	}
-	defer file.Close()
-	if _, err := file.WriteString(dir + "\n"); err != nil {
-		fmt.Println("Error Storing Dir name to file\n", err)
-	}
+	if dir != "" {
+		err := watcher.Add(dir)
+		if err != nil {
+			fmt.Println("Error Adding Directory to Watcher List\n", err)
+		}
+		file, err := os.OpenFile("storage/dirs.txt", os.O_APPEND|os.O_WRONLY, 0644)
+		if err != nil {
+			fmt.Println("Error Opening File for storage dirs\n", err)
+		}
+		defer file.Close()
+		if _, err := file.WriteString(dir + "\n"); err != nil {
+			fmt.Println("Error Storing Dir name to file\n", err)
+		}
 
-	fileTwo, err := os.OpenFile("storage/workspaces.txt", os.O_APPEND|os.O_WRONLY, 0644)
-	if err != nil {
-		fmt.Println("Error Opening File for Workspace Dirs\n", err)
-	}
-	defer fileTwo.Close()
+		fileTwo, err := os.OpenFile("storage/workspaces.txt", os.O_APPEND|os.O_WRONLY, 0644)
+		if err != nil {
+			fmt.Println("Error Opening File for Workspace Dirs\n", err)
+		}
+		defer fileTwo.Close()
 
-	// assigning random numbers as workspaceIDs to workspaces
-	// cause it doensn't matter here
-	// workspaceIDs are selected from a global map defined in main.go
-	if _, err := fileTwo.WriteString("\n" + name + " 10 " + dir); err != nil {
-		fmt.Println("Error Storing workspace name to workspaces.txt file", err)
+		// assigning random numbers as workspaceIDs to workspaces
+		// cause it doensn't matter here
+		// workspaceIDs are selected from a global map defined in main.go
+		if _, err := fileTwo.WriteString("\n" + name + " 10 " + dir); err != nil {
+			fmt.Println("Error Storing workspace name to workspaces.txt file", err)
+		}
 	}
 }
 
@@ -113,7 +115,18 @@ func Watch() {
 
 		}
 	}()
+	// load workspaces.txt dir
+	// then all those paths in the watcher
+	dirLocations, err := os.ReadFile("storage/workspaces.txt")
+	if err != nil {
+		fmt.Println("Error Reading Workspaces\n", err)
+	}
+	splitted_dirs := strings.Split(string(dirLocations), "\n")
+	for _, e := range splitted_dirs {
+		info := strings.Split(e, " ")
+		AddDirToWatcher(watcher, info[2], info[0])
 
-	AddDirToWatcher(watcher, "/home/aashab/works", "works")
+	}
+	AddDirToWatcher(watcher, "", "")
 	<-make(chan struct{})
 }

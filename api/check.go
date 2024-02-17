@@ -31,6 +31,7 @@ func CheckWorkspaces(token string, endPoint string) map[string][]map[string]stri
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
+	errorhandling.ReadingResponseBodyError(err)
 	d := make(map[string][]map[string]string)
 	if err := json.Unmarshal(body, &d); err != nil {
 		fmt.Println("Unmarshall Error\n", err)

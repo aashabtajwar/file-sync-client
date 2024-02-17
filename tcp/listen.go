@@ -10,6 +10,7 @@ import (
 	"net"
 	"os"
 
+	"github.com/aashabtajwar/desktop-th/notifications"
 	"github.com/gen2brain/beeep"
 )
 
@@ -43,6 +44,10 @@ func save(metadata map[string]string, fileData *bytes.Buffer) {
 			fmt.Println("Error writing file\n", err)
 		}
 		f.Sync()
+
+		// alert notification
+		msg := fmt.Sprintf(`File: "%s" from workspace: "%s" has been updated!`, metadata["name"], metadata["workspace"])
+		notifications.AlertNotification("File Sync", msg, "file_update.png")
 	}
 }
 

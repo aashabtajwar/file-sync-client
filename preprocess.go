@@ -3,6 +3,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
@@ -76,6 +77,24 @@ func sortFileNamesFromPath(paths []string, workspaceName string, workspaceID str
 		names = append(names, n)
 	}
 	return names
+}
+
+func sortUsers(body []byte) [][]string {
+	var users [][]string
+	d := make(map[string][]map[string]string)
+	if err := json.Unmarshal(body, &d); err != nil {
+		fmt.Println("Unmarshall Error\n", err)
+	}
+	allUsers := d["users"]
+	for _, e := range allUsers {
+		var w []string
+		for userName, userID := range e {
+			w = append(w, userName)
+			w = append(w, userID)
+		}
+		users = append(users, w)
+	}
+	return users
 }
 
 // func sharedWorkspaceDirs() [][]string {

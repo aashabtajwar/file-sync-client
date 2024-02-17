@@ -78,3 +78,27 @@ func makeRequest(bodyData string, endpoint string, token string) string {
 	return string(body)
 
 }
+
+func makeRequestV2(bodyData []byte, endpoint string, method string, token string) []byte {
+	r, err := http.NewRequest(method, endpoint, bytes.NewBuffer(bodyData))
+
+	errorhandling.NewRequestError(err)
+
+	r.Header.Add("Content-Type", "application/json")
+
+	if token != "" {
+		r.Header.Add("Authorization", token)
+	}
+
+	client := &http.Client{}
+	res, err := client.Do(r)
+
+	errorhandling.RequestError(err)
+
+	body, err := io.ReadAll(res.Body)
+
+	errorhandling.ReadingResponseBodyError(err)
+
+	return body
+
+}

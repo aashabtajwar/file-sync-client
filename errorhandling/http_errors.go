@@ -18,3 +18,16 @@ func RequestError(err error) {
 		log.Println("Error Sending HTTP request:\n", err)
 	}
 }
+
+// new request err
+func NewRequestError(err error) {
+	if err != nil {
+		log.Println("Error Creating New HTTP request\n", err)
+	}
+}
+
+func ReadingResponseBodyError(err error) {
+	if err != nil {
+		log.Println("Error Reading Response Body\n", err)
+	}
+}

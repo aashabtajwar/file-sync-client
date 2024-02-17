@@ -85,8 +85,11 @@ func (a *App) CreateWorkspace(workspaceName string) string {
 	return msg
 }
 
+// this assumes workspaceID is already stored in workspaceDetail map.
+// Therefore user can be added only after creating a workspace
+// fix this
 func (a *App) AddUserWithEmail(userEmail string, workspaceName string) string {
-	msg := api.AddUserToWorkspace(userEmail, "http://127.0.0.1:3333/add-user", authToken, workspaceDetail[workspaceName])
+	msg := api.AddUserToWorkspace(userEmail, remoteUrl+"add-user", authToken, workspaceDetail[workspaceName])
 	return msg
 }
 
@@ -139,11 +142,13 @@ func (a *App) GetRemoteWorkspacesV2() [][]string {
 // 	return names
 // }
 
-// func (a *App) DisplaySharedUsers() [][]string {
-// 	var sharedUsers [][]string // name and userID
-// 	r := api.ViewSharedUsers(authToken, remoteUrl+"shared-users")
-// 	return sharedUsers
-// }
+func (a *App) DisplaySharedUsers() [][]string {
+	var sharedUsers [][]string // name and userID
+	body := api.ViewAddedUsers(authToken, remoteUrl+"shared-users", authToken)
+	users := sortUsers(body)
+	fmt.Println(users)
+	return sharedUsers
+}
 
 func (a *App) ListSpecificFiles(fileType []string) [][]string {
 	var allDocs [][]string

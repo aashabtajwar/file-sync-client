@@ -310,6 +310,10 @@ window.dispFiles = function(path, workspace) {
                     <button id='${result[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
                 </div>`
                 files += createOption
+                let createOptionTwo = `\n<div>
+                    <button id="" onclick="viewUsers()">Check Users</button>
+                `
+                files += createOptionTwo;
                 document.querySelector('#app').innerHTML = navBar + "\n" + files;
             })
             .catch(err => {

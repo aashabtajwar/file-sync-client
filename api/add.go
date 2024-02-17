@@ -1,6 +1,8 @@
 package api
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func AddUserToWorkspace(email string, endPoint string, token string, workspaceId string) string {
 	requestString := fmt.Sprintf(`
@@ -10,4 +12,16 @@ func AddUserToWorkspace(email string, endPoint string, token string, workspaceId
 	}
 	`, email, workspaceId)
 	return makeRequest(requestString, endPoint, token)
+}
+
+func ViewAddedUsers(workspaceID string, authToken string, url string) []byte {
+	requestString := fmt.Sprintf(
+		`
+		{
+			"workspace_id" : "%s"
+		}
+		`, workspaceID,
+	)
+	requestBody := []byte(requestString)
+	return makeRequestV2(requestBody, url, "POST", authToken)
 }
