@@ -36,7 +36,6 @@ func CreateWatcher() *fsnotify.Watcher {
 		if err != nil {
 			fmt.Println("Error Adding Directory to watcher")
 		}
-		// AddDirToWatcher(watcher, info[2], info[0])
 
 	}
 	watcherList = append(watcherList, watcher)
@@ -49,14 +48,14 @@ func AddDirToWatcher(watcher *fsnotify.Watcher, dir string, name string) {
 		if err != nil {
 			fmt.Println("Error Adding Directory to Watcher List\n", err)
 		}
-		file, err := os.OpenFile("storage/dirs.txt", os.O_APPEND|os.O_WRONLY, 0644)
-		if err != nil {
-			fmt.Println("Error Opening File for storage dirs\n", err)
-		}
-		defer file.Close()
-		if _, err := file.WriteString(dir + "\n"); err != nil {
-			fmt.Println("Error Storing Dir name to file\n", err)
-		}
+		// file, err := os.OpenFile("storage/dirs.txt", os.O_APPEND|os.O_WRONLY, 0644)
+		// if err != nil {
+		// 	fmt.Println("Error Opening File for storage dirs\n", err)
+		// }
+		// defer file.Close()
+		// if _, err := file.WriteString(dir + "\n"); err != nil {
+		// 	fmt.Println("Error Storing Dir name to file\n", err)
+		// }
 
 		fileTwo, err := os.OpenFile("storage/workspaces.txt", os.O_APPEND|os.O_WRONLY, 0644)
 		if err != nil {
