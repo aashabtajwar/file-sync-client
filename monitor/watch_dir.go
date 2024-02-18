@@ -24,6 +24,21 @@ func CreateWatcher() *fsnotify.Watcher {
 	if err != nil {
 		fmt.Println("Error creating new watcher")
 	}
+
+	dirLocations, err := os.ReadFile("storage/workspaces.txt")
+	if err != nil {
+		fmt.Println("Error Reading Workspaces\n", err)
+	}
+	splitted_dirs := strings.Split(string(dirLocations), "\n")
+	for _, e := range splitted_dirs {
+		info := strings.Split(e, " ")
+		err := watcher.Add(info[2])
+		if err != nil {
+			fmt.Println("Error Adding Directory to watcher")
+		}
+		// AddDirToWatcher(watcher, info[2], info[0])
+
+	}
 	watcherList = append(watcherList, watcher)
 	return watcher
 }
@@ -52,6 +67,7 @@ func AddDirToWatcher(watcher *fsnotify.Watcher, dir string, name string) {
 		// assigning random numbers as workspaceIDs to workspaces
 		// cause it doensn't matter here
 		// workspaceIDs are selected from a global map defined in main.go
+
 		if _, err := fileTwo.WriteString("\n" + name + " 10 " + dir); err != nil {
 			fmt.Println("Error Storing workspace name to workspaces.txt file", err)
 		}
@@ -100,6 +116,7 @@ func Watch() {
 						mimeType := fileName[len(fileName)-1]
 						f := strings.Split(event.Name, "/")
 						name := f[len(f)-1]
+						fmt.Println("WORKSPACE NAME = ", workspaceDir)
 						tcp.SendFile(name, event.Name, workspaceDir, mimeType)
 
 					}
@@ -117,16 +134,6 @@ func Watch() {
 	}()
 	// load workspaces.txt dir
 	// then all those paths in the watcher
-	dirLocations, err := os.ReadFile("storage/workspaces.txt")
-	if err != nil {
-		fmt.Println("Error Reading Workspaces\n", err)
-	}
-	splitted_dirs := strings.Split(string(dirLocations), "\n")
-	for _, e := range splitted_dirs {
-		info := strings.Split(e, " ")
-		AddDirToWatcher(watcher, info[2], info[0])
-
-	}
 	AddDirToWatcher(watcher, "", "")
 	<-make(chan struct{})
 }
