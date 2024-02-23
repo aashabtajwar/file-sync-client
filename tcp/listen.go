@@ -7,8 +7,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"os"
+	"strings"
 
 	"github.com/aashabtajwar/desktop-th/notifications"
 	"github.com/gen2brain/beeep"
@@ -22,13 +24,34 @@ func showNotification(metadata map[string]string, fileData *bytes.Buffer) {
 	}
 }
 
+func delete(metadata map[string]string) {
+	workspaceName := metadata["workspace"]
+	f := strings.Split(metadata["name"], ".")
+	fileName := f[0]
+	// check := metadata["workspace"] + "_" + metadata["name"]
+	check := workspaceName + "_" + fileName
+	dir := "/home/aashab/FileSync/" + workspaceName
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		fmt.Println("Error Reading Dir\n", err)
+	}
+	for _, e := range entries {
+		if strings.Contains(e.Name(), check) {
+			er := os.Remove("dir" + e.Name())
+			if er != nil {
+				log.Println("Error Deleting File\n", er)
+			}
+		}
+	}
+}
+
 func save(metadata map[string]string, fileData *bytes.Buffer) {
 	// direct the dir in which files will be stored
 
 	fmt.Println(fileData.Bytes())
 	fmt.Println("meta => ", metadata["name"])
 	if metadata["isNotification"] == "1" {
-		fmt.Println("Following this path")
+		// fmt.Println("Following this path")
 		showNotification(metadata, fileData)
 	} else {
 
@@ -88,7 +111,11 @@ func ListenForData(conn net.Conn) {
 		}
 
 		if c == 2 {
-			go save(metadata, fileData)
+			if metadata["isDeleted"] == "Yes" {
+				go delete(metadata)
+			} else {
+				go save(metadata, fileData)
+			}
 			c = 0 // reset
 		}
 	}

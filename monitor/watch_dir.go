@@ -91,33 +91,46 @@ func Watch() {
 				if strings.Contains(splitted[len(splitted)-1], ".goutputstream") {
 
 				} else {
+					// check if file got deleted
+					if event.Op&fsnotify.Rename == fsnotify.Rename || event.Op&fsnotify.Remove == fsnotify.Remove {
+						fmt.Println("File Deleted or Moved")
+						fullPath := event.Name
+						splittedPath := strings.Split(fullPath, "/")
+						workspaceName := splittedPath[len(splittedPath)-2]
+						fileName := splittedPath[len(splittedPath)-1]
+						tcp.SendDeletedFileName(workspaceName, fileName)
+						fmt.Println(event.Name)
+					} else {
+						fmt.Println("event type ", event.Op)
+						fmt.Println()
 
-					// check if file or folder
-					fi, err := os.Stat(event.Name)
-					if err != nil {
-						fmt.Println("Error checking stat of file\n", err)
-					}
-					switch mode := fi.Mode(); {
-					case mode.IsDir():
-						// a directory was created
-						// add this to watcher list
-						AddDirToWatcher(watcher, event.Name, event.Name)
-					}
+						// check if file or folder
+						fi, err := os.Stat(event.Name)
+						if err != nil {
+							fmt.Println("Error checking stat of file\n", err)
+						}
+						switch mode := fi.Mode(); {
+						case mode.IsDir():
+							// a directory was created
+							// add this to watcher list
+							AddDirToWatcher(watcher, event.Name, event.Name)
+						}
 
-					if event.Has(fsnotify.Write) {
-						evenLog = append(evenLog, "reached")
-					}
+						if event.Has(fsnotify.Write) {
+							evenLog = append(evenLog, "reached")
+						}
 
-					// file pasting and file changes
-					if event.Op&fsnotify.Create == fsnotify.Create {
-						workspaceDir := splitted[len(splitted)-2]
-						fileName := strings.Split(splitted[len(splitted)-1], ".")
-						mimeType := fileName[len(fileName)-1]
-						f := strings.Split(event.Name, "/")
-						name := f[len(f)-1]
-						fmt.Println("WORKSPACE NAME = ", workspaceDir)
-						tcp.SendFile(name, event.Name, workspaceDir, mimeType)
+						// file pasting and file changes
+						if event.Op&fsnotify.Create == fsnotify.Create {
+							workspaceDir := splitted[len(splitted)-2]
+							fileName := strings.Split(splitted[len(splitted)-1], ".")
+							mimeType := fileName[len(fileName)-1]
+							f := strings.Split(event.Name, "/")
+							name := f[len(f)-1]
+							fmt.Println("WORKSPACE NAME = ", workspaceDir)
+							tcp.SendFile(name, event.Name, workspaceDir, mimeType)
 
+						}
 					}
 
 				}

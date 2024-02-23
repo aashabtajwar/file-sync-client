@@ -8,7 +8,38 @@ import (
 	"net"
 	"os"
 	"time"
+
+	"github.com/aashabtajwar/desktop-th/errorhandling"
 )
+
+// send deleted file name and workspace
+func SendDeletedFileName(workspaceName string, fileName string) {
+	time.Sleep(100 * time.Millisecond)
+	conn := SetUpConn()
+	metadataString := fmt.Sprintf(
+		`
+			{
+				"workspace": "%s",
+				"fileName": "%s",
+				"isDeleted": "Yes",
+				"type": "file"
+			}
+		`, workspaceName, fileName)
+	metadataBytes := []byte(metadataString)
+	randomString := []byte("Random Useless String")
+	binary.Write(conn, binary.LittleEndian, int64(len(randomString)))
+	_, err := io.CopyN(conn, bytes.NewReader(randomString), int64(len(randomString)))
+
+	errorhandling.ErrorSendingFileData(err)
+
+	time.Sleep(100 * time.Millisecond)
+
+	// send meta data
+	binary.Write(conn, binary.LittleEndian, int64(len(metadataBytes)))
+	_, err = io.CopyN(conn, bytes.NewReader(metadataBytes), int64(len(metadataBytes)))
+
+	errorhandling.ErrorSendingMetaData(err)
+}
 
 // send token along with metadata
 func SendToken(token string, conn net.Conn) {
@@ -70,7 +101,8 @@ func SendFile(name string, filePath string, workspace string, mimeType string) {
 			"mimetype": "%s",
 			"type": "file",
 			"user_id": "%s",
-			"name" : "%s"
+			"name" : "%s",
+			"isDeleted": "No"
 			
 		}`, workspace, filePath, mimeType, userId, name)
 	metaDataBytes := []byte(metaDataString)
