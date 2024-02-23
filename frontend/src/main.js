@@ -300,21 +300,28 @@ window.dispFiles = function(path, workspace) {
     try {
         DisplayFiles(path, workspace)
             .then(result => {
-                let files = `<div style="display: table-cell" class="left-corner">\n`
-                result.forEach(file => {
-                    files += `<button style="font-size:20px" onclick="openfile('${file[1]}')"><i class="fa fa-file" style="font-size:20px">  ${file[0]}</button>`
-                })
-                
-                files += `</div>`
-                let createOption = `\n<div>
-                    <button id='${result[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
-                </div>`
-                files += createOption
-                let createOptionTwo = `\n<div>
-                    <button id="" onclick="viewUsers()">Check Users</button>
-                `
-                files += createOptionTwo;
-                document.querySelector('#app').innerHTML = navBar + "\n" + files;
+                if (result[0][0] == "0") {
+                    document.querySelector('#app').innerHTML = navBar;
+                } else {
+                    let files = `<div style="display: table-cell" class="left-corner">\n`
+                    if (result[0].length != 0) {
+                        // Debug()
+                        result.forEach(file => {
+                            files += `<button style="font-size:20px" onclick="openfile('${file[1]}')"><i class="fa fa-file" style="font-size:20px">  ${file[0]}</button>`
+                        })
+                    }   
+                    
+                    files += `</div>`
+                    let createOption = `\n<div>
+                        <button id='${result[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
+                    </div>`
+                    files += createOption
+                    let createOptionTwo = `\n<div>
+                        <button id="" onclick="viewUsers()">Check Users</button>
+                    `
+                    files += createOptionTwo;
+                    document.querySelector('#app').innerHTML = navBar + "\n" + files;
+                }
             })
             .catch(err => {
                 console.error(err)
