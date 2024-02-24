@@ -79,7 +79,7 @@ func (a *App) AddContent() [][]string {
 }
 
 func (a *App) CreateWorkspace(workspaceName string) string {
-	res := api.CreateWorkspace("/home/aashab/"+workspaceName, workspaceName, authToken, "http://127.0.0.1:3333/createw")
+	res := api.CreateWorkspace("/home/aashab/"+workspaceName, workspaceName, authToken, remoteUrl+"createw")
 	msg, id := tasks.Parse(res)
 	workspaceDetail[workspaceName] = id
 	return msg
@@ -122,7 +122,7 @@ func (a *App) GetRemoteWorkspaces() []string {
 
 func (a *App) GetRemoteWorkspacesV2() [][]string {
 	var remoteWorkspaces [][]string
-	r := api.CheckWorkspaces(authToken, "http://127.0.0.1:3333/check-remote")["workspaces"]
+	r := api.CheckWorkspaces(authToken, remoteUrl+"check-remote")["workspaces"]
 	fmt.Println(r)
 	for _, e := range r {
 		// fmt.Println("id is the workspace id = ", id)
@@ -183,7 +183,7 @@ func (a *App) ListAllFiles() [][]string {
 
 func (a *App) GetSharedWorkspaces() [][]string {
 	var sharedWorkspaces [][]string // 0 - name; 1 - id
-	r := api.CheckWorkspaces(authToken, "http://127.0.0.1:3333/check")["workspaces"]
+	r := api.CheckWorkspaces(authToken, remoteUrl+"check")["workspaces"]
 	fmt.Println(r)
 	for _, e := range r {
 		// fmt.Println("id is the workspace id = ", id)

@@ -1,1 +1,2 @@
 JAVA 30 /home/aashab/JAVA
+PITT 10 /home/aashab/PITT

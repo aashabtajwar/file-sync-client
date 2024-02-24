@@ -11,6 +11,7 @@ import (
 	"net"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/aashabtajwar/desktop-th/notifications"
 	"github.com/gen2brain/beeep"
@@ -74,50 +75,72 @@ func save(metadata map[string]string, fileData *bytes.Buffer) {
 	}
 }
 
-func ListenForData(conn net.Conn) {
+func (cl *TcpClient) ListenForData(conn net.Conn) {
 	// receive file data
 	// then the metadata
 	dataBuffer := new(bytes.Buffer)
 	fileData := new(bytes.Buffer)
 	c := 0
 	var metadata map[string]string
+ReadLoop:
 	for {
-		// server {}
-		var size int64
-		binary.Read(conn, binary.LittleEndian, &size)
-		_, err := io.CopyN(dataBuffer, conn, int64(size))
+		select {
+		case <-cl.quit:
+			fmt.Println("ending...")
+			return
+		default:
+			conn.SetDeadline(time.Now().Add(200 * time.Second))
+			// server {}
+			var size int64
+			binary.Read(conn, binary.LittleEndian, &size)
+			_, err := io.CopyN(dataBuffer, conn, int64(size))
 
-		if err != nil {
-			fmt.Println("Error Streaming In Data:\n", err)
-		}
+			if err != nil {
+				fmt.Println("Error Streaming In Data:\n", err)
+				if opErr, ok := err.(*net.OpError); ok && opErr.Timeout() {
+					continue ReadLoop
 
-		c++
+				} else if err != io.EOF {
+					log.Println("read error\n", err)
+					return
+				} else {
+					log.Println(err)
+					fmt.Println("unknown error...")
+					return
+				}
 
-		if c%2 != 0 {
-			// filedata
-			fileData.Write(dataBuffer.Bytes())
-			fmt.Println("Received file data => \n", fileData)
-			dataBuffer.Reset()
-
-		} else if c%2 == 0 {
-			// metadata
-			data := dataBuffer.Bytes()
-			fmt.Println("meta data in bytes\n", data)
-			metaDataString := string(data[:])
-			if err := json.Unmarshal([]byte(metaDataString), &metadata); err != nil {
-				fmt.Println("Error Unmarshalling metadata\n", err)
 			}
-			fmt.Println("Received metadata =>\n", metaDataString)
-			dataBuffer.Reset()
+
+			c++
+
+			if c%2 != 0 {
+				// filedata
+				fileData.Write(dataBuffer.Bytes())
+				fmt.Println("Received file data => \n", fileData)
+				dataBuffer.Reset()
+
+			} else if c%2 == 0 {
+				// metadata
+				data := dataBuffer.Bytes()
+				fmt.Println("meta data in bytes\n", data)
+				metaDataString := string(data[:])
+				if err := json.Unmarshal([]byte(metaDataString), &metadata); err != nil {
+					fmt.Println("Error Unmarshalling metadata\n", err)
+				}
+				fmt.Println("Received metadata =>\n", metaDataString)
+				dataBuffer.Reset()
+			}
+
+			if c == 2 {
+				if metadata["isDeleted"] == "Yes" {
+					go delete(metadata)
+				} else {
+					go save(metadata, fileData)
+				}
+				c = 0 // reset
+				continue ReadLoop
+			}
 		}
 
-		if c == 2 {
-			if metadata["isDeleted"] == "Yes" {
-				go delete(metadata)
-			} else {
-				go save(metadata, fileData)
-			}
-			c = 0 // reset
-		}
 	}
 }

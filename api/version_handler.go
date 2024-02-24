@@ -20,7 +20,7 @@ func CheckVersions(workspaceName, workspaceId string, fileName string, token str
 			}
 		`, workspaceName, workspaceId, fileName,
 	)
-	response := makeRequest(requestString, "http://127.0.0.1:3333/versions", token)
+	response := makeRequest(requestString, URL+"versions", token)
 	fmt.Println(response)
 	er := json.Unmarshal([]byte(response), &body)
 	if er != nil {

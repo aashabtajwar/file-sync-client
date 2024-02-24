@@ -17,7 +17,7 @@ func RetrieveWorkspaceFiles(workspaceID string, authToken string) map[string][]s
 	}
 	`, workspaceID)
 	bodyData := []byte(requestString)
-	r, err := http.NewRequest("POST", "http://127.0.0.1:3333/workspace-files", bytes.NewBuffer(bodyData))
+	r, err := http.NewRequest("POST", URL+"workspace-files", bytes.NewBuffer(bodyData))
 	if err != nil {
 		fmt.Println("Error Creating New Request\n", err)
 	}

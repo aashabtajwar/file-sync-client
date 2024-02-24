@@ -19,7 +19,7 @@ func Register(first string, last string, username string, email string, password
 	"email": "%s",
 	"password": "%s"
 	}`, first, last, email, password)
-	return makeRequest(requestString, "http://127.0.0.1:3333/register", "")
+	return makeRequest(requestString, URL+"register", "")
 }
 
 func Login(email string, password string) map[string]string {
@@ -28,7 +28,7 @@ func Login(email string, password string) map[string]string {
 	"email": "%s",
 	"password": "%s"
 	}`, email, password)
-	res := makeRequest(requestString, "http://127.0.0.1:3333/login", "")
+	res := makeRequest(requestString, URL+"login", "")
 	d := make(map[string]string)
 	fmt.Println(res)
 	err := json.Unmarshal([]byte(res), &d)
@@ -42,7 +42,7 @@ func Login(email string, password string) map[string]string {
 }
 
 func Validate(token string) string {
-	r, err := http.NewRequest("POST", "http://127.0.0.1:3333/validate-token", nil)
+	r, err := http.NewRequest("POST", URL+"validate-token", nil)
 	errorhandling.RequestCreaterError(err)
 	r.Header.Add("Authorization", token)
 	client := &http.Client{}

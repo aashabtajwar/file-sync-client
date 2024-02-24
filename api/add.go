@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+var URL = "http://127.0.0.1:3333/"
+
 func AddUserToWorkspace(email string, endPoint string, token string, workspaceId string) string {
 	requestString := fmt.Sprintf(`
 	{
