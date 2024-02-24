@@ -63,6 +63,12 @@ func (a *App) Nice(name string) string {
 	return ("Nevermind man")
 }
 
+func (a *App) Register(firstName string, lastName string, username string, email string, password string) string {
+	res := api.Register(firstName, lastName, username, email, password, remoteUrl+"register")
+	fmt.Println(res)
+	return res
+}
+
 // login user
 func (a *App) Login(email string, password string) string {
 	res := api.Login(email, password)

@@ -1,4 +1,4 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))o(i);new MutationObserver(i=>{for(const r of i)if(r.type==="childList")for(const c of r.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&o(c)}).observe(document,{childList:!0,subtree:!0});function n(i){const r={};return i.integrity&&(r.integrity=i.integrity),i.referrerpolicy&&(r.referrerPolicy=i.referrerpolicy),i.crossorigin==="use-credentials"?r.credentials="include":i.crossorigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function o(i){if(i.ep)return;i.ep=!0;const r=n(i);fetch(i.href,r)}})();function u(){return window.go.main.App.AddContent()}function f(e,t){return window.go.main.App.AddUserWithEmail(e,t)}function m(){return window.go.main.App.CheckAuthStatus()}function h(e){return window.go.main.App.CreateWorkspace(e)}function d(){return window.go.main.App.Debug()}function y(e,t){return window.go.main.App.DisplayFiles(e,t)}function w(e,t){return window.go.main.App.DisplaySharedWorkspaceFiles(e,t)}function b(e,t){return window.go.main.App.DownloadSharedWorkspace(e,t)}function v(){return window.go.main.App.GetRemoteWorkspacesV2()}function g(){return window.go.main.App.GetSharedWorkspaces()}function k(e){return window.go.main.App.Greet(e)}function A(){return window.go.main.App.ListAllFiles()}function S(e){return window.go.main.App.ListSpecificFiles(e)}function E(e,t){return window.go.main.App.Login(e,t)}function L(e){return window.go.main.App.Nice(e)}function W(e){return window.go.main.App.OpenFile(e)}let $="",l=`
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))o(i);new MutationObserver(i=>{for(const r of i)if(r.type==="childList")for(const c of r.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&o(c)}).observe(document,{childList:!0,subtree:!0});function n(i){const r={};return i.integrity&&(r.integrity=i.integrity),i.referrerpolicy&&(r.referrerPolicy=i.referrerpolicy),i.crossorigin==="use-credentials"?r.credentials="include":i.crossorigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function o(i){if(i.ep)return;i.ep=!0;const r=n(i);fetch(i.href,r)}})();function u(){return window.go.main.App.AddContent()}function f(e,t){return window.go.main.App.AddUserWithEmail(e,t)}function m(){return window.go.main.App.CheckAuthStatus()}function h(e){return window.go.main.App.CreateWorkspace(e)}function d(){return window.go.main.App.Debug()}function y(e,t){return window.go.main.App.DisplayFiles(e,t)}function w(e,t){return window.go.main.App.DisplaySharedWorkspaceFiles(e,t)}function b(e,t){return window.go.main.App.DownloadSharedWorkspace(e,t)}function v(){return window.go.main.App.GetRemoteWorkspacesV2()}function g(){return window.go.main.App.GetSharedWorkspaces()}function k(e){return window.go.main.App.Greet(e)}function A(){return window.go.main.App.ListAllFiles()}function E(e){return window.go.main.App.ListSpecificFiles(e)}function S(e,t){return window.go.main.App.Login(e,t)}function L(e){return window.go.main.App.Nice(e)}function W(e){return window.go.main.App.OpenFile(e)}function T(e,t,n,o,i){return window.go.main.App.Register(e,t,n,o,i)}let $="",l=`
 <div style="width: 100%; display: table">
     <div style="display: table-row; height: 100px">
         <div class="sidebar" style="width: 15%; display: table-cell">
@@ -15,7 +15,36 @@
         ${$}
     </div>
 </div>
-`;function p(){document.getElementById("app").innerHTML=l,x=document.getElementById("app");var e=document.createElement("div");e.setAttribute("class","nav-button"),e.textContent="Main Content Here",x.appendChild(e)}function T(){try{m().then(e=>{e=="Already Logged In"&&p(),s.innerText=e}).catch(e=>{console.error(e)})}catch(e){console.error(e)}}document.querySelector("#app").innerHTML=`
+`;window.registrationPage=function(){let e=`
+    <div class="" id="">Registration</div>
+    <div class="" id="r-">
+        <input class="" id="fname" type="text" autocomplete="off" placeholder="First Name" />
+    </div>
+    <br>
+    <div class="" id="r-">
+        <input class="" id="lname" type="text" autocomplete="off" placeholder="Last Name" />
+    </div>
+    <br>
+    <div class="" id="r-">
+        <input class="" id="username" type="text" autocomplete="off" placeholder="Username" />
+    </div>
+    <br>
+    <div class="" id="r-">
+        <input class="" id="r-email" type="text" autocomplete="off" placeholder="Email" />
+    </div>
+    <br>
+    <div class="" id="r-">
+        <input class="" id="r-password" type="password" autocomplete="off" placeholder="Password" />
+    </div>
+    <br>
+    <br>
+    <a href='#' onclick="loginPage();">Login</a>
+      <br>
+      <br>
+      <br>
+    <button class="btn btn-primary" onclick="register()">Submit</button>
+    </div>
+    `;document.querySelector("#app").innerHTML=e};window.register=function(){let e=document.getElementById("fname").value,t=document.getElementById("lname").value,n=document.getElementById("username").value,o=document.getElementById("r-email").value,i=document.getElementById("r-password").value;try{T(e,t,n,o,i).then(r=>{}).catch(r=>{console.error(r)})}catch(r){console.error(r)}};function p(){document.getElementById("app").innerHTML=l,x=document.getElementById("app");var e=document.createElement("div");e.setAttribute("class","nav-button"),e.textContent="Main Content Here",x.appendChild(e)}function F(){try{m().then(e=>{e=="Already Logged In"&&p(),s.innerText=e}).catch(e=>{console.error(e)})}catch(e){console.error(e)}}document.querySelector("#app").innerHTML=`
       <div class="result" id="result">Login</div>
       <div class="input-box" id="input-email">
         <input class="input" id="email" type="text" autocomplete="off" />
@@ -25,10 +54,13 @@
     <div class="input-box" id="input-password">
         <input class="input" id="password" type="password" autocomplete="off" />
     </div>
+    <br>
+    <a href='#' onclick="registrationPage();">Register</a>
+      <br>
       <br>
     <button class="btn btn-primary" onclick="login()">Submit</button>
     </div>
-`;T();window.allDocs=function(e,t){try{S([e,t]).then(n=>{let o=`<div style="display: table-cell" class="left-corner">
+`;F();window.allDocs=function(e,t){try{E([e,t]).then(n=>{let o=`<div style="display: table-cell" class="left-corner">
 `;n.forEach(r=>{o+=`<button style="font-size:20px" onclick="openfile('${r[1]}')"><i class="fa fa-file" style="font-size:20px">  ${r[0]}</button>`}),o+="</div>";let i=`
 <div>
                     <button id='${n[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
@@ -69,4 +101,4 @@
                     </form>
                     
                     `,document.querySelector("#app").innerHTML=l+`
-`+o}}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.openfile=function(e){try{W(e).then(t=>{console.log(t)}).catch(t=>{})}catch(t){console.error(t)}};window.openUserAddPrompt=function(e){try{let t=prompt("Enter User Email");f(t,e).then(n=>{console.log(n)}).catch(n=>{console.error(n)})}catch(t){console.error(t)}};let s=document.getElementById("result"),F=document.getElementById("email"),D=document.getElementById("password");window.login=function(){let e=F.value,t=D.value;try{E(e,t).then(n=>{s.innerText=n,n=="Log In Successful!"&&p()}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.nice=function(){let e=nameElement.value;if(e!=="")try{L(e).then(t=>{s.innerText=t}).catch(t=>{console.error(t)})}catch(t){console.error(t)}};window.greet=function(){let e=nameElement.value;if(e!=="")try{k(e).then(t=>{s.innerText=t}).catch(t=>{console.error(t)})}catch(t){console.error(t)}};
+`+o}}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.openfile=function(e){try{W(e).then(t=>{console.log(t)}).catch(t=>{})}catch(t){console.error(t)}};window.openUserAddPrompt=function(e){try{let t=prompt("Enter User Email");f(t,e).then(n=>{console.log(n)}).catch(n=>{console.error(n)})}catch(t){console.error(t)}};let s=document.getElementById("result"),D=document.getElementById("email"),C=document.getElementById("password");window.login=function(){let e=D.value,t=C.value;try{S(e,t).then(n=>{s.innerText=n,n=="Log In Successful!"&&p()}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.nice=function(){let e=nameElement.value;if(e!=="")try{L(e).then(t=>{s.innerText=t}).catch(t=>{console.error(t)})}catch(t){console.error(t)}};window.greet=function(){let e=nameElement.value;if(e!=="")try{k(e).then(t=>{s.innerText=t}).catch(t=>{console.error(t)})}catch(t){console.error(t)}};

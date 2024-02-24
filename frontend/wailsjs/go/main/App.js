@@ -77,3 +77,7 @@ export function Nice(arg1) {
 export function OpenFile(arg1) {
   return window['go']['main']['App']['OpenFile'](arg1);
 }
+
+export function Register(arg1, arg2, arg3, arg4, arg5) {
+  return window['go']['main']['App']['Register'](arg1, arg2, arg3, arg4, arg5);
+}

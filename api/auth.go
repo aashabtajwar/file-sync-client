@@ -16,9 +16,10 @@ func Register(first string, last string, username string, email string, password
 	{
 	"first_name": "%s",
 	"last_name": "%s",
+	"username": "%s",
 	"email": "%s",
 	"password": "%s"
-	}`, first, last, email, password)
+	}`, first, last, username, email, password)
 	return makeRequest(requestString, URL+"register", "")
 }
 

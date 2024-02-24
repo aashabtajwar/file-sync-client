@@ -18,7 +18,8 @@ import {Greet,
         DownloadSharedWorkspace,
         GetRemoteWorkspacesV2,
         ListAllFiles,
-        ListSpecificFiles
+        ListSpecificFiles,
+        Register
     } from '../wailsjs/go/main/App';
 
 
@@ -69,7 +70,81 @@ let mainContent = `
 `
 
 
+window.registrationPage = function() {
+    let register = `
+    <div class="" id="">Registration</div>
+    <div class="" id="r-">
+        <input class="" id="fname" type="text" autocomplete="off" placeholder="First Name" />
+    </div>
+    <br>
+    <div class="" id="r-">
+        <input class="" id="lname" type="text" autocomplete="off" placeholder="Last Name" />
+    </div>
+    <br>
+    <div class="" id="r-">
+        <input class="" id="username" type="text" autocomplete="off" placeholder="Username" />
+    </div>
+    <br>
+    <div class="" id="r-">
+        <input class="" id="r-email" type="text" autocomplete="off" placeholder="Email" />
+    </div>
+    <br>
+    <div class="" id="r-">
+        <input class="" id="r-password" type="password" autocomplete="off" placeholder="Password" />
+    </div>
+    <br>
+    <br>
+    <a href='#' onclick="loginPage();">Login</a>
+      <br>
+      <br>
+      <br>
+    <button class="btn btn-primary" onclick="register()">Submit</button>
+    </div>
+    `
+    document.querySelector('#app').innerHTML=register;
+}
 
+window.register = function() {
+    let firstName = document.getElementById('fname').value;
+    let lastName = document.getElementById('lname').value;
+    let username = document.getElementById('username').value;
+    let email = document.getElementById('r-email').value;
+    let password = document.getElementById('r-password').value;
+
+    try {
+        Register(firstName, lastName, username, email, password)
+            .then(result => {
+                loginPage(result + ". Log into your account.")
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    } catch(err) {
+        console.error(err)
+    }
+
+}
+
+function loginPage(msg) {
+    document.querySelector('#app').innerHTML = `
+      <div class="result" id="result">${msg}</div>
+      <div class="input-box" id="input-email">
+        <input class="input" id="email" type="text" autocomplete="off" />
+      </div>
+      <br>
+      
+    <div class="input-box" id="input-password">
+        <input class="input" id="password" type="password" autocomplete="off" />
+    </div>
+    <br>
+    <a href='#' onclick="registrationPage();">Register</a>
+      <br>
+      <br>
+    <button class="btn btn-primary" onclick="login()">Submit</button>
+    </div>
+`;
+
+}
 
 function homePage() {
     document.getElementById('app').innerHTML = navBar;
@@ -103,6 +178,7 @@ function checkToken() {
 }
 
 
+
 document.querySelector('#app').innerHTML = `
       <div class="result" id="result">Login</div>
       <div class="input-box" id="input-email">
@@ -113,6 +189,9 @@ document.querySelector('#app').innerHTML = `
     <div class="input-box" id="input-password">
         <input class="input" id="password" type="password" autocomplete="off" />
     </div>
+    <br>
+    <a href='#' onclick="registrationPage();">Register</a>
+      <br>
       <br>
     <button class="btn btn-primary" onclick="login()">Submit</button>
     </div>
