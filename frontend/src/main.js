@@ -320,6 +320,15 @@ window.dispFiles = function(path, workspace) {
                         <button id="" onclick="viewUsers()">Check Users</button>
                     `
                     files += createOptionTwo;
+                    
+                    let optionThree = `\n<div>
+                    <form action="">
+                        <input type="file" id="myFile" name="filename">
+                        <input type="submit">
+                    </form>
+                    
+                    `
+                    files += optionThree;
                     document.querySelector('#app').innerHTML = navBar + "\n" + files;
                 }
             })

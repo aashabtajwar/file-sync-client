@@ -82,6 +82,7 @@ func ListenForData(conn net.Conn) {
 	c := 0
 	var metadata map[string]string
 	for {
+		// server {}
 		var size int64
 		binary.Read(conn, binary.LittleEndian, &size)
 		_, err := io.CopyN(dataBuffer, conn, int64(size))
