@@ -7,7 +7,6 @@ import (
 
 	"github.com/aashabtajwar/desktop-th/api"
 	"github.com/aashabtajwar/desktop-th/tasks"
-	"github.com/aashabtajwar/desktop-th/tcp"
 	"github.com/aashabtajwar/desktop-th/tokens"
 	"github.com/labstack/gommon/log"
 	"github.com/skratchdot/open-golang/open"
@@ -47,7 +46,7 @@ func (a *App) CheckAuthStatus() string {
 		} else {
 			// if token is still valid, move to home page
 
-			go tcp.Connect(authToken)
+			// go tcp.Connect(authToken)
 			return "Already Logged In"
 		}
 	}
@@ -73,7 +72,7 @@ func (a *App) Register(firstName string, lastName string, username string, email
 func (a *App) Login(email string, password string) string {
 	res := api.Login(email, password)
 	token = res["token"]
-	go tcp.Connect(token)
+	// go tcp.Connect(token)
 	return res["message"]
 }
 

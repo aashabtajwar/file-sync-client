@@ -62,6 +62,9 @@ body {
     background-color: #495057; /* Bootstrap secondary background color */
     color: #ffffff; /* Bootstrap light text color */
 }
+.button-width-prop {
+    width: 200px;
+}
 
 .content {
     margin-left: 250px; /* Adjust the margin based on your sidebar width */
@@ -95,10 +98,25 @@ body {
 .left-corner {
     /* margin-left: -200px; */
     position: absolute;
-    right: 1200px;
-    width: 300px;
-    border: 3px solid;
+    right: 300px;
+    width: 1200px;
+    border: 3px ;
     padding: 0px;
+}
+
+.workspace-heading {
+    color: black;
+    font-weight: bolder;
+    padding-left: 40px;
+    padding-bottom: 50px;
+}
+
+.inline-block-child {
+    display: inline-block;
+}
+.date-property {
+    padding-left: 850px;
+    color: black;
 }
 
 #apptwo {

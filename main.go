@@ -91,7 +91,6 @@ func main() {
 	// check for token
 
 	// forever loop to read data
-	// Login: login <email> <password>
 	// Register: register <fname> <lname> <username> <password>
 	// Create Workspace: create <workspace_name>
 

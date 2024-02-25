@@ -336,16 +336,32 @@ window.addNewContent = function() {
         AddContent()
             .then(result => {
                 // let dirs = ""
-                let dirs = `<div style="display: table-cell" class="left-corner">\n`
+                // let dirs = `<div style="display: table-cell" class="left-corner">Local</div>\n` 
+                let dirs = `<div style="display: table-cell" class="left-corner"><h1 class="workspace-heading" align="left">Local</h1>\n<ul>\n`
                 result.forEach(dir => {
                     console.log(dir)
                     // dirs = dirs + `<a href="#" onclick="showFiles(${dir[2]}); return false;" style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${dir[0]}</a>\n`
-                    dirs += `<button style="font-size:20px" onclick="dispFiles('${dir[2]}', '${dir[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>\n`
+                    dirs += `
+                    <li align="left">
+                        <div class="parent">
+                            <div class="child inline-block-child">
+                                <button class="text-left button-width-prop" style="font-size:20px" onclick="dispFiles('${dir[2]}', '${dir[0]}')"><i class="text-left fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>
+                                <time class="date-property">24-01-2023</time>
+                            </div>
+                        </div>
+                    </li>
+                    <br>\n`
                 });
-                dirs = dirs + `</div>`;
-                let createOption = `\n<div>
+                // dirs = dirs + `</div>`;
+                let createOption = `\n
+                <li>
+                <div>
                     <button onclick="openPrompt()">Create Workspace</button
-                </div>`
+                </div>
+                </li>
+                </ul>
+                </div>
+                `
                 dirs += createOption;
                 // document.querySelector("#app").innerHTML = navBar + "\n" + localFolderContent
                 document.querySelector('#app').innerHTML = navBar + "\n" + dirs;
