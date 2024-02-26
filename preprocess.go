@@ -54,13 +54,27 @@ func getFileNames(path string, workspaceName string) [][]string {
 	if err != nil {
 		fmt.Println("Error fetching file names from dir\n", err)
 	}
+
+	// check if foler is empty
+	if len(entries) == 0 {
+		var empty [][]string
+		e := []string{"0"}
+		empty = append(empty, e)
+		return empty
+	}
+	// if not, first load the workspace name
+	fileNames = append(fileNames, []string{workspaceName})
+
 	for _, e := range entries {
 		var entry []string
 		entry = append(entry, e.Name())
 		entry = append(entry, path+"/"+e.Name())
+		fmt.Println(">> ", strings.Split(e.Name(), ".")[1])
+		entry = append(entry, strings.Split(e.Name(), ".")[1])
 		entry = append(entry, workspaceName)
 		fileNames = append(fileNames, entry)
 	}
+	fmt.Println(fileNames)
 	return fileNames
 }
 

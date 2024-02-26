@@ -23,6 +23,31 @@ import {Greet,
     } from '../wailsjs/go/main/App';
 
 
+let fileTypes = {
+    '.txt': 'Text',
+    '.docx': 'Word/Document',
+    '.ppt': 'Presentation',
+    '.pptx': 'Presentation',
+    '.pdf': 'Document',
+    '.py': 'Python/Code',
+    '.c': 'C/Code',
+    '.cpp': 'C++/Code',
+    '.cc': 'C++/Code',
+    '.js': 'JavaScript',
+    'rb': 'Ruby/Code',
+    '.go': 'Go/Code',
+    '.jpg': 'Image',
+    '.jpeg': 'Image',
+    '.png': 'Image',
+    '.gif': 'GIF',
+    '.zip': 'ZIP',
+    '.mp4': 'Video',
+    '.m4v': 'Video',
+    '.m4p': 'Video',
+    '.mov': 'Video',
+    '.sql': 'SQL File'
+}
+
 let moreContent = '';
 let navBar = `
 <div style="width: 100%; display: table">
@@ -389,6 +414,10 @@ window.openPrompt = function() {
         })
 }
 
+// function extension(ext) {
+//     console.log("okay")
+//     // return fileTypes[ext.split(".")[1]]
+// }
 
 window.dispFiles = function(path, workspace) {
     console.log(path, workspace)
@@ -398,32 +427,72 @@ window.dispFiles = function(path, workspace) {
                 if (result[0][0] == "0") {
                     document.querySelector('#app').innerHTML = navBar;
                 } else {
-                    let files = `<div style="display: table-cell" class="left-corner">\n`
+                    let files = `<div style="display: table-cell" class="left-corner">
+                            <h1 class="workspace-heading" align="left">${result[0][0]}</h1><ul>
+                            <!-- <button class="add-user-button" id='${result[1][2]}' onclick="openUserAddPrompt(this.id)">Add User</button> -->
+                    \n`
+                    // let i = 0;
+                    result.shift()
                     if (result[0].length != 0) {
                         // Debug()
-                        result.forEach(file => {
-                            files += `<button style="font-size:20px" onclick="openfile('${file[1]}')"><i class="fa fa-file" style="font-size:20px">  ${file[0]}</button>`
-                        })
+                        for (let i = 0; i < result.length;i++) {
+
+                    
+                            // ext = extension(file[0])
+                            files += `
+                            <li align="left">
+                                <div class="parent">
+                                    <div class="child inline-block-child">
+                                        <button class="text-left button-width-prop" onclick="openfile('${result[i][1]}')"><i class="fa fa-file"> ${result[i][0]}</button>
+                                        <time class="date-property">${fileTypes['.'+result[i][2]]}</time>
+                                        <!-- <button class="version-button-1">Versions</button> -->
+                                    </div>
+                                </div>
+                            </li>    
+                            <br>\n`
+
+                        }
+
+
+                        // result.forEach(file => {
+                        //     if (i > 0) {
+                        //         // ext = extension(file[0])
+                        //         files += `
+                        //         <li align="left">
+                        //             <div class="parent">
+                        //                 <div class="child inline-block-child">
+                        //                     <button class="text-left button-width-prop" onclick="openfile('${file[1]}')"><i class="fa fa-file"> ${file[0]}</button>
+                        //                     <time class="date-property">${fileTypes['.'+file[2]]}</time>
+                        //                     <!-- <button class="version-button-1">Versions</button> -->
+                        //                 </div>
+                        //             </div>
+                        //         </li>    
+                        //         <br>\n`
+                        //     }
+                        //     i += 1
+                        // })
+                            
+
                     }   
                     
-                    files += `</div>`
-                    let createOption = `\n<div>
-                        <button id='${result[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
-                    </div>`
-                    files += createOption
-                    let createOptionTwo = `\n<div>
-                        <button id="" onclick="viewUsers()">Check Users</button>
-                    `
-                    files += createOptionTwo;
+                    files += `</div></ul>`
+                    // let createOption = `\n<div>
+                    //     <button id='${result[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
+                    // </div>`
+                    // files += createOption
+                    // let createOptionTwo = `\n<div>
+                    //     <button id="" onclick="viewUsers()">Check Users</button>
+                    // `
+                    // files += createOptionTwo;
                     
-                    let optionThree = `\n<div>
-                    <form action="">
-                        <input type="file" id="myFile" name="filename">
-                        <input type="submit">
-                    </form>
+                    // let optionThree = `\n<div>
+                    // <form action="">
+                    //     <input type="file" id="myFile" name="filename">
+                    //     <input type="submit">
+                    // </form>
                     
-                    `
-                    files += optionThree;
+                    // `
+                    // files += optionThree;
                     document.querySelector('#app').innerHTML = navBar + "\n" + files;
                 }
             })

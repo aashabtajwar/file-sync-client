@@ -104,12 +104,6 @@ func (a *App) AddUserWithEmail(userEmail string, workspaceName string) string {
 
 func (a *App) DisplayFiles(path string, workspaceName string) [][]string {
 	fileNames = getFileNames(path, workspaceName)
-	if len(fileNames) == 0 {
-		var empty [][]string
-		e := []string{"0"}
-		empty = append(empty, e)
-		return empty
-	}
 	return fileNames
 }
 
@@ -222,7 +216,7 @@ func (a *App) DownloadSharedWorkspace(workspaceName string, workspaceID string) 
 
 // random Debugger function
 func (a *App) Debug() {
-	fmt.Println("Debug Fn here")
+	fmt.Println("here")
 }
 
 // Error Message
