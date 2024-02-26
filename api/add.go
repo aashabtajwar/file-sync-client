@@ -25,5 +25,7 @@ func ViewAddedUsers(workspaceID string, authToken string, url string) []byte {
 		`, workspaceID,
 	)
 	requestBody := []byte(requestString)
+	fmt.Println("url == ", url)
+	// fmt.Println("method == ", )
 	return makeRequestV2(requestBody, url, "POST", authToken)
 }

@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/aashabtajwar/desktop-th/global"
 	"github.com/aashabtajwar/desktop-th/tcp"
 	"github.com/fsnotify/fsnotify"
 )
@@ -36,8 +37,11 @@ func CreateWatcher() *fsnotify.Watcher {
 		if err != nil {
 			fmt.Println("Error Adding Directory to watcher")
 		}
+		fmt.Println("Loading Workspace Details == ", info)
+		global.WorkspaceDetails[info[0]] = info[1]
 
 	}
+	fmt.Println("details ==> ", global.WorkspaceDetails)
 	watcherList = append(watcherList, watcher)
 	return watcher
 }

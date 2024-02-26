@@ -10,6 +10,10 @@ export function AddUserWithEmail(arg1, arg2) {
   return window['go']['main']['App']['AddUserWithEmail'](arg1, arg2);
 }
 
+export function ArrayDebug(arg1) {
+  return window['go']['main']['App']['ArrayDebug'](arg1);
+}
+
 export function CheckAuthStatus() {
   return window['go']['main']['App']['CheckAuthStatus']();
 }
@@ -18,16 +22,16 @@ export function CreateWorkspace(arg1) {
   return window['go']['main']['App']['CreateWorkspace'](arg1);
 }
 
-export function Debug() {
-  return window['go']['main']['App']['Debug']();
+export function Debug(arg1) {
+  return window['go']['main']['App']['Debug'](arg1);
 }
 
 export function DisplayFiles(arg1, arg2) {
   return window['go']['main']['App']['DisplayFiles'](arg1, arg2);
 }
 
-export function DisplaySharedUsers() {
-  return window['go']['main']['App']['DisplaySharedUsers']();
+export function DisplaySharedUsers(arg1) {
+  return window['go']['main']['App']['DisplaySharedUsers'](arg1);
 }
 
 export function DisplaySharedWorkspaceFiles(arg1, arg2) {

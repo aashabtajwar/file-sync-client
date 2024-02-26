@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/aashabtajwar/desktop-th/errorhandling"
+	"github.com/aashabtajwar/desktop-th/global"
 )
 
 func separateDirNames(dirs []string) [][]string {
@@ -93,12 +94,13 @@ func sortFileNamesFromPath(paths []string, workspaceName string, workspaceID str
 	return names
 }
 
-func sortUsers(body []byte) [][]string {
+func sortUsers(body []byte, workspaceName string) [][]string {
 	var users [][]string
 	d := make(map[string][]map[string]string)
 	if err := json.Unmarshal(body, &d); err != nil {
 		fmt.Println("Unmarshall Error\n", err)
 	}
+	users = append(users, []string{workspaceName, global.WorkspaceDetails[workspaceName]})
 	allUsers := d["users"]
 	for _, e := range allUsers {
 		var w []string

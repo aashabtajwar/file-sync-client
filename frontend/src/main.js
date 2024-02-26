@@ -19,7 +19,8 @@ import {Greet,
         GetRemoteWorkspacesV2,
         ListAllFiles,
         ListSpecificFiles,
-        Register
+        Register,
+        DisplaySharedUsers
     } from '../wailsjs/go/main/App';
 
 
@@ -419,17 +420,83 @@ window.openPrompt = function() {
 //     // return fileTypes[ext.split(".")[1]]
 // }
 
+
+window.showUsers = function(workspaceName) {
+    try {
+        Debug("jjjj")
+        DisplaySharedUsers(workspaceName)
+            .then(result => {
+                Debug("111")
+                if (result[0][0] == "0") {
+                    Debug("this")
+                    let noContent = 
+                    `
+                    <div style="display: table-cell" class="left-corner">
+                        <h1 class="workspace-heading" align="left">No Added Users</h1>
+                    </div>
+                    `
+                    document.querySelector('#app').innerHTML = navBar + noContent;
+                } else {
+                    Debug("over")
+                    let content = 
+                    `
+                    <div style="display: table-cell" class="left-corner">
+                        <h2 class="workspace-heading" align="left">Shared Users</h2>
+
+                    `;
+                    result.shift();
+                    if (result[0].length != 0) {
+                        // Debug()
+                        for (let i = 0; i < result.length;i++) {
+                            Debug(result[i][0])
+                            content += `
+                            <li align="left">
+                                <div class="parent">
+                                    <div class="child inline-block-child">
+                                        <h3 class="h3-class">${result[i][0]}</h3>
+                                        <button>Permissions</button>
+                                        <!-- drop down here -->
+                                    </div>
+                                </div>
+                            </li>    
+                            <br>\n`
+
+                        }
+                    }
+                    document.querySelector('#app').innerHTML = navBar + content;
+
+                }
+            })
+            .catch(err => {
+                console.error(err)
+            })
+
+    } catch(err) {
+        console.error(err)
+    }
+    // return "ad"
+}
+
+
+
 window.dispFiles = function(path, workspace) {
+    function modalContent() {
+
+        return "some string"
+    }
     console.log(path, workspace)
     try {
         DisplayFiles(path, workspace)
             .then(result => {
+                // let modalContent = loadModalContent();
                 if (result[0][0] == "0") {
                     document.querySelector('#app').innerHTML = navBar;
                 } else {
                     let files = `<div style="display: table-cell" class="left-corner">
                             <h1 class="workspace-heading" align="left">${result[0][0]}</h1><ul>
-                            <!-- <button class="add-user-button" id='${result[1][2]}' onclick="openUserAddPrompt(this.id)">Add User</button> -->
+                            <button class="right-corner add-user-button" id='${result[1][3]}' onclick="openUserAddPrompt(this.id)">Add User</button>
+                            <button onclick="showUsers('${result[1][3]}')">Show Shared Users</button>
+                            
                     \n`
                     // let i = 0;
                     result.shift()

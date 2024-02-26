@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/aashabtajwar/desktop-th/api"
+	"github.com/aashabtajwar/desktop-th/global"
 	"github.com/aashabtajwar/desktop-th/tasks"
 	"github.com/aashabtajwar/desktop-th/tokens"
 	"github.com/labstack/gommon/log"
@@ -94,7 +95,9 @@ func (a *App) CreateWorkspace(workspaceName string) string {
 // Therefore user can be added only after creating a workspace
 // fix this
 func (a *App) AddUserWithEmail(userEmail string, workspaceName string) string {
-	msg := api.AddUserToWorkspace(userEmail, remoteUrl+"add-user", authToken, workspaceDetail[workspaceName])
+	fmt.Println("name == ", workspaceName)
+	fmt.Println("workspace id == ", global.WorkspaceDetails[workspaceName])
+	msg := api.AddUserToWorkspace(userEmail, remoteUrl+"add-user", authToken, global.WorkspaceDetails[workspaceName])
 	return msg
 }
 
@@ -147,12 +150,13 @@ func (a *App) GetRemoteWorkspacesV2() [][]string {
 // 	return names
 // }
 
-func (a *App) DisplaySharedUsers() [][]string {
-	var sharedUsers [][]string // name and userID
-	body := api.ViewAddedUsers(authToken, remoteUrl+"shared-users", authToken)
-	users := sortUsers(body)
-	fmt.Println(users)
-	return sharedUsers
+func (a *App) DisplaySharedUsers(workspaceName string) [][]string {
+	// var sharedUsers [][]string // name and userID
+	fmt.Println("workspace id == ", global.WorkspaceDetails[workspaceName])
+	body := api.ViewAddedUsers(global.WorkspaceDetails[workspaceName], authToken, remoteUrl+"shared-users")
+	users := sortUsers(body, workspaceName)
+	fmt.Println("shared users == ", users)
+	return users
 }
 
 func (a *App) ListSpecificFiles(fileType []string) [][]string {
@@ -215,8 +219,12 @@ func (a *App) DownloadSharedWorkspace(workspaceName string, workspaceID string) 
 }
 
 // random Debugger function
-func (a *App) Debug() {
-	fmt.Println("here")
+func (a *App) Debug(content string) {
+	fmt.Println("here = ", content)
+}
+
+func (a *App) ArrayDebug(content []string) {
+	fmt.Println("content = ", content)
 }
 
 // Error Message

@@ -5,15 +5,17 @@ export function AddContent():Promise<Array<any>>;
 
 export function AddUserWithEmail(arg1:string,arg2:string):Promise<string>;
 
+export function ArrayDebug(arg1:Array<string>):Promise<void>;
+
 export function CheckAuthStatus():Promise<string>;
 
 export function CreateWorkspace(arg1:string):Promise<string>;
 
-export function Debug():Promise<void>;
+export function Debug(arg1:string):Promise<void>;
 
 export function DisplayFiles(arg1:string,arg2:string):Promise<Array<any>>;
 
-export function DisplaySharedUsers():Promise<Array<any>>;
+export function DisplaySharedUsers(arg1:string):Promise<Array<any>>;
 
 export function DisplaySharedWorkspaceFiles(arg1:string,arg2:string):Promise<Array<any>>;
 
