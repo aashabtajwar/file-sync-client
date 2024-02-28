@@ -25,3 +25,13 @@
 
 ### Commits/Features
 1. COMMIT #1.0: Clicking on local folder leads to the files it contains
+
+
+### Permission Changing/Setting
+1. shared_workspaces table = new column 'permissions', bool
+2. Default = False
+3. can be changed
+4. send http request carrying permission_name, userID and workspaceID in body
+5. change and let the user know through tcp
+6. send info in metadata and send random string as filedata
+7. after receiving, the user's client will add the workspace name to watcher

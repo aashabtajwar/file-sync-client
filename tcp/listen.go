@@ -17,6 +17,31 @@ import (
 	"github.com/gen2brain/beeep"
 )
 
+// func removePermission(metadata map[string]string) {
+
+// }
+
+func setPermission(metadata map[string]string) {
+	workspaceName := metadata["workspace"]
+	dir := "/home/aashab/FileSync/" + workspaceName // change this
+	// add to workspaces.txt
+	fileTwo, err := os.OpenFile("storage/workspaces.txt", os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("Error Opening File for Workspace Dirs\n", err)
+	}
+	defer fileTwo.Close()
+	if _, err := fileTwo.WriteString("\n" + workspaceName + " " + metadata["workspace_id"] + " " + dir); err != nil {
+		fmt.Println("Error Storing workspace name to workspaces.txt file", err)
+	}
+
+	// now restart the app to take effect
+	msg := fmt.Sprintf("You have been granted write permission for %s workspace. Please restart the app for this permission to take effect", workspaceName)
+	err = beeep.Notify("File Sync", msg, "assets/information.png")
+	if err != nil {
+		log.Println("Error Generating Notification\n", err)
+	}
+}
+
 // real time notification
 func showNotification(metadata map[string]string, fileData *bytes.Buffer) {
 	err := beeep.Notify("File Sync", fileData.String(), "assets/information.png")
@@ -54,6 +79,8 @@ func save(metadata map[string]string, fileData *bytes.Buffer) {
 	if metadata["isNotification"] == "1" {
 		// fmt.Println("Following this path")
 		showNotification(metadata, fileData)
+	} else if metadata["isPermission"] == "1" {
+		setPermission(metadata)
 	} else {
 
 		// for now, files are being saved in this directory

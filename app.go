@@ -159,6 +159,18 @@ func (a *App) DisplaySharedUsers(workspaceName string) [][]string {
 	return users
 }
 
+func (a *App) SetUserPermission(permission string, userID string, workspaceID string) {
+	fmt.Println("changing user permission...")
+	responseBody := api.ChangePermission(permission, userID, workspaceID, authToken)
+	fmt.Println(responseBody)
+}
+
+func (a *App) SetPermission(permission string, userID string, workspaceID string) {
+	fmt.Println("Coming here...")
+	responseBody := api.ChangePermission(permission, userID, workspaceID, authToken)
+	fmt.Println(responseBody)
+}
+
 func (a *App) ListSpecificFiles(fileType []string) [][]string {
 	var allDocs [][]string
 	localWorkspaces := fetchWorkspaces()

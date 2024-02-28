@@ -85,3 +85,11 @@ export function OpenFile(arg1) {
 export function Register(arg1, arg2, arg3, arg4, arg5) {
   return window['go']['main']['App']['Register'](arg1, arg2, arg3, arg4, arg5);
 }
+
+export function SetPermission(arg1, arg2, arg3) {
+  return window['go']['main']['App']['SetPermission'](arg1, arg2, arg3);
+}
+
+export function SetUserPermission(arg1, arg2, arg3) {
+  return window['go']['main']['App']['SetUserPermission'](arg1, arg2, arg3);
+}

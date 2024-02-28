@@ -10,6 +10,20 @@ import (
 	"github.com/aashabtajwar/desktop-th/errorhandling"
 )
 
+func ChangePermission(permission string, userID string, workspaceID string, token string) []byte {
+	fmt.Println("Printing Permission = ", permission)
+	requestString := fmt.Sprintf(`
+	{
+		"permission": "%s",
+		"user_id": "%s",
+		"workspace_id": "%s"
+	}
+	`, permission, userID, workspaceID)
+	bodyData := []byte(requestString)
+	body := makeRequestV2(bodyData, URL+"set-permission", "POST", token)
+	return body
+}
+
 func RetrieveWorkspaceFiles(workspaceID string, authToken string) map[string][]string {
 	requestString := fmt.Sprintf(`
 	{

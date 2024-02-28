@@ -76,15 +76,15 @@ func makeRequest(bodyData string, endpoint string, token string) string {
 	errorhandling.RequestError(err)
 	defer res.Body.Close()
 	body, err := io.ReadAll(res.Body)
+
+	errorhandling.ReadingResponseBodyError(err)
+
 	return string(body)
 
 }
 
 func makeRequestV2(bodyData []byte, endpoint string, method string, token string) []byte {
 
-	fmt.Println("endpoint == ", endpoint)
-	fmt.Println("method == ", method)
-	fmt.Println("token == ", token)
 	r, err := http.NewRequest(method, endpoint, bytes.NewBuffer(bodyData))
 
 	errorhandling.NewRequestError(err)
@@ -99,7 +99,6 @@ func makeRequestV2(bodyData []byte, endpoint string, method string, token string
 	res, err := client.Do(r)
 
 	errorhandling.RequestError(err)
-	fmt.Println("reading body...")
 	body, err := io.ReadAll(res.Body)
 
 	errorhandling.ReadingResponseBodyError(err)

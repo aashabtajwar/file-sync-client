@@ -20,7 +20,8 @@ import {Greet,
         ListAllFiles,
         ListSpecificFiles,
         Register,
-        DisplaySharedUsers
+        DisplaySharedUsers,
+        SetUserPermission
     } from '../wailsjs/go/main/App';
 
 
@@ -426,7 +427,7 @@ window.showUsers = function(workspaceName) {
         Debug("jjjj")
         DisplaySharedUsers(workspaceName)
             .then(result => {
-                Debug("111")
+                Debug("111 - Workspace ID = " + result[0][1])
                 if (result[0][0] == "0") {
                     Debug("this")
                     let noContent = 
@@ -444,17 +445,26 @@ window.showUsers = function(workspaceName) {
                         <h2 class="workspace-heading" align="left">Shared Users</h2>
 
                     `;
-                    result.shift();
+                    // result.shift();
+                    // onsubmit="setPermission('${result[i][1]}', '${result[0][1]}')"
                     if (result[0].length != 0) {
                         // Debug()
-                        for (let i = 0; i < result.length;i++) {
+                        for (let i = 1; i < result.length;i++) {
                             Debug(result[i][0])
                             content += `
                             <li align="left">
-                                <div class="parent">
-                                    <div class="child inline-block-child">
-                                        <h3 class="h3-class">${result[i][0]}</h3>
-                                        <button>Permissions</button>
+                                <div class="">
+                                    <div class="parent inline-block-child">
+                                        <h3 class="h3-class child">${result[i][0]}</h3>
+                                        <form id="perm-id" class="child">
+                                        <label for="${result[i][1]}-perm"></label>
+                                        <select id="${result[i][1]}-perm" name="${result[i][1]}-perm">
+                                            <option value="read">Read</option>
+                                            <option value="write">Read/Write</option>
+                                        </select>
+                                        <input type="submit" id="permission" onclick="setPermission('2', '30')">
+                                        </form>
+
                                         <!-- drop down here -->
                                     </div>
                                 </div>
@@ -477,6 +487,29 @@ window.showUsers = function(workspaceName) {
     // return "ad"
 }
 
+// var v = document.getElementById('perm-id');
+// v.addEventListener("submit", setPermissionV2);
+
+// function setPermissionV2() {
+//     Debug("V2")
+// }
+
+window.setPermission = function(userId, workspaceID) {
+    // get the permission value and send it to backend
+    // e.preventDefaul();
+    Debug(userId + '-perm')
+    let p = document.getElementById(userId + '-perm').value;
+    Debug("jacked")
+    Debug(p)
+    Debug("user id = " + userId)
+    Debug("wID = " + workspaceID)
+    
+    try {
+        SetUserPermission(p, userId, workspaceID)
+    } catch(err) {
+
+    }
+}
 
 
 window.dispFiles = function(path, workspace) {

@@ -42,3 +42,7 @@ export function Nice(arg1:string):Promise<string>;
 export function OpenFile(arg1:string):Promise<string>;
 
 export function Register(arg1:string,arg2:string,arg3:string,arg4:string,arg5:string):Promise<string>;
+
+export function SetPermission(arg1:string,arg2:string,arg3:string):Promise<void>;
+
+export function SetUserPermission(arg1:string,arg2:string,arg3:string):Promise<void>;
