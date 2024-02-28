@@ -3,11 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/aashabtajwar/desktop-th/api"
 	"github.com/aashabtajwar/desktop-th/global"
 	"github.com/aashabtajwar/desktop-th/tasks"
+	"github.com/aashabtajwar/desktop-th/tcp"
 	"github.com/aashabtajwar/desktop-th/tokens"
 	"github.com/labstack/gommon/log"
 	"github.com/skratchdot/open-golang/open"
@@ -47,7 +49,7 @@ func (a *App) CheckAuthStatus() string {
 		} else {
 			// if token is still valid, move to home page
 
-			// go tcp.Connect(authToken)
+			go tcp.Connect(authToken)
 			return "Already Logged In"
 		}
 	}
@@ -73,7 +75,7 @@ func (a *App) Register(firstName string, lastName string, username string, email
 func (a *App) Login(email string, password string) string {
 	res := api.Login(email, password)
 	token = res["token"]
-	// go tcp.Connect(token)
+	go tcp.Connect(token)
 	return res["message"]
 }
 
@@ -87,7 +89,7 @@ func (a *App) AddContent() [][]string {
 func (a *App) CreateWorkspace(workspaceName string) string {
 	res := api.CreateWorkspace("/home/aashab/"+workspaceName, workspaceName, authToken, remoteUrl+"createw")
 	msg, id := tasks.Parse(res)
-	workspaceDetail[workspaceName] = id
+	global.WorkspaceDetails[workspaceName] = id
 	return msg
 }
 
@@ -228,6 +230,18 @@ func (a *App) DownloadSharedWorkspace(workspaceName string, workspaceID string) 
 	fmt.Println("Workspace ID = ", workspaceID)
 	r := api.DownloadWorkspaceV2(authToken, workspaceID, workspaceName)
 	fmt.Println(r)
+	// add to workspaces.txt file
+	fileTwo, err := os.OpenFile("storage/workspaces.txt", os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("Error Opening File for Workspace Dirs\n", err)
+	}
+	defer fileTwo.Close()
+	if _, err := fileTwo.WriteString("\n" + workspaceName + " " + workspaceID + " /home/aashab/FileSync/" + workspaceName); err != nil {
+		fmt.Println("Error Storing workspace name to workspaces.txt file", err)
+	}
+
+	// watcher := monitor.CreateWatcher()
+	// watcher.Add("/home/aashab/FileSync/" + workspaceName) // config later
 }
 
 // random Debugger function

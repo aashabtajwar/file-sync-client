@@ -84,6 +84,7 @@ func SendFile(name string, filePath string, workspace string, mimeType string) {
 	// byteData := make([]byte, fi.Size())
 	// _, err = file.Read(byteData)
 	byteData, errr := os.ReadFile(filePath)
+	fmt.Println("file content ==\n", string(byteData))
 	if errr != nil {
 		fmt.Println("error reading file\n", errr)
 	}

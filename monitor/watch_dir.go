@@ -126,6 +126,7 @@ func Watch() {
 
 						// file pasting and file changes
 						if event.Op&fsnotify.Create == fsnotify.Create {
+							fmt.Println("file updated...")
 							workspaceDir := splitted[len(splitted)-2]
 							fileName := strings.Split(splitted[len(splitted)-1], ".")
 							mimeType := fileName[len(fileName)-1]
