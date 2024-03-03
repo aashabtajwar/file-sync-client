@@ -199,6 +199,7 @@ func (a *App) ListAllFiles() [][]string {
 }
 
 func (a *App) GetSharedWorkspaces() [][]string {
+	fmt.Println("going to check shared workspaces")
 	var sharedWorkspaces [][]string // 0 - name; 1 - id
 	r := api.CheckWorkspaces(authToken, remoteUrl+"check")["workspaces"]
 	fmt.Println(r)

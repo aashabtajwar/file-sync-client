@@ -100,6 +100,11 @@ let mainContent = `
 window.registrationPage = function() {
     let register = `
     <div class="" id="">Registration</div>
+    <div>
+        <h3 style="color:black; font-weight: bold">Register</h3>
+      </div>
+      <br>
+      
     <div class="" id="r-">
         <input class="" id="fname" type="text" autocomplete="off" placeholder="First Name" />
     </div>
@@ -156,12 +161,12 @@ function loginPage(msg) {
     document.querySelector('#app').innerHTML = `
       <div class="result" id="result">${msg}</div>
       <div class="input-box" id="input-email">
-        <input class="input" id="email" type="text" autocomplete="off" />
+        <input class="input" id="email" type="text" autocomplete="off" placeholder="Enter Email Address"/>
       </div>
       <br>
       
     <div class="input-box" id="input-password">
-        <input class="input" id="password" type="password" autocomplete="off" />
+        <input class="input" id="password" type="password" autocomplete="off" placeholder="Enter Password"/>
     </div>
     <br>
     <a href='#' onclick="registrationPage();">Register</a>
@@ -208,13 +213,17 @@ function checkToken() {
 
 document.querySelector('#app').innerHTML = `
       <div class="result" id="result">Login</div>
+      <div>
+        <h3 style="color:black; font-weight: bold">Login</h3>
+      </div>
+      <br>
       <div class="input-box" id="input-email">
-        <input class="input" id="email" type="text" autocomplete="off" />
+        <input class="input" id="email" type="text" autocomplete="off" placeholder="Enter Email Adress" />
       </div>
       <br>
       
     <div class="input-box" id="input-password">
-        <input class="input" id="password" type="password" autocomplete="off" />
+        <input class="input" id="password" type="password" autocomplete="off" placeholder="Enter Password" />
     </div>
     <br>
     <a href='#' onclick="registrationPage();">Register</a>
@@ -373,7 +382,7 @@ window.addNewContent = function() {
                         <div class="parent">
                             <div class="child inline-block-child">
                                 <button class="text-left button-width-prop" style="font-size:20px" onclick="dispFiles('${dir[2]}', '${dir[0]}')"><i class="text-left fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>
-                                <time class="date-property">24-01-2023</time>
+                                <time class="date-property">${dir[3]}</time>
                             </div>
                         </div>
                     </li>

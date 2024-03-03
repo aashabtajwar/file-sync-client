@@ -71,6 +71,7 @@ func SendToken(token string, conn net.Conn) {
 }
 
 func SendFile(name string, filePath string, workspace string, mimeType string) {
+	start := time.Now()
 	time.Sleep(100 * time.Millisecond)
 	conn := SetUpConn()
 	file, err := os.Open(filePath)
@@ -81,15 +82,18 @@ func SendFile(name string, filePath string, workspace string, mimeType string) {
 	if err != nil {
 		fmt.Println("Error getting file stat\n", err)
 	}
-	// byteData := make([]byte, fi.Size())
-	// _, err = file.Read(byteData)
+	byteData := make([]byte, fi.Size())
+	_, err = file.Read(byteData)
+	if err != nil {
+		fmt.Println(err)
+	}
 	byteData, errr := os.ReadFile(filePath)
-	fmt.Println("file content ==\n", string(byteData))
 	if errr != nil {
 		fmt.Println("error reading file\n", errr)
 	}
+	// fmt.Println("file content ==\n", string(byteData))
 
-	fmt.Println("data --> \n", byteData)
+	// fmt.Println("data --> \n", byteData)
 
 	// how do i get the user id?
 	userId := "1" // for now
@@ -110,20 +114,22 @@ func SendFile(name string, filePath string, workspace string, mimeType string) {
 
 	// send file data
 	binary.Write(conn, binary.LittleEndian, int64(fi.Size()))
-	n, err := io.CopyN(conn, bytes.NewReader(byteData), int64(fi.Size()))
+	_, err = io.CopyN(conn, bytes.NewReader(byteData), int64(fi.Size()))
 	if err != nil {
 		fmt.Println("Error Sending File data\n", err)
 	}
 
-	fmt.Printf("Written %d bytes\n", n)
+	// fmt.Printf("Written %d bytes\n", n)
 	time.Sleep(100 * time.Millisecond)
 
 	// send meta data
 	binary.Write(conn, binary.LittleEndian, int64(len(metaDataBytes)))
-	n1, err := io.CopyN(conn, bytes.NewReader(metaDataBytes), int64(len(metaDataBytes)))
+	_, err = io.CopyN(conn, bytes.NewReader(metaDataBytes), int64(len(metaDataBytes)))
 	if err != nil {
 		fmt.Println("Error sending file metadata\n", err)
 	}
-	fmt.Printf("Written %d bytes\n", n1)
+	elapsed := time.Since(start)
+	fmt.Println("total time elapsed ", elapsed)
+	// fmt.Printf("Written %d bytes\n", n1)
 
 }
