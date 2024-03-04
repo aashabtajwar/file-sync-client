@@ -147,6 +147,9 @@ body {
 .add-user-button {
     /* padding-left: 10px; */
 }
+.add-user-button-2 {
+    padding-right: 10px;
+}
 
 .bordered-text {
     border-style: solid;

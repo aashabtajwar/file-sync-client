@@ -305,18 +305,41 @@ window.displaySharedWorkspaceFiles = function(workspaceID, workspaceName) {
         DisplaySharedWorkspaceFiles(workspaceID, workspaceName)
             .then(result => {
                 Debug()
-                let files = `<div style="display: table-cell" class="left-corner">\n`
-                result.forEach(file => {
-                    files += `<button style="font-size:20px" onclick="openfile('')"><i class="fa fa-file" style="font-size:20px">  ${file[0]}</button>`
-                })
-                files += `</div>`
                 let f = result[0]
+                // let files = `<div style="display: table-cell" class="left-corner">\n<ul>`
+                let files = `<div style="display: table-cell" class="left-corner">
+                        <!--    <h1 class="workspace-heading" align="left">SS</h1> --->
+                            <button class="" id='' onclick="downloadThisWorkspace('${f[1]}', '${f[2]}')">Download</button> 
+                        <br><br><br><br>
+                            
+                    \n
+                    <ul>
+                    `
+                result.forEach(file => {
+                    files += `
+                            <li align="left">
+                                <div class="parent">
+                                    <div class="child inline-block-child">
+                                        <button class="text-left button-width-prop" onclick=""><i class="fa fa-file"> ${file[0]}</button>
+                                        
+                                    </div>
+                                </div>
+                            </li>    
+                            <br>\n`
+                    // files += `<button style="font-size:20px" onclick="openfile('')"><i class="fa fa-file" style="font-size:20px">  ${file[0]}</button>`
+                })
+                // files += `</div>`
+                // let f = result[0]
 
-                let createDownloadButton = `\n<div>
-                    <button onclick="downloadThisWorkspace('${f[1]}', '${f[2]}')">Download</button>
-                <div>
-                `
-                files += createDownloadButton
+                // let createDownloadButton = `\n<li>
+                // <div>
+                //     <button onclick="downloadThisWorkspace('${f[1]}', '${f[2]}')">Download</button>
+                // <div>
+                // </li>
+                // </ul>
+                // `
+                // files += createDownloadButton
+                files += `</div></ul>`
                 document.querySelector('#app').innerHTML = navBar + "\n" + files;
             })
             .catch(err => {

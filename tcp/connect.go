@@ -21,12 +21,14 @@ func SetUpConn() net.Conn {
 		fmt.Println("Error Connecting to TCP Server\n", err)
 	}
 	server = append(server, conn)
+	fmt.Println("listeing......")
 	return conn
 
 }
 
 // connect to tcp server
 func Connect(authToken string) {
+	fmt.Println("turning on tcp.............")
 	cl := &TcpClient{
 		quit: make(chan interface{}),
 	}

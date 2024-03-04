@@ -1,4 +1,4 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))o(i);new MutationObserver(i=>{for(const r of i)if(r.type==="childList")for(const s of r.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&o(s)}).observe(document,{childList:!0,subtree:!0});function n(i){const r={};return i.integrity&&(r.integrity=i.integrity),i.referrerpolicy&&(r.referrerPolicy=i.referrerpolicy),i.crossorigin==="use-credentials"?r.credentials="include":i.crossorigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function o(i){if(i.ep)return;i.ep=!0;const r=n(i);fetch(i.href,r)}})();function p(){return window.go.main.App.AddContent()}function u(e,t){return window.go.main.App.AddUserWithEmail(e,t)}function f(){return window.go.main.App.CheckAuthStatus()}function m(e){return window.go.main.App.CreateWorkspace(e)}function l(e){return window.go.main.App.Debug(e)}function h(e,t){return window.go.main.App.DisplayFiles(e,t)}function b(e){return window.go.main.App.DisplaySharedUsers(e)}function y(e,t){return window.go.main.App.DisplaySharedWorkspaceFiles(e,t)}function v(e,t){return window.go.main.App.DownloadSharedWorkspace(e,t)}function w(){return window.go.main.App.GetRemoteWorkspacesV2()}function g(){return window.go.main.App.GetSharedWorkspaces()}function k(e){return window.go.main.App.Greet(e)}function S(){return window.go.main.App.ListAllFiles()}function A(e){return window.go.main.App.ListSpecificFiles(e)}function L(e,t){return window.go.main.App.Login(e,t)}function E(e){return window.go.main.App.Nice(e)}function $(e){return window.go.main.App.OpenFile(e)}function W(e,t,n,o,i){return window.go.main.App.Register(e,t,n,o,i)}function P(e,t,n){return window.go.main.App.SetUserPermission(e,t,n)}let C={".txt":"Text",".docx":"Word/Document",".ppt":"Presentation",".pptx":"Presentation",".pdf":"Document",".py":"Python/Code",".c":"C/Code",".cpp":"C++/Code",".cc":"C++/Code",".js":"JavaScript",rb:"Ruby/Code",".go":"Go/Code",".jpg":"Image",".jpeg":"Image",".png":"Image",".gif":"GIF",".zip":"ZIP",".mp4":"Video",".m4v":"Video",".m4p":"Video",".mov":"Video",".sql":"SQL File"},T="",c=`
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))o(i);new MutationObserver(i=>{for(const r of i)if(r.type==="childList")for(const a of r.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&o(a)}).observe(document,{childList:!0,subtree:!0});function n(i){const r={};return i.integrity&&(r.integrity=i.integrity),i.referrerpolicy&&(r.referrerPolicy=i.referrerpolicy),i.crossorigin==="use-credentials"?r.credentials="include":i.crossorigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function o(i){if(i.ep)return;i.ep=!0;const r=n(i);fetch(i.href,r)}})();function p(){return window.go.main.App.AddContent()}function u(e,t){return window.go.main.App.AddUserWithEmail(e,t)}function f(){return window.go.main.App.CheckAuthStatus()}function m(e){return window.go.main.App.CreateWorkspace(e)}function l(e){return window.go.main.App.Debug(e)}function h(e,t){return window.go.main.App.DisplayFiles(e,t)}function b(e){return window.go.main.App.DisplaySharedUsers(e)}function v(e,t){return window.go.main.App.DisplaySharedWorkspaceFiles(e,t)}function w(e,t){return window.go.main.App.DownloadSharedWorkspace(e,t)}function y(){return window.go.main.App.GetRemoteWorkspacesV2()}function g(){return window.go.main.App.GetSharedWorkspaces()}function k(e){return window.go.main.App.Greet(e)}function S(){return window.go.main.App.ListAllFiles()}function A(e){return window.go.main.App.ListSpecificFiles(e)}function L(e,t){return window.go.main.App.Login(e,t)}function E(e){return window.go.main.App.Nice(e)}function $(e){return window.go.main.App.OpenFile(e)}function W(e,t,n,o,i){return window.go.main.App.Register(e,t,n,o,i)}function P(e,t,n){return window.go.main.App.SetUserPermission(e,t,n)}let C={".txt":"Text",".docx":"Word/Document",".ppt":"Presentation",".pptx":"Presentation",".pdf":"Document",".py":"Python/Code",".c":"C/Code",".cpp":"C++/Code",".cc":"C++/Code",".js":"JavaScript",rb:"Ruby/Code",".go":"Go/Code",".jpg":"Image",".jpeg":"Image",".png":"Image",".gif":"GIF",".zip":"ZIP",".mp4":"Video",".m4v":"Video",".m4p":"Video",".mov":"Video",".sql":"SQL File"},T="",c=`
 <div style="width: 100%; display: table">
     <div style="display: table-row; height: 100px">
         <div class="sidebar" style="width: 15%; display: table-cell">
@@ -60,7 +60,7 @@
       <br>
     <button class="btn btn-primary" onclick="login()">Submit</button>
     </div>
-`}function d(){document.getElementById("app").innerHTML=c,x=document.getElementById("app");var e=document.createElement("div");e.setAttribute("class","nav-button"),e.textContent="Main Content Here",x.appendChild(e)}function D(){try{f().then(e=>{e=="Already Logged In"&&d(),a.innerText=e}).catch(e=>{console.error(e)})}catch(e){console.error(e)}}document.querySelector("#app").innerHTML=`
+`}function d(){document.getElementById("app").innerHTML=c,x=document.getElementById("app");var e=document.createElement("div");e.setAttribute("class","nav-button"),e.textContent="Main Content Here",x.appendChild(e)}function D(){try{f().then(e=>{e=="Already Logged In"&&d(),s.innerText=e}).catch(e=>{console.error(e)})}catch(e){console.error(e)}}document.querySelector("#app").innerHTML=`
       <div class="result" id="result">Login</div>
       <div class="input-box" id="input-email">
         <input class="input" id="email" type="text" autocomplete="off" />
@@ -88,13 +88,26 @@
                 </div>`;t+=n,document.querySelector("#app").innerHTML=c+`
 `+t}).catch(e=>{console.error(e)})}catch(e){console.error(e)}};window.viewSharedWorkspaces=function(){try{g().then(e=>{console.log(e);let t=`<div style="display: table-cell" class="left-corner">
 `;e.forEach(n=>{t+=`<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${n[1]}', '${n[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${n[0]}</button>`}),t=t+"</div>",document.querySelector("#app").innerHTML=c+`
-`+t}).catch(e=>{})}catch(e){console.error(e)}};window.displaySharedWorkspaceFiles=function(e,t){l();try{y(e,t).then(n=>{l();let o=`<div style="display: table-cell" class="left-corner">
-`;n.forEach(s=>{o+=`<button style="font-size:20px" onclick="openfile('')"><i class="fa fa-file" style="font-size:20px">  ${s[0]}</button>`}),o+="</div>";let i=n[0],r=`
-<div>
-                    <button onclick="downloadThisWorkspace('${i[1]}', '${i[2]}')">Download</button>
-                <div>
-                `;o+=r,document.querySelector("#app").innerHTML=c+`
-`+o}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.downloadThisWorkspace=function(e,t){try{v(e,t)}catch(n){console.error(n)}};window.loadRemoteWorkspaces=function(){try{w().then(e=>{console.log(e);let t=`<div style="display: table-cell" class="left-corner">
+`+t}).catch(e=>{})}catch(e){console.error(e)}};window.displaySharedWorkspaceFiles=function(e,t){l();try{v(e,t).then(n=>{l();let o=n[0],i=`<div style="display: table-cell" class="left-corner">
+                            <h1 class="workspace-heading" align="left">SS</h1>
+                            <button class="right-corner add-user-button" id='' onclick="downloadThisWorkspace('${o[1]}', '${o[2]}')">Download</button>
+
+                            
+                    
+
+                    <ul>
+                    `;n.forEach(r=>{i+=`
+                            <li align="left">
+                                <div class="parent">
+                                    <div class="child inline-block-child">
+                                        <button class="text-left button-width-prop" onclick=""><i class="fa fa-file"> ${r[0]}</button>
+                                        
+                                    </div>
+                                </div>
+                            </li>    
+                            <br>
+`}),i+="</div></ul>",document.querySelector("#app").innerHTML=c+`
+`+i}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.downloadThisWorkspace=function(e,t){try{w(e,t)}catch(n){console.error(n)}};window.loadRemoteWorkspaces=function(){try{y().then(e=>{console.log(e);let t=`<div style="display: table-cell" class="left-corner">
 `;e.forEach(n=>{t+=`<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${n[1]}', '${n[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${n[0]}</button>`}),t=t+"</div>",document.querySelector("#app").innerHTML=c+`
 `+t}).catch(e=>{console.error(e)})}catch(e){console.error(e)}};window.addNewContent=function(){try{console.log("adding new content"),p().then(e=>{let t=`<div style="display: table-cell" class="left-corner"><h1 class="workspace-heading" align="left">Local</h1>
 <ul>
@@ -163,4 +176,4 @@
                             </li>    
                             <br>
 `;o+="</div></ul>",document.querySelector("#app").innerHTML=c+`
-`+o}}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.openfile=function(e){try{$(e).then(t=>{console.log(t)}).catch(t=>{})}catch(t){console.error(t)}};window.openUserAddPrompt=function(e){try{let t=prompt("Enter User Email");u(t,e).then(n=>{console.log(n)}).catch(n=>{console.error(n)})}catch(t){console.error(t)}};let a=document.getElementById("result"),U=document.getElementById("email"),I=document.getElementById("password");window.login=function(){let e=U.value,t=I.value;try{L(e,t).then(n=>{a.innerText=n,n=="Log In Successful!"&&d()}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.nice=function(){let e=nameElement.value;if(e!=="")try{E(e).then(t=>{a.innerText=t}).catch(t=>{console.error(t)})}catch(t){console.error(t)}};window.greet=function(){let e=nameElement.value;if(e!=="")try{k(e).then(t=>{a.innerText=t}).catch(t=>{console.error(t)})}catch(t){console.error(t)}};
+`+o}}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.openfile=function(e){try{$(e).then(t=>{console.log(t)}).catch(t=>{})}catch(t){console.error(t)}};window.openUserAddPrompt=function(e){try{let t=prompt("Enter User Email");u(t,e).then(n=>{console.log(n)}).catch(n=>{console.error(n)})}catch(t){console.error(t)}};let s=document.getElementById("result"),U=document.getElementById("email"),I=document.getElementById("password");window.login=function(){let e=U.value,t=I.value;try{L(e,t).then(n=>{s.innerText=n,n=="Log In Successful!"&&d()}).catch(n=>{console.error(n)})}catch(n){console.error(n)}};window.nice=function(){let e=nameElement.value;if(e!=="")try{E(e).then(t=>{s.innerText=t}).catch(t=>{console.error(t)})}catch(t){console.error(t)}};window.greet=function(){let e=nameElement.value;if(e!=="")try{k(e).then(t=>{s.innerText=t}).catch(t=>{console.error(t)})}catch(t){console.error(t)}};
