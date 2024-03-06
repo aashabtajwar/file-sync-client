@@ -7,6 +7,7 @@ import (
 
 // create folder
 func CreateWorkspaceDir(workspaceName string) {
+	fmt.Println("workspace name ", workspaceName)
 	dir := "/home/aashab/" + workspaceName
 	fmt.Println(dir)
 	err := os.Mkdir(dir, 0755)

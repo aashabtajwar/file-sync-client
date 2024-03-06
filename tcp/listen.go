@@ -88,7 +88,7 @@ func save(metadata map[string]string, fileData *bytes.Buffer) {
 		// splittedFileName := strings.Split(metadata["name"], "_")
 		// fileName := splittedFileName[1] + splittedFileName[len(splittedFileName)-1]
 		fmt.Println("FULL DIR === " + "/home/aashab/FileSync/" + metadata["workspace"] + "/" + metadata["name"])
-		f, err := os.Create("/home/aashab/FileSync/" + metadata["workspace"] + "/" + metadata["name"])
+		f, err := os.Create("/home/aashab/FSync/" + metadata["workspace"] + "/" + metadata["name"])
 		if err != nil {
 			fmt.Println("Error creating file: \n", err)
 		}
@@ -119,7 +119,7 @@ ReadLoop:
 			fmt.Println("ending...")
 			return
 		default:
-			conn.SetDeadline(time.Now().Add(200 * time.Second))
+			conn.SetDeadline(time.Now().Add(2000 * time.Second))
 			// server {}
 			var size int64
 			binary.Read(conn, binary.LittleEndian, &size)

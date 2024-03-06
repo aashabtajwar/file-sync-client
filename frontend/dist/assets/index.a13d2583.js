@@ -86,12 +86,23 @@
 <div>
                     <button id='${e[0][2]}' onclick="openUserAddPrompt(this.id)">Add User</button
                 </div>`;t+=n,document.querySelector("#app").innerHTML=c+`
-`+t}).catch(e=>{console.error(e)})}catch(e){console.error(e)}};window.viewSharedWorkspaces=function(){try{g().then(e=>{console.log(e);let t=`<div style="display: table-cell" class="left-corner">
-`;e.forEach(n=>{t+=`<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${n[1]}', '${n[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${n[0]}</button>`}),t=t+"</div>",document.querySelector("#app").innerHTML=c+`
+`+t}).catch(e=>{console.error(e)})}catch(e){console.error(e)}};window.viewSharedWorkspaces=function(){try{g().then(e=>{let t=`<div style="display: table-cell" class="left-corner"><h1 class="workspace-heading" align="left">Shared Workspaces</h1>
+<ul>
+`;e.forEach(n=>{console.log(n),t+=`
+                    <li align="left">
+                        <div class="parent">
+                            <div class="child inline-block-child">
+                                <button class="text-left button-width-prop" style="font-size:20px" onclick="displaySharedWorkspaceFiles('${n[1]}', '${n[0]}')"><i class="text-left fa fa-folder" style="font-size: 20px;"></i>  ${n[0]}</button>
+                                <time class="date-property">24-01-2023</time>
+                            </div>
+                        </div>
+                    </li>
+                    <br>
+`}),document.querySelector("#app").innerHTML=c+`
 `+t}).catch(e=>{})}catch(e){console.error(e)}};window.displaySharedWorkspaceFiles=function(e,t){l();try{v(e,t).then(n=>{l();let o=n[0],i=`<div style="display: table-cell" class="left-corner">
-                            <h1 class="workspace-heading" align="left">SS</h1>
-                            <button class="right-corner add-user-button" id='' onclick="downloadThisWorkspace('${o[1]}', '${o[2]}')">Download</button>
-
+                        <!--    <h1 class="workspace-heading" align="left">SS</h1> --->
+                            <button class="" id='' onclick="downloadThisWorkspace('${o[1]}', '${o[2]}')">Download</button> 
+                        <br><br><br><br>
                             
                     
 

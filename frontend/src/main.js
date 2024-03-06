@@ -283,12 +283,28 @@ window.viewSharedWorkspaces = function() {
     try {
         GetSharedWorkspaces()
             .then(result => {
-                console.log(result)
-                let dirs = `<div style="display: table-cell" class="left-corner">\n`
+                // console.log(result)
+                // let dirs = `<div style="display: table-cell" class="left-corner">\n`
+                // result.forEach(dir => {
+                //     dirs += `<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${dir[1]}', '${dir[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${dir[0]}</button>`
+                // })
+                // dirs = dirs + `</div>`
+
+                let dirs = `<div style="display: table-cell" class="left-corner"><h1 class="workspace-heading" align="left">Shared Workspaces</h1>\n<ul>\n`
                 result.forEach(dir => {
-                    dirs += `<button style="font-size: 20px" onclick="displaySharedWorkspaceFiles('${dir[1]}', '${dir[0]}')"><i class="fa fa-folder" style="font-size: 20px;"></i>${dir[0]}</button>`
-                })
-                dirs = dirs + `</div>`
+                    console.log(dir)
+                    // dirs = dirs + `<a href="#" onclick="showFiles(${dir[2]}); return false;" style="font-size:13px"><i class="fa fa-folder" style="font-size:20px">  ${dir[0]}</a>\n`
+                    dirs += `
+                    <li align="left">
+                        <div class="parent">
+                            <div class="child inline-block-child">
+                                <button class="text-left button-width-prop" style="font-size:20px" onclick="displaySharedWorkspaceFiles('${dir[1]}', '${dir[0]}')"><i class="text-left fa fa-folder" style="font-size: 20px;"></i>  ${dir[0]}</button>
+                                <time class="date-property">24-01-2023</time>
+                            </div>
+                        </div>
+                    </li>
+                    <br>\n`
+                });
                 document.querySelector("#app").innerHTML = navBar + "\n" + dirs;
             })
             .catch(err => {
