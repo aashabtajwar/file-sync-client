@@ -16,7 +16,7 @@ func SetUpConn() net.Conn {
 		return server[0]
 	}
 
-	conn, err := net.Dial("tcp", ":3030")
+	conn, err := net.Dial("tcp", "192.168.171.200:3030")
 	if err != nil {
 		fmt.Println("Error Connecting to TCP Server\n", err)
 	}

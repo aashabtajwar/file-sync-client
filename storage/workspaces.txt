@@ -1,14 +1,11 @@
 JAVA 30 /home/aashab/JAVA 24-01-2024
-PITT 10 /home/aashab/PITT 01-12-2023
 Mc 10 /home/aashab/Mc 01-12-2023
-Doc 10 /home/aashab/Doc 19-12-2023
-MTE1100 10 /home/aashab/MTE1100 25-12-2023
-Def 10 /home/aashab/Def 28-02-2024
 Wail 10 /home/aashab/Wail 28-02-2024
-CSE4100 10 /home/aashab/CSE4100 08-02-2024
-EEE4100 10 /home/aashab/EEE4100 01-02-2024
-CSE4200 10 /home/aashab/CSE4200 03-02-2024
-JSE 10 /home/aashab/JSE 11-02-2024
-LOL 10 /home/aashab/LOL 11-12-2023
 Depth 10 /home/aashab/Depth 11-12-2023
-Defence Lectures 10 /home/aashab/Defence Lectures
+EEE3231 10 /home/aashab/EEE3231
+CSE4123 10 /home/aashab/CSE4123
+MTE4100 10 /home/aashab/MTE4100
+MTE1100 10 /home/aashab/MTE1100
+Music 10 /home/aashab/Music
+Lectures 10 /home/aashab/Lectures
+Mouse 10 /home/aashab/Mouse

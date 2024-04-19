@@ -90,6 +90,7 @@ func (a *App) CreateWorkspace(workspaceName string) string {
 	res := api.CreateWorkspace("/home/aashab/"+workspaceName, workspaceName, authToken, remoteUrl+"createw")
 	msg, id := tasks.Parse(res)
 	global.WorkspaceDetails[workspaceName] = id
+	fmt.Println("New Workspace ID = ", global.WorkspaceDetails[workspaceName])
 	return msg
 }
 

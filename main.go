@@ -12,7 +12,9 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
-var remoteUrl = "http://127.0.0.1:3333/"
+var latestWorkspaceID string
+
+var remoteUrl = "http://192.168.171.200:3333/"
 
 var authToken string
 

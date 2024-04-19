@@ -118,7 +118,7 @@ ReadLoop:
 			fmt.Println("ending...")
 			return
 		default:
-			conn.SetDeadline(time.Now().Add(200 * time.Second))
+			conn.SetDeadline(time.Now().Add(2000 * time.Second))
 			// server {}
 			var size int64
 			binary.Read(conn, binary.LittleEndian, &size)
