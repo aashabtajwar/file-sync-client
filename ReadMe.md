@@ -29,6 +29,5 @@ The client still has more features that are yet to be implemented. These include
 - Better UI
 - Setting Permissions
 - Opening files internally from the desktop client
-
-
+- Proper Notifications
 ## 
