@@ -1,5 +1,5 @@
 # File Synchronization System Client
-Code for the Desktop Application of File Synchronization System. For the server, check [here](https://github.com/aashabtajwar/file-sync-server).
+Code for the Desktop Application of File Synchronization System. For the server and for the **System Design** of the full client and server project check here, check [here](https://github.com/aashabtajwar/file-sync-server).
 
 # Installation
 1. Make sure to have Go in your system. You can install it from [here](https://go.dev/doc/install).
@@ -13,10 +13,8 @@ git clone git@github.com:aashabtajwar/file-sync-client.git
 **Note**
 You might need additional linux packages for Wails to work. They will be shown to you when you try to run the application.
 
-<!-- # System Design
-The design discussed here only covers the Backend side of the application. For 
-
-## System Architecture -->
+# System Design
+The design discussed is the File Synchronization Server repository [here](https://github.com/aashabtajwar/file-sync-server).
 
 # Features
 - File storage and sharing: Store files and share them with other users. This is done using workspaces.
@@ -30,4 +28,3 @@ The client still has more features that are yet to be implemented. These include
 - Setting Permissions
 - Opening files internally from the desktop client
 - Proper Notifications
-## 
